@@ -32,13 +32,3 @@ void mouseClicked() {
   }
   println(instrumentType);
 }
-
-// CHANGE ANIMATION TYPE
-void keyReleased() { 
-  if (keyCode == LEFT || keyCode == RIGHT) {
-    if (keyCode == LEFT) index--;
-    if (keyCode == RIGHT) index++;
-    index = constrain(index, 0, easings.length-1);
-    println(index);
-  }
-}

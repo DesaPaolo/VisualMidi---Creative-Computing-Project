@@ -9,7 +9,7 @@ import java.lang.Math;
 MidiBus launchPad;
 MidiBus minilogue;
 MidiBus loopMIDI;
-int instrumentType;
+int instrumentType; //polyphonic or monophonic
 
 ArrayList<Note> tempNotes;
 boolean sustainPedal = false;
