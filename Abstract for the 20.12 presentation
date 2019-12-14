@@ -1,0 +1,24 @@
+Team: Paolo De Santis, Antonino Natoli, Michele Pilia
+
+"Visual Midi"
+
+Our idea is to design a creative tool, plug & play for a visual representation of MIDI messages transferred from a Korg Minilogue, one of the most common analog synthetizer. The intent of the MIDI visualization is to be coherent with the sound features perceived and modulated in real time (pitch, filter, lfo, envelopes...). For a more effective result MIDI informations interact with advanced graphical techniques and 
+algorithms like particle system, clustering or deep learning. The goal is to put beside the performer, for example during a live performance, a graphic visualization that try to be powerful, diegetic to the sound source and in real time with no latency delay (the force of MIDI protocol).
+
+Fryday 20/12 we will present the idea and try to explain :
+-why and where the idea comes out
+-feasibility and scalability of the project
+-why we choose Korg Minilogue as the main MIDI device and how the project is scalabale in this terms
+If possible we will try a live performance of a basic prototype [we will need a projector and loudspeaker(s) ]
+
+L'idea consiste nella progettazione di un tool creativo plug & play per la rappresentazione visuale di informazioni MIDI trasferite dal Korg Minilogue, al momento uno dei sintetizzatori analogici più diffusi. La visualizzazione dell'informazione è coerente con le caratteristiche sonore (pitch, filter, envelopes, lfo) percepite in tempo reale; inoltre l'informazione MIDI interagisce con algoritmi e tecniche grafiche avanzate tra cui sistemi particellari, cluster, deep learning. L'obiettivo è quello di affiancare l'esecutore, per esempio all'interno di una performance live, ad una visualizzazione di impatto grafico, diegetica alla sorgente sonora e soprattutto in real time senza delay di latenza (la forza del protocolo MIDI).   
+
+Venerdi 20/12 oltre a presentare l'idea tratteremo:
+- le cause che ci hanno portato all'idea stessa
+- la fattibilità e le possibili direzioni che il progetto può intraprendere
+- le cause che ci hanno portato a scegliere il Korg Minilogue come strumento midi principale per il prototipo di progetto
+  e la scalabilità sotto questo punto di vista del progetto stesso
+- se possibile faremo una breve dimostrazione/performance di un prototipo basilare (necessiteremmo di un proiettore e di un paio di casse)
+
+
+
