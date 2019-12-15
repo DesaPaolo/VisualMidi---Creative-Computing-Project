@@ -7,8 +7,9 @@ void setup() {
 
   MidiBus.list(); // List all our MIDI devices
   //loopMIDI = new MidiBus(this, 0, 1);// Connect to one of the devices
-  //launchPad = new MidiBus(this, 2, 1);// Connect to one of the devices
   minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
+  //launchPad = new MidiBus(this, 2, 1);// Connect to one of the devices
+  
 
   instrumentType = 0; //monophonic (= 1 polyphonic)
   tempNotes = new ArrayList <Note>();

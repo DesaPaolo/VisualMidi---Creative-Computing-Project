@@ -35,9 +35,11 @@ class Note {
     if (instrumentType == 1) { //poliphony
     
       transparency = map (this.velocity, 0, 127, 0, 255);
+      float orizontalDiameter = 20 + cutOffFilter;
+      float verticalDiameter = 20 + cutOffFilter;
       noStroke();
       fill(255, 0, 0, 15+transparency);
-      ellipse(this.position.x, this.position.y, 40, 40);
+      ellipse(this.position.x, this.position.y, orizontalDiameter, verticalDiameter);
       
     }
   }
