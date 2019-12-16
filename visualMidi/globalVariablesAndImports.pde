@@ -21,6 +21,10 @@ float alfa = 0.0; //---->init modulation rate value
 float modulationRate = 0;
 Note prevNote;
 float cutOffFilter = 0;
+float ampAtck;
+float ampDcy;
+float ampSus;
+float ampRel;
 
 //Ani graphics 
 float duration = 0.1; //this variable could be modulate by MIDI Portamento parameter
