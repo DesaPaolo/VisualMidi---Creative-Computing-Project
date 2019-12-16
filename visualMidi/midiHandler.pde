@@ -150,10 +150,10 @@ void controllerChange(int channel, int number, int value) {
     println(cutOffFilter);
   
   case 16: //atck
-    ampAtck = mapLog(value, 0, 127, 0, 100);
+    ampAtck = mapLog(value, 0, 127, 0, 3);
     break;
   case 17: //dcy
-    ampDcy = mapLog(value, 0, 127, 0, 100);
+    ampDcy = mapLog(value, 0, 127, 0, 6);
     break; 
   
   case 18: //sus
@@ -161,7 +161,7 @@ void controllerChange(int channel, int number, int value) {
     break;
   
   case 19: //rel
-    ampRel = mapLog(value, 0, 127, 0, 100);
+    ampRel = mapLog(value, 0, 127, 0, 6);
     break;
   
   default:
