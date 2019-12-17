@@ -25,6 +25,7 @@ float ampAtck;
 float ampDcy;
 float ampSus;
 float ampRel;
+float opacity;
 
 //Ani graphics 
 float duration = 0.1; //this variable could be modulate by MIDI Portamento parameter

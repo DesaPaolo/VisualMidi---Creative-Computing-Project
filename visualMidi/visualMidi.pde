@@ -7,7 +7,7 @@ void setup() {
 
   MidiBus.list(); // List all our MIDI devices
   //loopMIDI = new MidiBus(this, 0, 1);// Connect to one of the devices
-  minilogue = new MidiBus(this, 3, 3);// Connect to one of the devices
+  minilogue = new MidiBus(this, 4, 2);// Connect to one of the devices
   //launchPad = new MidiBus(this, 2, 1);// Connect to one of the devices
   
 
@@ -36,13 +36,17 @@ void draw() {
   
     if (!tempNotes.isEmpty()) {
       
+      
       alfa += 0.1 * modulationRate; //lfo phase
       float x = prevNote.position.x;
       float y = (prevNote.position.y - pitchBend) + modulation * sin(alfa);
       float orizontalDiameter = 20 + cutOffFilter;
       float verticalDiameter = 20 + abs(pitchBend) + cutOffFilter;
       
-      fill(255, 0, 0);
+      opacity = map (prevNote.velocity, 0, 127, 100, 255);
+      println("velocity is " + prevNote.velocity);
+      println("opacity is " + opacity);
+      fill(255, 0, 0, opacity);
       noStroke();
       ellipse(x, y, orizontalDiameter, verticalDiameter); //midiHandler and Note manages the animation of the ellipse
       

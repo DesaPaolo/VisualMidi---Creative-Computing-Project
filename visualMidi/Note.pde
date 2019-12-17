@@ -29,7 +29,7 @@ class Note {
 
 
   void show() {
-
+    
     float transparency;
 
     if (instrumentType == 1) { //poliphony
