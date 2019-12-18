@@ -1,31 +1,33 @@
-Ramp r1, r2;
+Ramp attack;
+float attackTimeMs;
 
 void setup()
 {
- size (300,300);
- r1 = new Ramp();
- r2 = new Ramp();
+ size (1920,1080);
+ background(0);
+ attack = new Ramp();
+ attackTimeMs = 3000;
 }
 
 void draw()
 {
  
   noStroke();
-  fill (255,20); rect(0,0,width,height);
-  fill (120);
-  r1.trigger();
-  r2.trigger();
-  stroke(120 - (120* r1.rampValue));
-  strokeCap(PROJECT);
-  strokeWeight (10 * r1.rampValue);
-  line (0, height, width * r1.rampValue, height - (height * r1.rampValue));
+  fill(0);
+  rect(0,0,width,height);
+  fill (255);
+  attack.trigger();
+  stroke(120 - (120* attack.rampValue));
+  //strokeCap(PROJECT);
+  strokeWeight (10 * attack.rampValue);
+  line (0, height, width * attack.rampValue, height - (height * attack.rampValue));
 
 }
 
 void mousePressed() {
   //millis() -> numero di ms passati dall'inizio del programma
   //random(20000) -> numero casuale, al massimo 20000
-  r1 = new Ramp(/*duration = */random(20000), /*start time = */millis(), /*ramp range = */0);
+  attack = new Ramp(/*duration = */attackTimeMs, /*start time = */millis(), /*ramp range = */0);
 }
 
 
@@ -36,7 +38,7 @@ class Ramp {
   float rampDuration; // ramp duration in ms
   boolean run; // ramp trigger state
   int range; // -1 to 1 ( full ramp ) or 0 to 1 ( half ramp)
-/*
+
   Ramp () { 
     rampDuration = 0;
     rampStartMillis = 0; 
@@ -44,7 +46,7 @@ class Ramp {
     rampValue = 0;
     range = 0;
   } 
-*/
+
   Ramp (float duration, float startTime, int rampRange) {
     rampDuration = duration; // durata della rampa
     rampStartMillis = startTime; // tempo di inizio
