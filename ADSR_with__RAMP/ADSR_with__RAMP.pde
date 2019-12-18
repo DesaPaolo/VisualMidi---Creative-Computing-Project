@@ -1,6 +1,3 @@
-//private Ramp attack;
-//private Ramp decay;
-//private Ramp release;
 private Ramp ramp;
 
 private float attackTimeMs;
@@ -9,36 +6,32 @@ private float releaseTimeMs;
 private int step;
 private float[] times;
 
-
 private float startingTime;
 
 void setup()
 {
-  
  size (1920,1080);
  background(0);
  step = 0;
  ramp = new Ramp();
- attackTimeMs = 3000;
- decayTimeMs = 2000;
+ attackTimeMs = 5000;
+ decayTimeMs = 3000;
  releaseTimeMs = 4000;
  times = new float[3];
  times[0] = attackTimeMs;
  times[1] = decayTimeMs;
  times[2] = releaseTimeMs;
-
 }
 
 void draw()
 {
- 
   noStroke();
   fill(0);
   rect(0,0,width,height);
   fill (255);
   ramp.trigger();
   stroke(120);
-  ellipse(1920/2, 1080/2, 50 * ramp.rampValue, 50*ramp.rampValue);
+  ellipse(1920/2, 1080/2, 100 * ramp.rampValue, 100*ramp.rampValue);
 }
 
 void mousePressed() {

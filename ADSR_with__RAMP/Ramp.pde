@@ -6,6 +6,7 @@ class Ramp {
   boolean run; // ramp trigger state
   int range; // -1 to 1 ( full ramp ) or 0 to 1 ( half ramp)
   int stepId; //0 -> attack, 1-> decay, 2 -> release
+  String stepName;
   
   Ramp () { 
     rampDuration = 0;
@@ -32,7 +33,16 @@ class Ramp {
     if (run) {
       rampValue =  lerp(range,1, constrain((millis()-rampStartMillis)/rampDuration, 0, 1)); 
       textSize(32);
-      text((millis() - startingTime)/1000 +"\n" +stepId , 50, 50);
+      if(stepId==0) {
+        stepName = "Attack";
+      }
+      else if(stepId==1) {
+        stepName = "Decay";
+      }
+      else if (stepId ==2) {
+        stepName = "Release";
+      }
+      text("Seconds: " + (int)((millis() - startingTime)/1000) +"\nADSR Step:" +stepName , 1920/3, 1080/3);
     }   
     else {
       //println("a");
