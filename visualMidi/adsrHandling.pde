@@ -7,7 +7,7 @@ void adsrHandling() {
   float ampDcy;
   float ampSus;
   float ampRel;
-  int[] atckAlphaList;
+  int[] atckAlphaList; //Contiene il valore che dovrebbe ricoprire il parametro alpha in ogni frame della rispettiva fase di envelope
   int[] dcyAlphaList;
   int[] relAlphaList;
   int drawCtr = 0; //counter dei frame in draw
