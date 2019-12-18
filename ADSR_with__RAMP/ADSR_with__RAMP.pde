@@ -28,7 +28,7 @@ void draw()
   noStroke();
   fill(0);
   rect(0,0,width,height);
-  fill (255);
+  fill (255,255,255, 255*ramp.rampValue);
   ramp.trigger();
   stroke(120);
   ellipse(1920/2, 1080/2, 100 * ramp.rampValue, 100*ramp.rampValue);
