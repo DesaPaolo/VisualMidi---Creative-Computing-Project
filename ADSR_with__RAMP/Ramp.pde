@@ -7,6 +7,8 @@ class Ramp {
   int range; // -1 to 1 ( full ramp ) or 0 to 1 ( half ramp)
   int stepId; //0 -> attack, 1-> decay, 2 -> release
   String stepName;
+  float startValue;
+  float endValue;
   
   Ramp () { 
     rampDuration = 0;
@@ -17,21 +19,24 @@ class Ramp {
     stepId =-1;
   } 
 
-  Ramp (float duration, float startTime, int rampRange, int stepId) {
+  Ramp (float duration, float startTime, int rampRange, int stepId, float startValue, float endValue) {
     rampDuration = duration; // durata della rampa
     rampStartMillis = startTime; // tempo di inizio
     run = true; 
     range = rampRange;  
     this.stepId = stepId;
+    this.startValue = startValue;
+    this.endValue = endValue;
+    
   }
 
   void trigger() {
-    if (rampValue == 1) { 
+    if (rampValue >= endValue) { 
       run = false;
       endedRamp();
     }
     if (run) {
-      rampValue =  lerp(range,1, constrain((millis()-rampStartMillis)/rampDuration, 0, 1)); 
+      rampValue =  lerp(startValue,endValue, constrain((millis()-rampStartMillis)/rampDuration, 0, 1)); 
       textSize(32);
       if(stepId==0) {
         stepName = "Attack";
