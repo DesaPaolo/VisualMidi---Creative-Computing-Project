@@ -159,18 +159,21 @@ void controllerChange(int channel, int number, int value) {
     println(cutOffFilter);
   
   case 16: //atck
-    ampAtck = mapLog(value, 0, 127, 0, 3000);
+    times[0] = map(value, 0, 127, 0, 3000);
+    println("AttackTime is " + times[0]);
     break;
   case 17: //dcy
-    ampDcy = mapLog(value, 0, 127, 0, 6000);
+    times[1] = map(value, 0, 127, 0, 6000);
+    println("DecayTime is " + times[1]);
     break; 
   
   case 18: //sus
-    ampSus = mapLog(value, 0, 127, 0, 100);
+    ampSus = map(value, 0, 127, 0, 100);
     break;
   
   case 19: //rel
-    ampRel = mapLog(value, 0, 127, 0, 6000);
+    times[2] = map(value, 0, 127, 0, 6000);
+    println("ReleaseTime is " + times[2]);
     break;
   
   default:

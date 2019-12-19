@@ -22,9 +22,9 @@ void setup() {
   /*Antonino code*/
    step = 0;
    ramp = new Ramp();
-   attackTimeMs = 5000;
-   decayTimeMs = 3000;
-   releaseTimeMs = 4000;
+   attackTimeMs = 300;//default value, poi si aggiorna col CC
+   decayTimeMs = 500; //idem
+   releaseTimeMs = 400; // idem
    times = new float[3];
    times[0] = attackTimeMs;
    times[1] = decayTimeMs;
