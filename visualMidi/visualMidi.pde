@@ -17,6 +17,25 @@ void setup() {
   prevNote = new Note(0, 0);
 
   Ani.init(this); // Animation library init 
+  
+  
+  /*Antonino code*/
+   step = 0;
+   ramp = new Ramp();
+   attackTimeMs = 5000;
+   decayTimeMs = 3000;
+   releaseTimeMs = 4000;
+   times = new float[3];
+   times[0] = attackTimeMs;
+   times[1] = decayTimeMs;
+   times[2] = releaseTimeMs;
+   velValues = new int[3];
+   velValues[0] = (int)map(prevNoteVelocity, 0, 127, 0, 255);
+   velValues[1] = (int)map(susValue, 0, 127, 0, 255);
+   velValues[2] = velValues[1];
+   isPressed = false;
+  
+  /*End Antonino code*/
 }
 
 void draw() {
@@ -46,7 +65,7 @@ void draw() {
       opacity = map (prevNote.velocity, 0, 127, 100, 255);
       println("velocity is " + prevNote.velocity);
       println("opacity is " + opacity);
-      fill(255, 0, 0, opacity);
+      fill(255, 0, 0, ramp.rampValue); //ramp Antonino
       noStroke();
       ellipse(x, y, orizontalDiameter, verticalDiameter); //midiHandler and Note manages the animation of the ellipse
       
@@ -54,3 +73,30 @@ void draw() {
     }
   }
 }
+
+
+/*Antonino Code*/
+/*When attack finishes this function is called and generates the decay ramp. It's also called when sustain finishes this*/
+private void nextRamp() {
+  
+  switch(step){
+    case 1: 
+      ramp = new Ramp(times[step], millis(), 0, step, velValues[0], velValues[1]);
+      break;
+    case 2:
+      ramp = new Ramp(times[step], millis(), 0, step, velValues[1], 0);
+      break;
+  }
+  
+  if(step<3) {  
+    startingTime = millis();
+  }
+  
+}
+
+public void endedRamp() {
+  step++;
+  //step= step%3;
+  nextRamp();
+}
+/*End Antonino Code*/

@@ -42,6 +42,13 @@ void noteOn(int channel, int pitch, int velocity) {
   //}
   //println("prevNote: ");
   //println(prevNote.getPitch());
+  
+  /*Antonino Code*/
+  isPressed = true;
+  ramp = new Ramp(/*duration = */times[step], /*start time = */millis(), /*ramp range = */0, /*attack step ID is 0*/ step, 0, velValues[0]);
+  startingTime = millis();
+  /*End Antonino Code*/
+  
 }
 
 //NOTE OFF
@@ -150,10 +157,10 @@ void controllerChange(int channel, int number, int value) {
     println(cutOffFilter);
   
   case 16: //atck
-    ampAtck = mapLog(value, 0, 127, 0, 3);
+    ampAtck = mapLog(value, 0, 127, 0, 3000);
     break;
   case 17: //dcy
-    ampDcy = mapLog(value, 0, 127, 0, 6);
+    ampDcy = mapLog(value, 0, 127, 0, 6000);
     break; 
   
   case 18: //sus
@@ -161,7 +168,7 @@ void controllerChange(int channel, int number, int value) {
     break;
   
   case 19: //rel
-    ampRel = mapLog(value, 0, 127, 0, 6);
+    ampRel = mapLog(value, 0, 127, 0, 6000);
     break;
   
   default:

@@ -1,4 +1,4 @@
-void adsrHandling() {
+/*void adsrHandling() {
   int fr = 60; //frame rate: 60 fps
   int nFrmAtck; //number of frames during attack
   int nFrmDcy; //number of frames during decay
@@ -20,7 +20,7 @@ void adsrHandling() {
   nFrmDcy = nFrmAtck + ((int) ampDcy* fr);
   nFrmRel = (int)ampRel * fr;
   
-  /*Nei successivi cicli for si calcolano i valori dell'opacità mappati sugli indici dei frame corrispettivi alle fasi dell'envelope, con un metodo "simil Matlab"*/
+  /*Nei successivi cicli for si calcolano i valori dell'opacità mappati sugli indici dei frame corrispettivi alle fasi dell'envelope, con un metodo "simil Matlab"
   for (int i=0; i<nFrmAtck; i++){
     atckAlphaList[i] = (int)map(i, 0, nFrmAtck, 0, 255); //or maplog if we want
   }
@@ -34,7 +34,7 @@ void adsrHandling() {
     relAlphaList[i] = (int)map(i, 0, nFrmRel, 0, 255); //celle del release
   }
   
-  /*INSIDE DRAW*/
+  /*INSIDE DRAW
   //ogni draw viene effettuata secondo il frame rate stabilito nel setup
   //void draw (){
   if (drawCtr < nFrmDcy){
@@ -45,4 +45,4 @@ void adsrHandling() {
     fill(255, 0, 0, susAlpha);
   }
   
-}
+}*/

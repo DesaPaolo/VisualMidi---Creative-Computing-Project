@@ -27,6 +27,27 @@ float ampSus;
 float ampRel;
 float opacity;
 
+
+
+/*Antonino variables*/
+Ramp ramp;
+float attackTimeMs;
+float decayTimeMs;
+float releaseTimeMs;
+int step;
+float[] times;
+int vel;
+float startingTime;
+int[] velValues;
+int prevNoteVelocity = 115;
+int susValue = 80;
+boolean isPressed;
+/*End Antonino variables*/
+
+
+
+
+
 //Ani graphics 
 float duration = 0.1; //this variable could be modulate by MIDI Portamento parameter
 PVector target;
