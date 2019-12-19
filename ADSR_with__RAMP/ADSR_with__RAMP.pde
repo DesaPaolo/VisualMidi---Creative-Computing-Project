@@ -10,6 +10,7 @@ private float startingTime;
 private int[] velValues;
 private int prevNoteVelocity = 115;
 private int susValue = 80;
+private boolean isPressed;
 
 void setup()
 {
@@ -28,6 +29,7 @@ void setup()
  velValues[0] = (int)map(prevNoteVelocity, 0, 127, 0, 255);
  velValues[1] = (int)map(susValue, 0, 127, 0, 255);
  velValues[2] = velValues[1];
+ isPressed = false;
  
 }
 
@@ -37,12 +39,16 @@ void draw() //x*velValues[1] = velValues[0] -> x = velValues[0] / velValues[1]
   fill(0);
   rect(0,0,width,height);
   fill (255,255,255, ramp.rampValue);
-  ramp.trigger();
+  //println("step "+ step + ", : "+ ramp.rampValue);
+  if (isPressed){
+    ramp.trigger();
+  }
   stroke(120);
   ellipse(1920/2, 1080/2, 100 * ramp.rampValue, 100*ramp.rampValue);
 }
 
 void mousePressed() {
+  isPressed = true;
   ramp = new Ramp(/*duration = */times[step], /*start time = */millis(), /*ramp range = */0, /*attack step ID is 0*/ step, 0, velValues[0]);
   startingTime = millis();
 }

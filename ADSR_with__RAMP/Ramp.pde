@@ -14,7 +14,7 @@ class Ramp {
     rampDuration = 0;
     rampStartMillis = 0; 
     run = false;
-    rampValue = 0;
+    //rampValue = 0;
     range = 0;
     stepId =-1;
   } 
@@ -27,11 +27,11 @@ class Ramp {
     this.stepId = stepId;
     this.startValue = startValue;
     this.endValue = endValue;
-    
+    this.rampValue = startValue;
   }
 
   void trigger() {
-    if (rampValue >= endValue) { 
+    if ((int)rampValue == (int)endValue) { 
       run = false;
       endedRamp();
     }
