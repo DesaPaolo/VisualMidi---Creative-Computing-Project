@@ -41,7 +41,7 @@ float startingTime;
 int[] velValues;
 int prevNoteVelocity = 115;
 int susValue = 80;
-boolean isPressed;
+boolean isPressed = false;
 /*End Antonino variables*/
 
 

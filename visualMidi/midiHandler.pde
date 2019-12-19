@@ -1,7 +1,8 @@
 
 //NOTE ON
 void noteOn(int channel, int pitch, int velocity) {
-
+  step = 2;
+  isPressed = true;
   println("Note ON");
 
   Note newNote = new Note(pitch, velocity);
@@ -44,6 +45,7 @@ void noteOn(int channel, int pitch, int velocity) {
   //println(prevNote.getPitch());
   
   /*Antonino Code*/
+  step = 0;
   isPressed = true;
   ramp = new Ramp(/*duration = */times[step], /*start time = */millis(), /*ramp range = */0, /*attack step ID is 0*/ step, 0, velValues[0]);
   startingTime = millis();
@@ -53,7 +55,7 @@ void noteOn(int channel, int pitch, int velocity) {
 
 //NOTE OFF
 void noteOff(int channel, int pitch, int velocity) {
-
+  isPressed = false;
   if (sustainPedal) {      //sustain on ---> so i do not want the noteOff
 
     if (sustainedNotes.size()>0) { //check if it is already sustained
@@ -195,7 +197,7 @@ void midiMessage(MidiMessage message) { // You can also use midiMessage(MidiMess
   //println("--------");
   //println("Status Byte/MIDI Command:"+message.getStatus());
   for (int i = 1;i < message.getMessage().length;i++) {    //SHOW MIDI MESSAGES CODE & VALUE
-    println("Param "+(i+1)+": "+(int)(message.getMessage()[i] & 0xFF)); 
+    //println("Param "+(i+1)+": "+(int)(message.getMessage()[i] & 0xFF)); 
   }
   if (message.getStatus() == 224) { //PITCHBEND! !!!MSB ARE THE SECOND MESSAGE----> we consider only MSB
     pitchBend = map((int)(message.getMessage()[2] & 0xFF), 0, 127, -64, 64);

@@ -29,10 +29,11 @@ void setup() {
    times[0] = attackTimeMs;
    times[1] = decayTimeMs;
    times[2] = releaseTimeMs;
-   velValues = new int[3];
+   velValues = new int[4]; //a, d, s, r
    velValues[0] = (int)map(prevNoteVelocity, 0, 127, 0, 255);
    velValues[1] = (int)map(susValue, 0, 127, 0, 255);
-   velValues[2] = velValues[1];
+   velValues[2] = 0;
+   velValues[3] = velValues[1];
    isPressed = false;
   
   /*End Antonino code*/
@@ -63,9 +64,14 @@ void draw() {
       float verticalDiameter = 20 + abs(pitchBend) + cutOffFilter;
       
       opacity = map (prevNote.velocity, 0, 127, 100, 255);
-      println("velocity is " + prevNote.velocity);
-      println("opacity is " + opacity);
+      //println("velocity is " + prevNote.velocity);
+      //println("opacity is " + opacity);
       fill(255, 0, 0, ramp.rampValue); //ramp Antonino
+      println("isPressed boolean is "+isPressed);
+      if ((isPressed && step != 2)||(step ==3)){
+        ramp.trigger();
+      }
+      println("rampValue in draw is " + ramp.rampValue);
       noStroke();
       ellipse(x, y, orizontalDiameter, verticalDiameter); //midiHandler and Note manages the animation of the ellipse
       
@@ -83,12 +89,15 @@ private void nextRamp() {
     case 1: 
       ramp = new Ramp(times[step], millis(), 0, step, velValues[0], velValues[1]);
       break;
-    case 2:
+    case 2: 
+      println("Step 2 AAAA");
+      break; 
+    case 3:
       ramp = new Ramp(times[step], millis(), 0, step, velValues[1], 0);
       break;
   }
   
-  if(step<3) {  
+  if(step<4) {  
     startingTime = millis();
   }
   
@@ -96,7 +105,7 @@ private void nextRamp() {
 
 public void endedRamp() {
   step++;
-  //step= step%3;
+  //step= %3;
   nextRamp();
 }
 /*End Antonino Code*/

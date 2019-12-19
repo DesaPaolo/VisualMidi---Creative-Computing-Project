@@ -37,6 +37,7 @@ class Ramp {
     }
     if (run) {
       rampValue =  lerp(startValue,endValue, constrain((millis()-rampStartMillis)/rampDuration, 0, 1)); 
+      println("LERPAAAAAAAAAA " + rampValue);
       textSize(32);
       if(stepId==0) {
         stepName = "Attack";
