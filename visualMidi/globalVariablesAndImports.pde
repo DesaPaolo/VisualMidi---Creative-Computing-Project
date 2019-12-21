@@ -9,15 +9,13 @@ import java.lang.Math;
 MidiBus launchPad;
 MidiBus minilogue;
 MidiBus loopMIDI;
-int instrumentType; //polyphonic or monophonic
 
-ArrayList<Note> tempNotes;
+//ArrayList<Note> tempNotes;
 boolean sustainPedal = false;
 ArrayList<Note> sustainedNotes;
 
 float pitchBend = 0;
 float modulation = 0;
-float alfa = 0.0; //---->init modulation rate value
 float modulationRate = 0;
 Note prevNote;
 float cutOffFilter = 0;

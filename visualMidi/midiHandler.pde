@@ -1,83 +1,26 @@
+private ArrayList<Note> tempNotes = new ArrayList<Note>();
+private int instrumentType;
 
 //NOTE ON
 void noteOn(int channel, int pitch, int velocity) {
-  step = 2;
-  isPressed = true;
+
   println("Note ON");
 
   Note newNote = new Note(pitch, velocity);
 
-  if (!sustainPedal) { //sustain pedal off
+  //Assuming there is no sustain pedal
 
-    if (!tempNotes.isEmpty()) { //synth note animation
+   if (!tempNotes.isEmpty()) { 
       prevNote = tempNotes.get(tempNotes.size()-1);
     } 
-    tempNotes.add(newNote);
-    newNote.animation("noteOn"); //synth note animation
     
-  } else {   //sustain pedal on 
+   tempNotes.add(newNote);
+   newNote.circle.animateNoteOn();
 
-    if (tempNotes.size()==0) {
-      tempNotes.add(newNote);
-      
-    } else {  //so tempChord could already have this pitch
-    
-      int indexAlreadySustained = 0;
-      for (int i=0; i<tempNotes.size(); i++) {  
-        if (tempNotes.get(i).getPitch() == pitch) {
-          indexAlreadySustained = i + 1;
-          break;
-        }
-      }
-      if (indexAlreadySustained>0) {
-        tempNotes.get(indexAlreadySustained-1).setVelocity(velocity);
-      } else {
-        tempNotes.add(newNote);
-      }
-    }
-  }
-
-  //println("tempNotes: "); //debug prints
-  //for (int i=0; i< tempNotes.size(); i++) {
-  //  println(tempNotes.get(i).getPitch() + " ");
-  //}
-  //println("prevNote: ");
-  //println(prevNote.getPitch());
-  
-  /*Antonino Code*/
-  step = 0;
-  isPressed = true;
-  ramp = new Ramp(/*duration = */times[step], /*start time = */millis(), /*ramp range = */0, /*attack step ID is 0*/ step, 0, velValues[0]);
-  startingTime = millis();
-  /*End Antonino Code*/
-  
 }
 
 //NOTE OFF
 void noteOff(int channel, int pitch, int velocity) {
-  isPressed = false;
-  if (sustainPedal) {      //sustain on ---> so i do not want the noteOff
-
-    if (sustainedNotes.size()>0) { //check if it is already sustained
-
-      boolean alreadySustained = false;
-      for (int i=0; i<sustainedNotes.size(); i++) { // if sustain on could be a Note Off of a pitch already in tempChord
-        if (sustainedNotes.get(i).getPitch() == pitch) {
-          alreadySustained = true;
-          break;
-        }
-      }
-      if (!alreadySustained) {
-        Note newSustainedNote = new Note(pitch, velocity);
-        sustainedNotes.add(newSustainedNote);
-      }
-      
-    } else {
-      Note newSustainedNote = new Note(pitch, velocity);
-      sustainedNotes.add(newSustainedNote);
-    }
-    
-  } else {  //sustain off
   
     println("Note OFF");
     
@@ -91,22 +34,11 @@ void noteOff(int channel, int pitch, int velocity) {
     }
     
     if (!tempNotes.isEmpty()) { //synth animation
-      tempNotes.get(tempNotes.size()-1).animation("noteOff");
+      tempNotes.get(tempNotes.size()-1).circle.animateNoteOff();
     }
     
   }
-}
 
-//println("tempNotes: "); //debug prints
-//for (int i=0; i< tempNotes.size(); i++) {
-//  println(tempNotes.get(i).getPitch() + " ");
-//}
-//println("sustainedNotes: ");
-//for (int i=0; i< sustainedNotes.size(); i++) {
-//  println(sustainedNotes.get(i).getPitch() + " ");
-//}
-//println("prevNote: ");
-//println(prevNote.getPitch());
 
 //CONTROL CHANGE
 void controllerChange(int channel, int number, int value) {

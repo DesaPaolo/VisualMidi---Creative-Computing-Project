@@ -1,42 +1,19 @@
 
 void setup() {
 
-  //size(600, 600);
-  fullScreen();
+  size(800,800);
+  //fullScreen();
   background(0);
 
   MidiBus.list(); // List all our MIDI devices
-  //loopMIDI = new MidiBus(this, 0, 1);// Connect to one of the devices
-  minilogue = new MidiBus(this, 4, 2);// Connect to one of the devices
-  //launchPad = new MidiBus(this, 2, 1);// Connect to one of the devices
-  
-
-  instrumentType = 0; //monophonic (= 1 polyphonic)
-  tempNotes = new ArrayList <Note>();
+  minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
+  instrumentType = 0; //aggiunto a classe notesHandler
   sustainedNotes = new ArrayList <Note>();
   prevNote = new Note(0, 0);
 
   Ani.init(this); // Animation library init 
   
   
-  /*Antonino code*/
-   step = 0;
-   ramp = new Ramp();
-   attackTimeMs = 300;//default value, poi si aggiorna col CC
-   decayTimeMs = 500; //idem
-   releaseTimeMs = 400; // idem
-   times = new float[3];
-   times[0] = attackTimeMs;
-   times[1] = decayTimeMs;
-   times[2] = releaseTimeMs;
-   velValues = new int[4]; //a, d, s, r
-   velValues[0] = (int)map(prevNoteVelocity, 0, 127, 0, 255);
-   velValues[1] = (int)map(susValue, 0, 127, 0, 255);
-   velValues[2] = 0;
-   velValues[3] = velValues[1];
-   isPressed = false;
-  
-  /*End Antonino code*/
 }
 
 void draw() {
@@ -46,39 +23,22 @@ void draw() {
   rect(0, 0, width, height);
 
   //draw notes
-  if (instrumentType == 1) { //poliphony
-  
-    for (int i=0; i<tempNotes.size(); i++ ) {  
-      tempNotes.get(i).show();
-    }
-    
-  } else { //monophony
-  
-    if (!tempNotes.isEmpty()) {
+  if (!tempNotes.isEmpty()) {
+    for (int i=0; i<tempNotes.size(); i++ ) { 
+      
+      //lfoEffect(tempNotes.get(i));
+      //pitchSlideEffect(tempNotes.get(i));
       
       
-      alfa += 0.1 * modulationRate; //lfo phase
-      float x = prevNote.position.x;
-      float y = (prevNote.position.y - pitchBend) + modulation * sin(alfa);
-      float orizontalDiameter = 20 + cutOffFilter;
-      float verticalDiameter = 20 + abs(pitchBend) + cutOffFilter;
-      
-      opacity = map (prevNote.velocity, 0, 127, 100, 255);
-      //println("velocity is " + prevNote.velocity);
-      //println("opacity is " + opacity);
-      fill(255, 0, 0, ramp.rampValue); //ramp Antonino
-      println("isPressed boolean is "+isPressed);
-      if ((isPressed && step != 2)||(step ==3)){
-        ramp.trigger();
-      }
-      println("rampValue in draw is " + ramp.rampValue);
-      noStroke();
-      ellipse(x, y, orizontalDiameter, verticalDiameter); //midiHandler and Note manages the animation of the ellipse
-      
-      
+      tempNotes.get(i).circle.drawCircle();
     }
   }
+
 }
+  
+
+
+
 
 
 /*Antonino Code*/
