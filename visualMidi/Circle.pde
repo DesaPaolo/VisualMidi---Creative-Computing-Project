@@ -23,6 +23,11 @@ class Circle {
     this.verticalDiameter = diameter;
   }
   
+  public void changeSize(float diameterX, float diameterY) {
+    this.horizontalDiameter = diameterX;
+    this.verticalDiameter = diameterY;
+  }
+  
   public void drawCircle() {
     noStroke();
     fill(innerColor, 15+transparency);
@@ -42,6 +47,10 @@ class Circle {
   
   public void setColor(color c) {
     this.innerColor = c;
+  }
+  
+  public void oscillate(float alfa) {
+    position.y = (position.y - pitchBend) +modulation*sin(alfa);
   }
   
  
