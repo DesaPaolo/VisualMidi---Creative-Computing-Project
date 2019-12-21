@@ -30,15 +30,15 @@ class Note {
 
   void show() {
     
-    float transparency;
+    //float transparency;
 
     if (instrumentType == 1) { //poliphony
     
-      transparency = map (this.velocity, 0, 127, 0, 255);
+      //transparency = map (this.velocity, 0, 127, 0, 255);
       float orizontalDiameter = 20 + cutOffFilter;
       float verticalDiameter = 20 + cutOffFilter;
       noStroke();
-      fill(255, 0, 0, 15+transparency);
+      fill(255 - cutOffFilter);
       ellipse(this.position.x, this.position.y, orizontalDiameter, verticalDiameter);
       
     }

@@ -155,7 +155,7 @@ void controllerChange(int channel, int number, int value) {
     break;
     
   case 43:
-    cutOffFilter = mapLog(value, 0, 127, 0.1, 100); //cut off
+    cutOffFilter = mapLog(value, 0, 127, 0.1, 255); //cut off
     println(cutOffFilter);
   
   case 16: //atck

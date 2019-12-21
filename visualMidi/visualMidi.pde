@@ -41,18 +41,24 @@ void setup() {
 
 void draw() {
   
-  //background
-  fill(0);
-  rect(0, 0, width, height);
+  
 
   //draw notes
   if (instrumentType == 1) { //poliphony
+  
+  //background
+  fill(cutOffFilter);
+  rect(0, 0, width, height);
   
     for (int i=0; i<tempNotes.size(); i++ ) {  
       tempNotes.get(i).show();
     }
     
   } else { //monophony
+  
+  //background
+  fill(0);
+  rect(0, 0, width, height);
   
     if (!tempNotes.isEmpty()) {
       
@@ -66,7 +72,7 @@ void draw() {
       opacity = map (prevNote.velocity, 0, 127, 100, 255);
       //println("velocity is " + prevNote.velocity);
       //println("opacity is " + opacity);
-      fill(255, 0, 0, ramp.rampValue); //ramp Antonino
+      fill(255, 255, 255, ramp.rampValue); //ramp Antonino
       println("isPressed boolean is "+isPressed);
       if ((isPressed && step != 2)||(step ==3)){
         ramp.trigger();
