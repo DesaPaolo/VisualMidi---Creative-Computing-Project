@@ -26,12 +26,7 @@ void draw() {
   //massimo di voci a 4 per rispecchiare sempre l'audio output del minilogue
   if (!tempNotes.isEmpty()) {
     for (int i=0; i<tempNotes.size(); i++ ) { 
-      
-      lfoEffect(tempNotes.get(i));
-      pitchSlideEffect(tempNotes.get(i));
-      
-      
-      tempNotes.get(i).circle.drawCircle();
+      tempNotes.get(i).update();
     }
   }
 

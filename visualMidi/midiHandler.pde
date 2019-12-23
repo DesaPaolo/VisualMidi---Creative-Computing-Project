@@ -14,9 +14,11 @@ void noteOn(int channel, int pitch, int velocity) {
       prevNote = tempNotes.get(tempNotes.size()-1);
     } 
     
-   tempNotes.add(newNote);
-   newNote.circle.animateNoteOn();
 
+
+   newNote.circle.animateNoteOn();
+   tempNotes.add(newNote);
+   
 }
 
 //NOTE OFF

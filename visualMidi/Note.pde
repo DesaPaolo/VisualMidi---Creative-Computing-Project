@@ -26,6 +26,14 @@ class Note {
   void setVelocity(int newVelocity) {
     this.velocity = newVelocity;
   }
+  
+  //Update the view, after the model has changed
+  public void update() {
+    lfoEffect(this);
+    pitchSlideEffect(this);
+    cutOffEffect(this);
+    this.circle.drawCircle();
+  }
      
 }
  
