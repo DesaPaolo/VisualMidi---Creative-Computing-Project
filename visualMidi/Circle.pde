@@ -40,6 +40,7 @@ class Circle {
     ellipse(positionX, positionY, horizontalDiameter, verticalDiameter);  
   }
   
+  /*
   void animateNoteOn() {
     Ani.to(position, duration, "x", this.position.x, easings[index]);
     Ani.to(position, duration, "y", this.position.y, easings[index]);
@@ -48,7 +49,7 @@ class Circle {
   void animateNoteOff() {
     Ani.to(position, duration, "x", this.position.x, easings[index]);
     Ani.to(position, duration, "y", this.position.y, easings[index]);
-  }
+  }*/
   
   public void setColor(color c) {
     this.innerColor = c;

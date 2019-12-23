@@ -32,11 +32,11 @@ class Note {
     this.circle.drawCircle();
   }
   public void noteOnEffect() {
-    this.circle.animateNoteOn();
+    //this.circle.animateNoteOn();
   }
   
   public void noteOffEffect() {
-    this.circle.animateNoteOff();    
+    //this.circle.animateNoteOff();    
   }
      
 }

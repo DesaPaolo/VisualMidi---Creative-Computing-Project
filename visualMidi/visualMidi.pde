@@ -10,6 +10,7 @@ void setup() {
   instrumentType = 0;
   sustainedNotes = new ArrayList <Note>();
   prevNote = new Note(0, 0);
+  times = new float[3];
 
   Ani.init(this); // Animation library init 
   

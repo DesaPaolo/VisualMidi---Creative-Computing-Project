@@ -1,5 +1,5 @@
 private ArrayList<Note> tempNotes = new ArrayList<Note>();
-private int instrumentType;
+private int instrumentType = 0;
 
 //NOTE ON
 void noteOn(int channel, int pitch, int velocity) {
@@ -46,6 +46,7 @@ void noteOff(int channel, int pitch, int velocity) {
 void controllerChange(int channel, int number, int value) {
 
   println("CONTROL: " + number + " CONTROL VALUE: " + value);
+  println("channel " + channel);
 
   switch (number) {
   case 64: //Sustain Pedal  --->   ≤63 off, ≥64 on
@@ -89,9 +90,10 @@ void controllerChange(int channel, int number, int value) {
     break;
     
   case 43:
-    cutOffFilter = mapLog(value, 0, 127, 0.1, 100); //cut off
-    println(cutOffFilter);
-  
+    cutOffFilter = (int)(mapLog(value, 0, 127, 0.1, 100)); //cut off
+    println("Cutoff filter is " + cutOffFilter);
+    break;
+
   case 16: //atck
     times[0] = map(value, 0, 127, 0, 3000);
     println("AttackTime is " + times[0]);

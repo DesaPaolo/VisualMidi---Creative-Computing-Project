@@ -6,9 +6,9 @@ import de.looksgood.ani.easing.*;
 import java.lang.Math;
 
 
-MidiBus launchPad;
+//MidiBus launchPad;
 MidiBus minilogue;
-MidiBus loopMIDI;
+//MidiBus loopMIDI;
 
 //ArrayList<Note> tempNotes;
 boolean sustainPedal = false;
@@ -18,7 +18,7 @@ float pitchBend = 0;
 float modulation = 0;
 float modulationRate = 0;
 Note prevNote;
-float cutOffFilter = 0;
+int cutOffFilter = 0;
 float ampAtck;
 float ampDcy;
 float ampSus;
