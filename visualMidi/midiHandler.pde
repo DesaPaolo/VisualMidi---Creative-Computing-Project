@@ -16,7 +16,7 @@ void noteOn(int channel, int pitch, int velocity) {
     
 
 
-   newNote.circle.animateNoteOn();
+   newNote.noteOnEffect();
    tempNotes.add(newNote);
    
 }
@@ -36,7 +36,7 @@ void noteOff(int channel, int pitch, int velocity) {
     }
     
     if (!tempNotes.isEmpty()) { //synth animation
-      tempNotes.get(tempNotes.size()-1).circle.animateNoteOff();
+      tempNotes.get(tempNotes.size()-1).noteOffEffect();
     }
     
   }

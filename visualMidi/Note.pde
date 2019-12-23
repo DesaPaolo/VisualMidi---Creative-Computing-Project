@@ -1,4 +1,4 @@
-/**/
+
 class Note {
 
   Circle circle;
@@ -29,10 +29,14 @@ class Note {
   
   //Update the view, after the model has changed
   public void update() {
-    lfoEffect(this);
-    pitchSlideEffect(this);
-    cutOffEffect(this);
     this.circle.drawCircle();
+  }
+  public void noteOnEffect() {
+    this.circle.animateNoteOn();
+  }
+  
+  public void noteOffEffect() {
+    this.circle.animateNoteOff();    
   }
      
 }

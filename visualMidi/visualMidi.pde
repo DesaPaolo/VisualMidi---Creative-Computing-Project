@@ -18,24 +18,17 @@ void setup() {
 
 void draw() {
   
-  //background
   fill(0);
   rect(0, 0, width, height);
 
-  //draw notes. Da aggiungere differenza tra monofonia e polifonia e limite 
-  //massimo di voci a 4 per rispecchiare sempre l'audio output del minilogue
+  //Chiama update della view per ogni nota. Da aggiungere differenza tra monofonia e polifonia e limite 
+  //massimo di voci a 4, per rispecchiare sempre l'audio output del minilogue.
   if (!tempNotes.isEmpty()) {
     for (int i=0; i<tempNotes.size(); i++ ) { 
       tempNotes.get(i).update();
     }
   }
-
 }
-  
-
-
-
-
 
 /*Antonino Code*/
 /*When attack finishes this function is called and generates the decay ramp. It's also called when sustain finishes this*/
