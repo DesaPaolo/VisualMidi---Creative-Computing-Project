@@ -27,7 +27,7 @@ float mapLog(float value, float start1, float stop1, float start2, float stop2) 
 // CHANGE INSTRUMENT
 void mouseClicked() {
   instrumentType++;
-  if (instrumentType>2) {
+  if (instrumentType>1) {
     instrumentType=0;
   }
   println(instrumentType);

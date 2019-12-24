@@ -10,7 +10,6 @@ import java.lang.Math;
 MidiBus minilogue;
 //MidiBus loopMIDI;
 
-//ArrayList<Note> tempNotes;
 boolean sustainPedal = false;
 ArrayList<Note> sustainedNotes;
 
@@ -23,8 +22,11 @@ float ampAtck;
 float ampDcy;
 float ampSus;
 float ampRel;
-float opacity;
-float transparency = 0;
+
+float nearness; // ADSR graphic translation
+
+float transparency; //??
+float opacity;      //??
 
 
 

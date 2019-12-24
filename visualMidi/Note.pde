@@ -1,7 +1,7 @@
-
 class Note {
 
-  Circle circle;
+  //Circle circle; //2D
+  Sphere sphere; //3D
   private int pitch;
   private int velocity;
   Ramp ramp;
@@ -10,12 +10,10 @@ class Note {
   Note(int pitch, int velocity) {
     this.pitch = pitch;
     this.velocity = velocity;
-    float x = map(this.pitch, 21, 108, -900, width + 750);
-    float y = map(this.pitch, 21, 108, height + 500, -400);
-    color c = color(255,0,0);
-    transparency = map (this.velocity, 0, 127, 0, 255);
+    float x = map(this.pitch, 21, 108, 0, width);
+    float y = map(this.pitch, 21, 108, height, 0);
     
-    this.circle = new Circle(20+cutOffFilter, c,transparency, x, y);
+    this.sphere = new Sphere(x, y);
   }
 
   int getPitch() {
@@ -32,7 +30,7 @@ class Note {
   
   //Update the view, after the model has changed
   public void update() {
-    this.circle.drawCircle(this.ramp);
+    this.sphere.drawSphere(this.ramp);
   }
   public void noteOnEffect() {
     //this.circle.animateNoteOn();
@@ -48,10 +46,5 @@ class Note {
     velValues[0] = transparency;
     velValues[1] = transparency * ((float)ampSus/100);
   }
-  
-  
-  
-  
-     
+      
 }
- 
