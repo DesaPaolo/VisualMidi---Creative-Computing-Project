@@ -29,9 +29,12 @@ class Circle {
   }
   
   //This function computes the graphical result, considering all the parameters (lfo, cutoff, pitch bend etc...)
-  public void drawCircle() {
+  public void drawCircle(Ramp ramp) {
     noStroke();
-    fill(innerColor, 15+transparency);
+    //ADSR parameter
+    opacity = ramp.rampValue;
+    //
+    fill(opacity,opacity,opacity, 15+transparency);
     this.lfoEffect();
     float verticalDiameter = this.verticalDiameter + abs(pitchBend) + cutOffFilter;
     float horizontalDiameter = this.horizontalDiameter +cutOffFilter;

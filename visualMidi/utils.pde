@@ -32,3 +32,15 @@ void mouseClicked() {
   }
   println(instrumentType);
 }
+
+public void adsrInit() {
+  times = new float[4];
+  attackTimeMs = 4000;
+  decayTimeMs = 3000;
+  releaseTimeMs = 2000;
+  times[0] = attackTimeMs;
+  times[1] = decayTimeMs;
+  times[2] = -1;
+  times[3] = releaseTimeMs;
+  
+}

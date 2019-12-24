@@ -24,19 +24,19 @@ float ampDcy;
 float ampSus;
 float ampRel;
 float opacity;
+float transparency = 0;
 
 
 
 /*Antonino variables*/
-Ramp ramp;
 float attackTimeMs;
 float decayTimeMs;
 float releaseTimeMs;
-int step;
+//int step;
 float[] times;
 int vel;
 float startingTime;
-int[] velValues;
+float[] velValues;
 int prevNoteVelocity = 115;
 int susValue = 80;
 boolean isPressed = false;

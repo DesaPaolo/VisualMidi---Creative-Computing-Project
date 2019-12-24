@@ -14,10 +14,11 @@ void noteOn(int channel, int pitch, int velocity) {
       prevNote = tempNotes.get(tempNotes.size()-1);
     } 
     
-
-
+  
+   newNote.initAdsrRamp(times[0], millis(), 0, 0, 0, transparency);
    newNote.noteOnEffect();
    tempNotes.add(newNote);
+   
    
 }
 
@@ -31,6 +32,7 @@ void noteOff(int channel, int pitch, int velocity) {
         if (i == tempNotes.size()-1) {//synth animation
           prevNote = tempNotes.get(i); 
         }
+        tempNotes.get(i).ramp.startRelease();
         tempNotes.remove(i);
       }
     }
@@ -105,11 +107,13 @@ void controllerChange(int channel, int number, int value) {
   
   case 18: //sus
     ampSus = map(value, 0, 127, 0, 100);
+    times[2] = -1;
+    println(ampSus);
     break;
   
   case 19: //rel
-    times[2] = map(value, 0, 127, 0, 6000);
-    println("ReleaseTime is " + times[2]);
+    times[3] = map(value, 0, 127, 0, 6000);
+    println("ReleaseTime is " + times[3]);
     break;
   
   default:

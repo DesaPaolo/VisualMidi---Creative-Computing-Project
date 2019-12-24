@@ -9,6 +9,7 @@ class Ramp {
   String stepName;
   float startValue;
   float endValue;
+  Note note;
   
   Ramp () { 
     rampDuration = 0;
@@ -19,7 +20,7 @@ class Ramp {
     stepId =-1;
   } 
 
-  Ramp (float duration, float startTime, int rampRange, int stepId, float startValue, float endValue) {
+  Ramp (float duration, float startTime, int rampRange, int stepId, float startValue, float endValue, Note note) {
     rampDuration = duration; // durata della rampa
     rampStartMillis = startTime; // tempo di inizio
     run = true; 
@@ -28,12 +29,13 @@ class Ramp {
     this.startValue = startValue;
     this.endValue = endValue;
     this.rampValue = startValue;
+    this.note = note;
   }
 
   void trigger() {
-    if ((int)rampValue == (int)endValue) { 
+    if ((int)rampValue == (int)endValue && stepId!=2) { 
       run = false;
-      endedRamp();
+      endedRamp(this.note);
     }
     if (run) {
       rampValue =  lerp(startValue,endValue, constrain((millis()-rampStartMillis)/rampDuration, 0, 1)); 
@@ -46,6 +48,9 @@ class Ramp {
         stepName = "Decay";
       }
       else if (stepId ==2) {
+        stepName = "Sustain";
+      }
+      else if (stepId ==3) {
         stepName = "Release";
       }
       text("Seconds: " + (int)((millis() - startingTime)/1000) +"\nADSR Step:" +stepName , 1920/3, 1080/3);
@@ -54,6 +59,15 @@ class Ramp {
       //println("a");
     }  
   }
+  
+  public void startRelease() {
+   //endedRamp(/*"inizia release"*/1, note);
+   /*chiama funzione startRelease(Note note)*/
+   stepId = 2;
+   endedRamp(note);
+
+  }
+
   
 }
     
