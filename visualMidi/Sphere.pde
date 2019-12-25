@@ -6,8 +6,8 @@ class Sphere {
   private PVector position;
   private float alfa = 0.0;
 
-  Sphere(float x, float y) {
-    this.position = new PVector(x, y);
+  Sphere(float x, float y, float z) {
+    this.position = new PVector(x, y, z);
   }
 
   //This function computes the graphical result, considering all the parameters (lfo, cutoff, pitch bend etc...)
@@ -15,23 +15,24 @@ class Sphere {
     
     noStroke();
     //ADSR parameter
-    nearness = ramp.rampValue; //map ??
+    nearness = 1;//ramp.rampValue; //map ??
     
-    fill(255 - cutOffFilter);
+    fill(255);
     
     this.lfoEffect();
     
     float positionY = (this.position.y - pitchBend) + modulation * sin(alfa);
     float positionX = this.position.x;
+    float positionZ = this.position.z * nearness; 
     
     //pitchbend
     float stretchingScale;
     stretchingScale = map(abs(pitchBend), 0, 64, 1, 2 );
     
-    float radius = mapLog(cutOffFilter, 0, 255, 10, 40);
+    float radius = mapLog(cutOffFilter, 0, 255, 5, 45);
 
     pushMatrix();
-    translate(positionX, positionY, nearness);
+    translate(positionX, positionY, positionZ);
     scale(1 , stretchingScale, 1); 
     sphere(radius);
     popMatrix();

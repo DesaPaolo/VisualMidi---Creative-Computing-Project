@@ -1,19 +1,18 @@
 class Note {
 
-  //Circle circle; //2D
   Sphere sphere; //3D
   private int pitch;
   private int velocity;
   Ramp ramp;
-
 
   Note(int pitch, int velocity) {
     this.pitch = pitch;
     this.velocity = velocity;
     float x = map(this.pitch, 21, 108, 0, width);
     float y = map(this.pitch, 21, 108, height, 0);
+    float z = 1;
     
-    this.sphere = new Sphere(x, y);
+    this.sphere = new Sphere(x, y, z);
   }
 
   int getPitch() {

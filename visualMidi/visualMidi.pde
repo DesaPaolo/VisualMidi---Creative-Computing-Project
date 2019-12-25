@@ -1,12 +1,12 @@
 
 void setup() {
 
-  size(600,600, P3D);
-  //fullScreen();
+  //size(600,600, P3D);
+  fullScreen(P3D);
   background(0);
 
   MidiBus.list(); // List all our MIDI devices
-  minilogue = new MidiBus(this, 0, 1);// Connect to one of the devices
+  minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
   //instrumentType = 0;
   //sustainedNotes = new ArrayList <Note>();
   //prevNote = new Note(0, 0);
@@ -19,6 +19,7 @@ void setup() {
 
 void draw() {
   
+  //background
   fill(cutOffFilter);
   rect(0, 0, width, height);
   lights();

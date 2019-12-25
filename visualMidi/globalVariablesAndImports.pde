@@ -28,8 +28,6 @@ float nearness; // ADSR graphic translation
 float transparency; //??
 float opacity;      //??
 
-
-
 /*Antonino variables*/
 float attackTimeMs;
 float decayTimeMs;
