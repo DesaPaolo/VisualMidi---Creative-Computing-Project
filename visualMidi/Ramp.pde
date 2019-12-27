@@ -30,6 +30,8 @@ class Ramp {
     this.endValue = endValue;
     this.rampValue = startValue;
     this.note = note;
+    println("startValue: " + startValue);
+    println("endValue: " + endValue);
   }
 
   void trigger() {
@@ -38,8 +40,8 @@ class Ramp {
       endedRamp(this.note);
     }
     if (run) {
-      rampValue =  lerp(startValue,endValue, constrain((millis()-rampStartMillis)/rampDuration, 0, 1)); 
-      println("LERPAAAAAAAAAA " + rampValue);
+      rampValue =  lerp(startValue, endValue, constrain((millis()-rampStartMillis)/rampDuration, 0, 1)); 
+      //println("LERPAAAAAAAAAA " + rampValue);
       textSize(32);
       if(stepId==0) {
         stepName = "Attack";

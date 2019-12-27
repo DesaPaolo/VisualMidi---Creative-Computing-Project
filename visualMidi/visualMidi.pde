@@ -1,8 +1,8 @@
 
 void setup() {
 
-  //size(600,600, P3D);
-  fullScreen(P3D);
+  size(600,600, P3D);
+  //fullScreen(P3D);
   background(0);
 
   MidiBus.list(); // List all our MIDI devices
@@ -40,15 +40,16 @@ void draw() {
 private void nextRamp(Note note) {
   int step = note.ramp.stepId;
   switch(step){
-    case 1: 
-      note.ramp = new Ramp(times[step], millis(), 0, step, velValues[0], velValues[1], note);
+    case 1:
+      println("REACHED DECAY");
+      note.ramp = new Ramp(times[step], millis(), 0, step, note.adsrValues[0], note.adsrValues[1], note);
       break;
     case 2: 
-      println("Step 2 AAAA");
+      println("REACHED SUSTAIN");
       break; 
     case 3:
-      println("Step 3 Release");
-      note.ramp = new Ramp(times[step], millis(), 0, step, velValues[1], 0, note);
+      println("REACHED Release");
+      note.ramp = new Ramp(times[step], millis(), 0, step, note.adsrValues[1], 0, note);
       break;
   }
   

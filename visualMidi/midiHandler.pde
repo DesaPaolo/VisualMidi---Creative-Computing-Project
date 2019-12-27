@@ -14,8 +14,6 @@ void noteOn(int channel, int pitch, int velocity) {
       prevNote = tempNotes.get(tempNotes.size()-1);
     } 
     
-  
-   newNote.initAdsrRamp(times[0], millis(), 0, 0, 0, transparency);
    newNote.noteOnEffect();
    tempNotes.add(newNote);
    

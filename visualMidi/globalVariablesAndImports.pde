@@ -25,7 +25,6 @@ float ampRel;
 
 float nearness; // ADSR graphic translation
 
-float transparency; //??
 float opacity;      //??
 
 /*Antonino variables*/
