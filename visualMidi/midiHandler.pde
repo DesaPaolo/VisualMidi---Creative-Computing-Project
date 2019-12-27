@@ -30,8 +30,8 @@ void noteOff(int channel, int pitch, int velocity) {
         if (i == tempNotes.size()-1) {//synth animation
           prevNote = tempNotes.get(i); 
         }
-        tempNotes.get(i).ramp.startRelease();
-        tempNotes.remove(i);
+        tempNotes.get(i).ramp.startRelease(index); //per rimuovere la nota dopo la fine del release
+        //tempNotes.remove(i);
       }
     }
     
@@ -106,7 +106,7 @@ void controllerChange(int channel, int number, int value) {
   case 18: //sus
     ampSus = map(value, 0, 127, 0, 100);
     times[2] = -1;
-    println(ampSus);
+    println("Sarti: " + ampSus);
     break;
   
   case 19: //rel

@@ -5,9 +5,11 @@ class Sphere {
   
   private PVector position;
   private float alfa = 0.0;
+  private float near;
   
   Sphere(float x, float y, float z) {
     this.position = new PVector(x, y, z);
+    this.near = random(-50, 50);
   }
 
   //This function computes the graphical result, considering all the parameters (lfo, cutoff, pitch bend etc...)
@@ -17,13 +19,13 @@ class Sphere {
     //ADSR parameter
     nearness = 1;//ramp.rampValue; //map ??
     
-    fill(255, 255-velocity, 255-velocity+rampValue);  
+    fill(255, 255-velocity, 255-velocity, rampValue);  
     this.lfoEffect();
     //println("rampValue = " + rampValue);
     
     float positionY = (this.position.y - pitchBend) + modulation * sin(alfa);
     float positionX = this.position.x;
-    float positionZ = this.position.z * ((rampValue/2));
+    float positionZ = this.position.z * ((rampValue/2)) + this.near;
     
     
     //pitchbend

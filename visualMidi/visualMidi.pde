@@ -1,4 +1,3 @@
-
 void setup() {
 
   size(600,600, P3D);
@@ -28,16 +27,23 @@ void draw() {
   //massimo di voci a 4, per rispecchiare sempre l'audio output del minilogue.
   if (!tempNotes.isEmpty()) {
     for (int i=0; i<tempNotes.size(); i++ ) { 
+
       tempNotes.get(i).ramp.trigger();
       tempNotes.get(i).update();
+     
     }
   }
   
 }
 
+private void removeNote(Note note) {
+    note.toRemove = true;
+}
+
 /*Antonino Code*/
 /*When attack finishes this function is called and generates the decay ramp. It's also called when sustain finishes this*/
 private void nextRamp(Note note) {
+
   int step = note.ramp.stepId;
   switch(step){
     case 1:
@@ -55,6 +61,9 @@ private void nextRamp(Note note) {
   
   if(step<4) {  
     startingTime = millis();
+  }
+  else if(step==4) {
+    removeNote(note);
   }
   
 }

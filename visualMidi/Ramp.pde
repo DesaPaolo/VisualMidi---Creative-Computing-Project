@@ -9,6 +9,7 @@ class Ramp {
   String stepName;
   float startValue;
   float endValue;
+  int index;
   Note note;
   
   Ramp () { 
@@ -35,7 +36,10 @@ class Ramp {
   }
 
   void trigger() {
-    if ((int)rampValue == (int)endValue && stepId!=2) { 
+    println("rampValue = " + (int)rampValue);
+    println("endValue = " + (int)endValue);
+    println("Step Id = " + stepId);
+    if ((int)rampValue == (int)(endValue) && stepId!=2) { 
       run = false;
       endedRamp(this.note);
     }
@@ -62,11 +66,13 @@ class Ramp {
     }  
   }
   
-  public void startRelease() {
+  public void startRelease(int index) {
    //endedRamp(/*"inizia release"*/1, note);
    /*chiama funzione startRelease(Note note)*/
    stepId = 2;
+   this.index = index;
    endedRamp(note);
+  
 
   }
 

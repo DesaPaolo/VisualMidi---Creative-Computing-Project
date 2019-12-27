@@ -3,6 +3,7 @@ class Note {
   Sphere sphere; //3D
   private int pitch;
   private float velocity;
+  boolean toRemove = false;
   
   private float velocityValue;
   float[] adsrValues;
@@ -34,6 +35,7 @@ class Note {
   
   //Update the view, after the model has changed
   public void update() {
+    if(toRemove) tempNotes.remove(ramp.index);
     this.sphere.drawSphere(this.ramp.rampValue, this.velocity);
   }
   public void noteOnEffect() {
