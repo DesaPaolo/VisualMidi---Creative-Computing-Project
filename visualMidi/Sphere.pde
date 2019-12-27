@@ -23,7 +23,7 @@ class Sphere {
     
     float positionY = (this.position.y - pitchBend) + modulation * sin(alfa);
     float positionX = this.position.x;
-    float positionZ = this.position.z * nearness;
+    float positionZ = this.position.z * ((rampValue/2));
     
     
     //pitchbend
