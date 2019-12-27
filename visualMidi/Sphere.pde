@@ -29,12 +29,22 @@ class Sphere {
     //pitchbend
     float stretchingScale;
     stretchingScale = map(abs(pitchBend), 0, 64, 1, 2 );
+
     
     float radius = mapLog(cutOffFilter, 0, 255, 5, 45);
 
     pushMatrix();
     translate(positionX, positionY, positionZ);
-    scale(1 , stretchingScale, 1); 
+    
+    if(pitchBend >=0 ) {
+          scale(1 , stretchingScale, 1); 
+
+    }
+    else {
+          scale(stretchingScale , 1, 1); 
+
+    }
+    
     sphere(radius);
     popMatrix();
     
