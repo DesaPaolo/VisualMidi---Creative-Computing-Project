@@ -106,17 +106,38 @@ void controllerChange(int channel, int number, int value) {
   case 18: //sus
     ampSus = map(value, 0, 127, 0, 100);
     times[2] = -1;
-    println("Sarti: " + ampSus);
     break;
   
   case 19: //rel
     times[3] = map(value, 0, 127, 0, 6000);
     println("ReleaseTime is " + times[3]);
     break;
+    
+  case 20:
+    EGTimes[0] = map(value, 0, 127, 0, 3000);
+    break;
+      
+  case 21:
+    EGTimes[1] = map(value, 0, 127, 0, 6000);
+    break;
+      
+  case 22:
+    EGAmpSus = map(value, 0, 127, 0, 100);
+    EGTimes[2] = -1;
+    break;
+      
+  case 23:
+    EGTimes[3] = map(value, 0, 127, 0, 6000);
+    break;
   
+  case 45: //EG INT
+    EGInt = map(value, 0, 127, 0, 255);
+    break;
+    
   default:
     //nothing
   }
+  
 }
 
 

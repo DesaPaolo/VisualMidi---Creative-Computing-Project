@@ -34,6 +34,7 @@ void mouseClicked() {
 }
 
 public void adsrInit() {
+  
   times = new float[4];
   attackTimeMs = 1;
   decayTimeMs = 1;
@@ -42,5 +43,11 @@ public void adsrInit() {
   times[1] = decayTimeMs;
   times[2] = -1;
   times[3] = releaseTimeMs;
+  
+  EGTimes = new float[4];
+  EGTimes[0] = attackTimeMs;
+  EGTimes[1] = decayTimeMs;
+  EGTimes[2] = -1;
+  EGTimes[3] = releaseTimeMs;
   
 }

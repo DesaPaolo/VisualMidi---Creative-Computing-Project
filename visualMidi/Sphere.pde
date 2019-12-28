@@ -13,8 +13,10 @@ class Sphere {
   }
 
   //This function computes the graphical result, considering all the parameters (lfo, cutoff, pitch bend etc...)
-  public void drawSphere(float rampValue, float velocity) {
+  public void drawSphere(float rampValue, float filterRampValue, float velocity) {
     
+    float filtRampValue = filterRampValue;
+    println("filtRampVal: " + filtRampValue);
     noStroke();
     //ADSR parameter
     nearness = 1;//ramp.rampValue; //map ??

@@ -41,6 +41,9 @@ int susValue = 80;
 boolean isPressed = false;
 /*End Antonino variables*/
 
+float EGInt;
+float[] EGTimes;
+float EGAmpSus;
 
 
 

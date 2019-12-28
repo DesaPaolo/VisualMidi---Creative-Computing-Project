@@ -47,15 +47,15 @@ private void nextRamp(Note note) {
   int step = note.ramp.stepId;
   switch(step){
     case 1:
-      println("REACHED DECAY");
-      note.ramp = new Ramp(times[step], millis(), 0, step, note.adsrValues[0], note.adsrValues[1], note);
+      //println("REACHED DECAY");
+      note.ramp = new Ramp(times[step], millis(), 0, step, note.adsrValues[0], note.adsrValues[1], note, false);
       break;
     case 2: 
-      println("REACHED SUSTAIN");
+      //println("REACHED SUSTAIN");
       break; 
     case 3:
-      println("REACHED Release");
-      note.ramp = new Ramp(times[step], millis(), 0, step, note.adsrValues[1], 0, note);
+      //println("REACHED Release");
+      note.ramp = new Ramp(times[step], millis(), 0, step, note.adsrValues[1], 0, note, false);
       break;
   }
   
@@ -68,14 +68,40 @@ private void nextRamp(Note note) {
   
 }
 
-public void endedRamp(Note note) {
-  note.ramp.stepId++;
-  //step= %3;
-  nextRamp(note);
+public void endedRamp(Note note, boolean filter) {
+  if(!filter) {
+    note.ramp.stepId++;
+    nextRamp(note);    
+  }
+  else {
+    note.filterRamp.stepId++;
+    nextFilterRamp(note);
+  }
+
 }
 
 public void startReleaseB(Note note) {
   /*crea la rampa di release per la nota*/  
+}
+
+private void nextFilterRamp(Note note) {
+
+  int stepz = note.filterRamp.stepId;
+  switch(stepz){
+    case 1:
+      println("FILTER REACHED DECAY");
+      note.ramp = new Ramp(EGTimes[stepz], millis(), 0, stepz, note.filterAdsrValues[0], note.filterAdsrValues[1], note, false);
+      break;
+    case 2: 
+      println("FILTER REACHED SUSTAIN");
+      break; 
+    case 3:
+      println("FILTER REACHED Release");
+      note.ramp = new Ramp(EGTimes[stepz], millis(), 0, stepz, note.filterAdsrValues[1], note.filterAdsrValues[2], note, false);
+      break;
+  }
+
+  
 }
 
 

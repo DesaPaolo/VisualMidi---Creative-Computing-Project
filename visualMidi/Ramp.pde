@@ -12,6 +12,8 @@ class Ramp {
   int index;
   Note note;
   
+  boolean filter = false;
+  
   Ramp () { 
     rampDuration = 0;
     rampStartMillis = 0; 
@@ -21,7 +23,7 @@ class Ramp {
     stepId =-1;
   } 
 
-  Ramp (float duration, float startTime, int rampRange, int stepId, float startValue, float endValue, Note note) {
+  Ramp (float duration, float startTime, int rampRange, int stepId, float startValue, float endValue, Note note, boolean filter) {
     rampDuration = duration; // durata della rampa
     rampStartMillis = startTime; // tempo di inizio
     run = true; 
@@ -31,6 +33,7 @@ class Ramp {
     this.endValue = endValue;
     this.rampValue = startValue;
     this.note = note;
+    this.filter = filter;
     println("startValue: " + startValue);
     println("endValue: " + endValue);
   }
@@ -41,7 +44,7 @@ class Ramp {
     println("Step Id = " + stepId);
     if ((int)rampValue == (int)(endValue) && stepId!=2) { 
       run = false;
-      endedRamp(this.note);
+      endedRamp(this.note, this.filter);
     }
     if (run) {
       rampValue =  lerp(startValue, endValue, constrain((millis()-rampStartMillis)/rampDuration, 0, 1)); 
@@ -59,7 +62,7 @@ class Ramp {
       else if (stepId ==3) {
         stepName = "Release";
       }
-      text("Seconds: " + (int)((millis() - startingTime)/1000) +"\nADSR Step:" +stepName , 1920/3, 1080/3);
+      //text("Seconds: " + (int)((millis() - startingTime)/1000) +"\nADSR Step:" +stepName , 1920/3, 1080/3);
     }   
     else {
       //println("a");
@@ -71,7 +74,7 @@ class Ramp {
    /*chiama funzione startRelease(Note note)*/
    stepId = 2;
    this.index = index;
-   endedRamp(note);
+   endedRamp(note, this.filter);
   
 
   }
