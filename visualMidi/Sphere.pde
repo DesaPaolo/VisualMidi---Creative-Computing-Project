@@ -35,7 +35,7 @@ class Sphere {
     stretchingScale = map(abs(pitchBend), 0, 64, 1, 2 );
 
     
-    float radius = mapLog(cutOffFilter, 0, 255, 5, 45);
+    float radius = mapLog(filtRampValue, 0, 255, 5, 45);
 
     pushMatrix();
     translate(positionX, positionY, positionZ);
