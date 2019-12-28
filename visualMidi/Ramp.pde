@@ -12,7 +12,7 @@ class Ramp {
   int index;
   Note note;
   
-  boolean filter = false;
+  boolean filter;
   
   Ramp () { 
     rampDuration = 0;
@@ -34,21 +34,21 @@ class Ramp {
     this.rampValue = startValue;
     this.note = note;
     this.filter = filter;
-    println("startValue: " + startValue);
-    println("endValue: " + endValue);
+    //println("startValue: " + startValue);
+    //println("endValue: " + endValue);
   }
 
   void trigger() {
-    println("rampValue = " + (int)rampValue);
-    println("endValue = " + (int)endValue);
-    println("Step Id = " + stepId);
+    //println("rampValue = " + (int)rampValue);
+    //println("endValue = " + (int)endValue);
+   // println("Step Id = " + stepId);
     if ((int)rampValue == (int)(endValue) && stepId!=2) { 
       run = false;
       endedRamp(this.note, this.filter);
     }
     if (run) {
       rampValue =  lerp(startValue, endValue, constrain((millis()-rampStartMillis)/rampDuration, 0, 1)); 
-      //println("LERPAAAAAAAAAA " + rampValue);
+      //println("LERPAAAAAAAAAA " + rampValue +"\tfilter is"+filter);
       textSize(32);
       if(stepId==0) {
         stepName = "Attack";

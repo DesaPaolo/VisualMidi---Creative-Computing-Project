@@ -27,7 +27,8 @@ void draw() {
   //massimo di voci a 4, per rispecchiare sempre l'audio output del minilogue.
   if (!tempNotes.isEmpty()) {
     for (int i=0; i<tempNotes.size(); i++ ) { 
-
+      
+      tempNotes.get(i).filterRamp.trigger();
       tempNotes.get(i).ramp.trigger();
       tempNotes.get(i).update();
      
@@ -90,14 +91,14 @@ private void nextFilterRamp(Note note) {
   switch(stepz){
     case 1:
       println("FILTER REACHED DECAY");
-      note.ramp = new Ramp(EGTimes[stepz], millis(), 0, stepz, note.filterAdsrValues[0], note.filterAdsrValues[1], note, false);
+      note.filterRamp = new Ramp(EGTimes[stepz], millis(), 0, stepz, note.filterAdsrValues[0], note.filterAdsrValues[1], note, true);
       break;
     case 2: 
       println("FILTER REACHED SUSTAIN");
       break; 
     case 3:
       println("FILTER REACHED Release");
-      note.ramp = new Ramp(EGTimes[stepz], millis(), 0, stepz, note.filterAdsrValues[1], note.filterAdsrValues[2], note, false);
+      note.filterRamp = new Ramp(EGTimes[stepz], millis(), 0, stepz, note.filterAdsrValues[1], note.filterAdsrValues[2], note, true);
       break;
   }
 
