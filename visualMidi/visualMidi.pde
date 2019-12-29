@@ -1,13 +1,18 @@
+int choice;
+PImage startscreen;
+PFont newFont;
 
 void setup() {
-
+  
   //size(600, 600);
   fullScreen();
   background(0);
-
+  startscreen = loadImage("korg.jpg");
+  image(startscreen, 0, 0);
+  
   MidiBus.list(); // List all our MIDI devices
   //loopMIDI = new MidiBus(this, 0, 1);// Connect to one of the devices
-  minilogue = new MidiBus(this, 4, 2);// Connect to one of the devices
+  minilogue = new MidiBus(this, 4, 5);// Connect to one of the devices
   //launchPad = new MidiBus(this, 2, 1);// Connect to one of the devices
   
 
@@ -20,7 +25,7 @@ void setup() {
   
   
   /*Antonino code*/
-   step = 0;
+  /* step = 0;
    ramp = new Ramp();
    attackTimeMs = 300;//default value, poi si aggiorna col CC
    decayTimeMs = 500; //idem
@@ -34,7 +39,7 @@ void setup() {
    velValues[1] = (int)map(susValue, 0, 127, 0, 255);
    velValues[2] = 0;
    velValues[3] = velValues[1];
-   isPressed = false;
+   isPressed = false;*/
   
   /*End Antonino code*/
 }
@@ -42,7 +47,46 @@ void setup() {
 void draw() {
   
   
+  
+  image(startscreen, 0, 0);
+  if (mousePressed){
+    prevDraw();
+  }
+}
 
+
+/*Antonino Code*/
+/*When attack finishes this function is called and generates the decay ramp. It's also called when sustain finishes this*/
+private void nextRamp() {
+  
+  switch(step){
+    case 1: 
+      ramp = new Ramp(times[step], millis(), 0, step, velValues[0], velValues[1]);
+      break;
+    case 2: 
+      println("Step 2 AAAA");
+      break; 
+    case 3:
+      ramp = new Ramp(times[step], millis(), 0, step, velValues[1], 0);
+      break;
+  }
+  
+  if(step<4) {  
+    startingTime = millis();
+  }
+  
+}
+
+public void endedRamp() {
+  step++;
+  //step= %3;
+  nextRamp();
+}
+/*End Antonino Code*/
+
+
+/*Michele Menu's code*/
+void prevDraw(){
   //draw notes
   if (instrumentType == 1) { //poliphony
   
@@ -85,33 +129,3 @@ void draw() {
     }
   }
 }
-
-
-/*Antonino Code*/
-/*When attack finishes this function is called and generates the decay ramp. It's also called when sustain finishes this*/
-private void nextRamp() {
-  
-  switch(step){
-    case 1: 
-      ramp = new Ramp(times[step], millis(), 0, step, velValues[0], velValues[1]);
-      break;
-    case 2: 
-      println("Step 2 AAAA");
-      break; 
-    case 3:
-      ramp = new Ramp(times[step], millis(), 0, step, velValues[1], 0);
-      break;
-  }
-  
-  if(step<4) {  
-    startingTime = millis();
-  }
-  
-}
-
-public void endedRamp() {
-  step++;
-  //step= %3;
-  nextRamp();
-}
-/*End Antonino Code*/
