@@ -2,7 +2,7 @@ int choice;
 PImage startscreen;
 PFont newFont;
 int mode;
-int xBtn1, yBtn1, wBtn, hBtn, xBtn2, yBtn2;
+int xBtn1, yBtn1, wBtn, hBtn, xBtn2, yBtn2, xBtn3, yBtn3;
 
 void setup() {
   
@@ -49,6 +49,8 @@ void setup() {
   yBtn1 = 100;
   xBtn2 = 800;
   yBtn2 = 100;
+  xBtn3 = 600;
+  yBtn3 = 100;
   wBtn = 150;
   hBtn = 50;
 }
@@ -69,23 +71,26 @@ void draw() {
     
   }
   else if (mode == 1){ //store
-    background(0);
-    text("Store Mode", 500, 500);
-    fill(255);
+    storeMode();
   }
   else if (mode == 2){ //play
-    background(0);
-    text("Play Mode", 500, 500);
-    fill(255);
+    loadMode();
   }
   
   
   if (mousePressed){
-    if (leftPressed()){
-      mode = 1;
+    if(mode == 0) {
+      if (buttonPressed(xBtn1, yBtn1, wBtn, hBtn)){
+        mode = 1;
+      }
+      else if (buttonPressed(xBtn2, yBtn2, wBtn, hBtn)){
+        mode = 2;
+      }
     }
-    else if (rightPressed()){
-      mode = 2;
+    else if (mode == 1 || mode == 2){
+      if (buttonPressed(xBtn3, yBtn3, wBtn, hBtn)){
+        mode = 0;
+      }
     }
   }
 }
@@ -113,6 +118,8 @@ private void nextRamp() {
   
 }
 
+
+
 public void endedRamp() {
   step++;
   //step= %3;
@@ -121,15 +128,39 @@ public void endedRamp() {
 /*End Antonino Code*/
 
 
+
+
 /*Michele Menu's code*/
 
-boolean leftPressed(){
-  return false;
+boolean buttonPressed(int x, int y, int width, int height){
+  if (mouseX >= x && mouseX <= x+width && 
+      mouseY >= y && mouseY <= y+height){
+    return true;
+  }
+  else return false;
 }
 
-boolean rightPressed(){
-  return true;
+void storeMode(){
+  background(0);
+  text("Store Mode", 500, 100);
+  
+  rect(xBtn3, yBtn3, wBtn, hBtn);
+  fill(0);
+  text("Back to Menu", (xBtn3 + 20), (yBtn3 + 20));
+  fill(255);
 }
+
+void loadMode(){
+  background(0);
+  text("Load Mode (Play)", 500, 100);
+  
+  rect(xBtn3, yBtn3, wBtn, hBtn);
+  fill(0);
+  text("Back to Menu", (xBtn3 + 20), (yBtn3 + 20));
+  fill(255);
+}
+
+
 
 void prevDraw(){
   //draw notes
