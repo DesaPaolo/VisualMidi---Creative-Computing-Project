@@ -1,6 +1,8 @@
 int choice;
 PImage startscreen;
 PFont newFont;
+int mode;
+int xBtn1, yBtn1, wBtn, hBtn, xBtn2, yBtn2;
 
 void setup() {
   
@@ -42,15 +44,49 @@ void setup() {
    isPressed = false;*/
   
   /*End Antonino code*/
+  mode = 0; //Menu
+  xBtn1 = 450;
+  yBtn1 = 100;
+  xBtn2 = 800;
+  yBtn2 = 100;
+  wBtn = 150;
+  hBtn = 50;
 }
 
 void draw() {
   
+  if (mode == 0){ //menu
+    image(startscreen, 0, 0);
+    text("Welcome to Korg Minilogue's Visual MIDI", 600, 70);
+    rect(xBtn1, yBtn1, wBtn, hBtn);
+    fill(0);
+    text("Store Mode", (xBtn1 + 20), (yBtn1 + 20));
+    fill(255);
+    rect(xBtn2, yBtn2, wBtn, hBtn);
+    fill(0);
+    text("Load Mode (Play)", (xBtn2 + 20), (yBtn2 + 20));
+    fill(255);
+    
+  }
+  else if (mode == 1){ //store
+    background(0);
+    text("Store Mode", 500, 500);
+    fill(255);
+  }
+  else if (mode == 2){ //play
+    background(0);
+    text("Play Mode", 500, 500);
+    fill(255);
+  }
   
   
-  image(startscreen, 0, 0);
   if (mousePressed){
-    prevDraw();
+    if (leftPressed()){
+      mode = 1;
+    }
+    else if (rightPressed()){
+      mode = 2;
+    }
   }
 }
 
@@ -86,6 +122,15 @@ public void endedRamp() {
 
 
 /*Michele Menu's code*/
+
+boolean leftPressed(){
+  return false;
+}
+
+boolean rightPressed(){
+  return true;
+}
+
 void prevDraw(){
   //draw notes
   if (instrumentType == 1) { //poliphony
