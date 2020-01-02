@@ -261,6 +261,10 @@ void savePreset(){
 }
 
 void loadPresets() throws Exception{
+  
+  int xBox, yBox, wBox, hBox, leftMarginNames, upperMarginNames, hLine, xLoadBtn, yLoadBtn, wLoadBtn, hLoadBtn;
+  
+  
   File file = new File("presets.txt"); 
     try {
       BufferedReader br = new BufferedReader(new FileReader(file)); 
@@ -278,7 +282,6 @@ void loadPresets() throws Exception{
         else if ((st.equals("end"))){ //<>//
             println("i'm done");
             presets.add(newPreset); //Exception
-            println(newPreset.toString());
           }
         else if (st.isEmpty()){println("empty String");}
         else if ((st.substring(0,5)).equals("name ")){newPreset.setPresetName(st.substring(5));}
@@ -297,7 +300,33 @@ void loadPresets() throws Exception{
     } catch (Exception e) {
     // exception handling
       println(e); //<>//
-  } 
+  }
+  //Iterator iterator = presets.iterator();
+  int aListSize = 3;
+  xBox = 800;
+  yBox = 200;
+  wBox = 450;
+  hBox = aListSize*50;
+  leftMarginNames = 20;
+  upperMarginNames = 30;
+  hLine = 20;
+  xLoadBtn = 1100;
+  yLoadBtn = ((yBox+upperMarginNames) - 15);
+  wLoadBtn = 80;
+  hLoadBtn = 15;
+  rect(xBox, yBox, wBox, hBox);
+  fill(0);
+  for(int i=0; i<aListSize; i++){
+    text((presets.get(i).getPresetName() + "\t  " + presets.get(i).getCreationDate()), xBox+leftMarginNames, ((yBox+upperMarginNames) + (i*hLine)));
+    fill(0);
+    rect(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn);
+    fill(255);
+    text("Load", (xLoadBtn + 20), (yLoadBtn + (i*hLine)+10));
+    fill(0);
+  }
+  //while (iterator.hasNext()){}
+    //println(iterator.next().toString());
+  //}
 }
 
 void activatePreset(){}
