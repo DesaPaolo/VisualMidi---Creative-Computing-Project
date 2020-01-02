@@ -176,7 +176,11 @@ void loadMode(){
   fill(0);
   text("Back to Menu", (xBtn3 + 20), (yBtn3 + 20));
   fill(255);
-  prevDraw();
+  //prevDraw();
+  
+  try {
+    loadPresets();
+  } catch (Exception ex) {}
 }
 
 
@@ -227,10 +231,15 @@ void prevDraw(){
 
 void savePreset(){
   String name = "Michele";
+  Date actualDate = Calendar.getInstance().getTime();
+  Preset actualPreset = new Preset(name, actualDate, sustainPedal, modulation, modulationRate, cutOffFilter, times, ampSus);
+  
+  
+  
   try{
     FileWriter fileWriter = new FileWriter("presets.txt");
     fileWriter.write("name " + name + "\n");
-    fileWriter.write("date " + (Calendar.getInstance().getTime()) +"\n");
+    fileWriter.write("date " + (actualDate) +"\n");
     fileWriter.write("sustainPedal " + sustainPedal + "\n");
     fileWriter.write("modulation " + modulation + "\n");
     fileWriter.write("modulationRate " + modulationRate + "\n");
@@ -248,3 +257,17 @@ void savePreset(){
 
 
 }
+
+void loadPresets() throws Exception{
+  File file = new File("presets.txt"); 
+    
+    BufferedReader br = new BufferedReader(new FileReader(file)); 
+    
+    String st; 
+    while ((st = br.readLine()) != null) {
+      System.out.println(st); 
+    }
+    br.close();
+}
+
+void activatePreset(){}

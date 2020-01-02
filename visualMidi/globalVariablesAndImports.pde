@@ -4,7 +4,7 @@ import javax.sound.midi.*;
 import de.looksgood.ani.*;
 import de.looksgood.ani.easing.*;
 import java.lang.Math;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.*;
 
 
@@ -14,6 +14,7 @@ MidiBus loopMIDI;
 int instrumentType; //polyphonic or monophonic
 
 ArrayList<Note> tempNotes;
+ArrayList<Preset> presets;
 boolean sustainPedal = false;
 ArrayList<Note> sustainedNotes;
 
