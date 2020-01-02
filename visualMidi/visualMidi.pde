@@ -3,6 +3,7 @@ PImage startscreen;
 PFont newFont;
 int mode;
 int xBtn1, yBtn1, wBtn, hBtn, xBtn2, yBtn2, xBtn3, yBtn3;
+float[] times;
 
 void setup() {
   
@@ -49,10 +50,14 @@ void setup() {
   yBtn1 = 100;
   xBtn2 = 800;
   yBtn2 = 100;
-  xBtn3 = 600;
-  yBtn3 = 100;
+  xBtn3 = 900;
+  yBtn3 = 50;
   wBtn = 150;
   hBtn = 50;
+  times = new float [3];
+  times[0] = 300;
+  times[1] = 200;
+  times[2] = 1000; //default values
 }
 
 void draw() {
@@ -141,6 +146,10 @@ boolean buttonPressed(int x, int y, int width, int height){
 }
 
 void storeMode(){
+  
+  int xStoreBtn = 500;
+  int yStoreBtn = 200;
+  
   background(0);
   text("Store Mode", 500, 100);
   
@@ -148,6 +157,15 @@ void storeMode(){
   fill(0);
   text("Back to Menu", (xBtn3 + 20), (yBtn3 + 20));
   fill(255);
+  rect(xStoreBtn, yStoreBtn, wBtn, hBtn);
+  fill(0);
+  text("Store Preset", (xStoreBtn + 20), (yStoreBtn + 20));
+  fill(255);
+  //prevDraw();
+  
+  if (mousePressed && buttonPressed(xStoreBtn, yStoreBtn, wBtn, hBtn)){
+    savePreset();
+  }
 }
 
 void loadMode(){
@@ -158,6 +176,7 @@ void loadMode(){
   fill(0);
   text("Back to Menu", (xBtn3 + 20), (yBtn3 + 20));
   fill(255);
+  prevDraw();
 }
 
 
@@ -204,4 +223,28 @@ void prevDraw(){
       
     }
   }
+}
+
+void savePreset(){
+  String name = "Michele";
+  try{
+    FileWriter fileWriter = new FileWriter("presets.txt");
+    fileWriter.write("name " + name + "\n");
+    fileWriter.write("date " + (Calendar.getInstance().getTime()) +"\n");
+    fileWriter.write("sustainPedal " + sustainPedal + "\n");
+    fileWriter.write("modulation " + modulation + "\n");
+    fileWriter.write("modulationRate " + modulationRate + "\n");
+    fileWriter.write("cutoffFilter " + cutOffFilter + "\n");
+    fileWriter.write("attackTime " + times[0] + "\n");
+    fileWriter.write("decayTime " + times[1] + "\n");
+    fileWriter.write("sustainAmp " + ampSus + "\n");
+    fileWriter.write("releaseTime " + times[2] + "\n");
+    fileWriter.close(); 
+    println("saved preset");
+  } catch (IOException e) {
+    // exception handling
+    println("IO Exception");
+  }
+
+
 }

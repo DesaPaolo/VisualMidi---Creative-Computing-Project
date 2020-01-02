@@ -4,6 +4,8 @@ import javax.sound.midi.*;
 import de.looksgood.ani.*;
 import de.looksgood.ani.easing.*;
 import java.lang.Math;
+import java.io.FileWriter;
+import java.util.*;
 
 
 MidiBus launchPad;
@@ -35,7 +37,6 @@ float attackTimeMs;
 float decayTimeMs;
 float releaseTimeMs;
 int step;
-float[] times;
 int vel;
 float startingTime;
 int[] velValues;
