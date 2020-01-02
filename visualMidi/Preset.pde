@@ -24,6 +24,19 @@ class Preset {
     this.susAmp = ampSus;
   }
   
+  Preset(){
+    this.name = "Name";
+    this.susPedal = false;
+    this.creationDate = Calendar.getInstance().getTime();
+    this.mod = 0;
+    this.modRate = 0;
+    this.cutoffFil = 0;
+    this.atckTime = 0;
+    this.dcyTime = 0;
+    this.relTime = 0;
+    this.susAmp = 0;
+  }
+  
   public void setPresetName(String name){
     this.name = name;
   }
@@ -88,6 +101,21 @@ class Preset {
     return this.susAmp;
   }
   
-  
+  public String toString(){ //Override
+    String name = "Preset Name: " + this.name + "\n";
+    String susPedal = "susPedal is pressed: " + Boolean.toString(this.susPedal) + "\n";
+    String date = "Created on: " + this.creationDate + "\n"; 
+    String modulation = "Modulation: " + this.mod + "\n"; 
+    String modulationRate = "Modulation Rate: " + this.modRate + "\n"; 
+    String cutoffFil = "Cutoff Filter: " + this.cutoffFil + "\n"; 
+    String susAmp = "Sustain Amp: " + this.susAmp + "\n"; 
+    String atckTime = "Attack Time (ms): " + this.atckTime + "\n"; 
+    String dcyTime = "Decay Time (ms): " + this.dcyTime + "\n"; 
+    String relTime = "Release Time (ms): " + this.relTime + "\n"; 
+    
+    
+    return name + date + susPedal + modulation + modulationRate + cutoffFil + atckTime + dcyTime + relTime + susAmp;
+    
+  }
 
 }

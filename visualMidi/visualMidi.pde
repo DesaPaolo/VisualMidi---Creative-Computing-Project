@@ -238,16 +238,18 @@ void savePreset(){
   
   try{
     FileWriter fileWriter = new FileWriter("presets.txt");
-    fileWriter.write("name " + name + "\n");
-    fileWriter.write("date " + (actualDate) +"\n");
-    fileWriter.write("sustainPedal " + sustainPedal + "\n");
-    fileWriter.write("modulation " + modulation + "\n");
-    fileWriter.write("modulationRate " + modulationRate + "\n");
-    fileWriter.write("cutoffFilter " + cutOffFilter + "\n");
-    fileWriter.write("attackTime " + times[0] + "\n");
-    fileWriter.write("decayTime " + times[1] + "\n");
-    fileWriter.write("sustainAmp " + ampSus + "\n");
-    fileWriter.write("releaseTime " + times[2] + "\n");
+    fileWriter.write("start\n");
+    fileWriter.write("name " + actualPreset.getPresetName() + "\n");
+    fileWriter.write("date " + actualPreset.getCreationDate() +"\n");
+    fileWriter.write("sustainPedal " + actualPreset.getSusPedal() + "\n");
+    fileWriter.write("modulation " + actualPreset.getMod() + "\n");
+    fileWriter.write("modulationRate " + actualPreset.getModRate() + "\n");
+    fileWriter.write("cutoffFilter " + actualPreset.getCutoffFil() + "\n");
+    fileWriter.write("attackTime " + actualPreset.getAttack() + "\n");
+    fileWriter.write("decayTime " + actualPreset.getDecay() + "\n");
+    fileWriter.write("sustainAmp " + actualPreset.getAmpSus() + "\n");
+    fileWriter.write("releaseTime " + actualPreset.getRelease() + "\n");
+    fileWriter.write("end\n");
     fileWriter.close(); 
     println("saved preset");
   } catch (IOException e) {
@@ -260,14 +262,42 @@ void savePreset(){
 
 void loadPresets() throws Exception{
   File file = new File("presets.txt"); 
-    
-    BufferedReader br = new BufferedReader(new FileReader(file)); 
-    
-    String st; 
-    while ((st = br.readLine()) != null) {
-      System.out.println(st); 
-    }
-    br.close();
+    try {
+      BufferedReader br = new BufferedReader(new FileReader(file)); 
+      Preset newPreset;
+      String st;
+      
+      newPreset = new Preset(); 
+      while ((st = br.readLine()) != null) {
+        //System.out.println(st);
+        //println(st.equals("sustainAmp 0.0"));
+        if (st.equals("start")) {
+          println("Starting");
+          newPreset = new Preset(); 
+        }
+        else if ((st.equals("end"))){ //<>//
+            println("i'm done");
+            presets.add(newPreset); //Exception
+            println(newPreset.toString());
+          }
+        else if (st.isEmpty()){println("empty String");}
+        else if ((st.substring(0,5)).equals("name ")){newPreset.setPresetName(st.substring(5));}
+        else if ((st.substring(0,5)).equals("date ")){newPreset.setCreationDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy",  Locale.ENGLISH).parse(st.substring(5)));} 
+        else if ((st.substring(0,10)).equals("decayTime ")){newPreset.setDecay(Float.parseFloat(st.substring(10)));}
+        else if ((st.substring(0,11)).equals("modulation ")){newPreset.setMod(Float.parseFloat(st.substring(11)));}
+        else if ((st.substring(0,11)).equals("attackTime ")){newPreset.setAttack(Float.parseFloat(st.substring(11)));}
+        else if ((st.substring(0,11)).equals("sustainAmp ")){newPreset.setAmpSus(Float.parseFloat(st.substring(11)));}
+        else if ((st.substring(0,12)).equals("releaseTime ")){newPreset.setRelease(Float.parseFloat(st.substring(12)));}
+        else if ((st.substring(0,13)).equals("sustainPedal ")){newPreset.setSusPedal(Boolean.parseBoolean(st.substring(13)));}
+        else if ((st.substring(0,13)).equals("cutoffFilter ")){newPreset.setCutoffFil(Float.parseFloat(st.substring(13)));}
+        else if ((st.substring(0,15)).equals("modulationRate ")){newPreset.setModRate(Float.parseFloat(st.substring(15)));}
+        else {System.out.println("Substring is " + st + " Error");}
+      }
+      br.close();
+    } catch (Exception e) {
+    // exception handling
+      println(e); //<>//
+  } 
 }
 
 void activatePreset(){}

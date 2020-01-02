@@ -6,6 +6,9 @@ import de.looksgood.ani.easing.*;
 import java.lang.Math;
 import java.io.*;
 import java.util.*;
+import java.lang.*;
+import java.text.SimpleDateFormat;  
+
 
 
 MidiBus launchPad;
@@ -14,7 +17,7 @@ MidiBus loopMIDI;
 int instrumentType; //polyphonic or monophonic
 
 ArrayList<Note> tempNotes;
-ArrayList<Preset> presets;
+ArrayList<Preset> presets = new ArrayList<Preset>();;
 boolean sustainPedal = false;
 ArrayList<Note> sustainedNotes;
 
