@@ -47,7 +47,7 @@ void controllerChange(int channel, int number, int value) {
 
   println("CONTROL: " + number + " CONTROL VALUE: " + value);
   println("channel " + channel);
-
+  println("t3: " + times[3]);
   switch (number) {
   case 64: //Sustain Pedal  --->   ≤63 off, ≥64 on
 

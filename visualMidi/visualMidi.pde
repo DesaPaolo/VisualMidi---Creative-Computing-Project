@@ -9,15 +9,15 @@ int xBtn1, yBtn1, wBtn, hBtn, xBtn2, yBtn2, xBtn3, yBtn3, xBtn4, yBtn4;
 
 void setup() {
 
-  //size(600,600, P3D);
-  fullScreen(P3D);
+  size(1920,1800, P3D);
+  //fullScreen(P3D);
   background(0);
   startscreen = loadImage("korg.jpg");
   image(startscreen, 0, 0);
   
 
   MidiBus.list(); // List all our MIDI devices
-  minilogue = new MidiBus(this, 2, 4);// Connect to one of the devices
+  minilogue = new MidiBus(this, 1, 3);// Connect to one of the devices
   //instrumentType = 0;
   //sustainedNotes = new ArrayList <Note>();
   //prevNote = new Note(0, 0);
@@ -37,14 +37,13 @@ void setup() {
   yBtn4 = 50;
   wBtn = 150;
   hBtn = 50;
-  times = new float [3];
-  times[0] = 300;
-  times[1] = 200;
-  times[2] = 1000; //default values
+
   
 }
 
 void draw() {
+  
+  println("mode: " + mode);
  
   if (mode == 0){ //menu
     image(startscreen, 0, 0);
@@ -61,7 +60,7 @@ void draw() {
     rect(xBtn3, yBtn3, wBtn, hBtn);
     fill(0);
     text("Play Mode", (xBtn3 + 20), (yBtn3 + 20));
-    
+    noLoop();
   }
   else if (mode == 1){ //store
     storeMode();
@@ -73,9 +72,11 @@ void draw() {
     playDraw();
   }
   
-  
-  if (mousePressed){
-    if(mode == 0) {
+ 
+}
+
+void mousePressed() {
+  if(mode == 0) {
       if (buttonPressed(xBtn1, yBtn1, wBtn, hBtn)){
         mode = 1;
       }
@@ -91,7 +92,7 @@ void draw() {
         mode = 0;
       }
     }
-  } 
+    loop();
 }
 
 private void removeNote(Note note) {
@@ -250,7 +251,7 @@ void savePreset(){
 
 void loadPresets() throws Exception{ 
   
-  loadPresetsFromFile(); //<>//
+  loadPresetsFromFile(); //<>// //<>//
   //Iterator iterator = presets.iterator();
   drawMenuPresets();
 }
