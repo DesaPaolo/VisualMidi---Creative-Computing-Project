@@ -24,15 +24,6 @@ float mapLog(float value, float start1, float stop1, float start2, float stop2) 
   return outgoing;
 }
 
-public void getNoteIndex(int pitch) {
-  
-    for(int c = 0; c<tempNotes.size(); c-=-1) {
-      if(tempNotes.get(c).getPitch()==pitch) {
-        tempNotes.get(c).ramp.startRelease(index);
-      }      
-    }
-}
-
 public void removeNoteByPitch(int pitch) {
    for(int c = 0; c<tempNotes.size(); c-=-1) {
       if(tempNotes.get(c).getPitch()==pitch) {

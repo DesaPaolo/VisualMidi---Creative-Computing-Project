@@ -9,7 +9,6 @@ class Ramp {
   String stepName;
   float startValue;
   float endValue;
-  int index;
   Note note;
   
   boolean filter;
@@ -69,11 +68,10 @@ class Ramp {
     }  
   }
   
-  public void startRelease(int index) {
+  public void startRelease() {
    //endedRamp(/*"inizia release"*/1, note);
    /*chiama funzione startRelease(Note note)*/
    stepId = 2;
-   this.index = index;
    endedRamp(note, this.filter);
   }  
 }

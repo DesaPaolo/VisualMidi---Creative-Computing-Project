@@ -1,4 +1,4 @@
-//Branch refactoring
+
 
 void setup() {
 
@@ -7,21 +7,18 @@ void setup() {
   background(0);
   startscreen = loadImage("korg.jpg");
   image(startscreen, 0, 0);
-  
 
-  MidiBus.list(); // List all our MIDI devices
-  minilogue = new MidiBus(this, 0, 3);// Connect to one of the devices
-
-  //instrumentType = 0;
-  //sustainedNotes = new ArrayList <Note>();
+  midiInit();
   
   adsrInit();
-  ampSus = 100; 
-  EGAmpSus = 0;
-  cutOffFilter = 255;
-  EGInt = 0;
+
+  ampSus = 100; //??
+  EGAmpSus = 0;//??
+  cutOffFilter = 255;//??
+  EGInt = 0;//??
   
   menuInit();
+  
 }
 
 void draw() {
@@ -43,6 +40,7 @@ void draw() {
     rect(xBtn3, yBtn3, wBtn, hBtn);
     fill(0);
     text("Play Mode", (xBtn3 + 20), (yBtn3 + 20));
+    
     noLoop();
   }
   else if (mode == 1){ //store
@@ -81,4 +79,4 @@ void playDraw(){
      
     }
   }
-} //<>// //<>//
+} //<>//
