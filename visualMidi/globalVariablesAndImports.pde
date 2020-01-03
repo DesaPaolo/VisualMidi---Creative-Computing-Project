@@ -54,7 +54,10 @@ float[] EGTimes;
 float EGAmpSus;
 
 
-
+boolean gettingUserInput = false;
+final String INIT_MSG="Start typing";
+String msg=INIT_MSG;
+String finalMsg = "";
 
 //Ani graphics 
 float duration = 0.1; //this variable could be modulate by MIDI Portamento parameter

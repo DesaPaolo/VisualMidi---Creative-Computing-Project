@@ -75,6 +75,13 @@ void draw() {
  
 }
 
+void keyPressed(){
+  if (gettingUserInput){
+    scanInput();
+    showInputScanning();
+  }
+}
+
 void mousePressed() {
   if(mode == 0) {
       if (buttonPressed(xBtn1, yBtn1, wBtn, hBtn)){
@@ -91,6 +98,9 @@ void mousePressed() {
       if (buttonPressed(xBtn4, yBtn4, wBtn, hBtn)){
         mode = 0;
       }
+    }
+    if(mode==1 && gettingUserInput){
+      msg=INIT_MSG;
     }
     loop();
 }
@@ -208,7 +218,7 @@ void storeMode(){
   
   int xStoreBtn = 500;
   int yStoreBtn = 200;
-  
+  gettingUserInput = true;
   background(0);
   text("Store Mode", 500, 100);
   
@@ -236,7 +246,7 @@ void loadMode(){
 }
 
 void savePreset(){
-  String name = "Michele";
+  String name = finalMsg;
   Date actualDate = Calendar.getInstance().getTime();
   Preset actualPreset = new Preset(name, actualDate, sustainPedal, modulation, modulationRate, cutOffFilter, times, ampSus);
   
@@ -404,5 +414,28 @@ void storePresetToFile (Preset actualPreset){
   } catch (IOException e) {
     // exception handling
     println("IO Exception");
+  }
+}
+
+void showInputScanning(){
+  fill(255);
+  text(msg, 100, 100);
+  
+  fill(0,250,0);
+  text("Mouse click to reset message, Return to store", 100, height*0.8);
+}
+
+void scanInput(){
+  if ( (key>='a' && key<='z') ||
+    (key>='A' && key<='Z') ||
+    (key>='0' && key<='9') 
+    ) {
+    msg+=key;
+  }
+  if (key == ENTER){
+    finalMsg = msg;
+    msg = "Got it!";
+    gettingUserInput = false;
+    println("Final Message is " +finalMsg + ".");
   }
 }
