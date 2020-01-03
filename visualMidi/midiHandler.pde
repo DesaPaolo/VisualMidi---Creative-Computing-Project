@@ -1,118 +1,52 @@
+private ArrayList<Note> tempNotes = new ArrayList<Note>();
+private int instrumentType = 0;
 
 //NOTE ON
 void noteOn(int channel, int pitch, int velocity) {
-  step = 2;
-  isPressed = true;
+
   println("Note ON");
 
   Note newNote = new Note(pitch, velocity);
 
-  if (!sustainPedal) { //sustain pedal off
+  //Assuming there is no sustain pedal
 
-    if (!tempNotes.isEmpty()) { //synth note animation
+   if (!tempNotes.isEmpty()) { 
       prevNote = tempNotes.get(tempNotes.size()-1);
     } 
-    tempNotes.add(newNote);
-    newNote.animation("noteOn"); //synth note animation
     
-  } else {   //sustain pedal on 
-
-    if (tempNotes.size()==0) {
-      tempNotes.add(newNote);
-      
-    } else {  //so tempChord could already have this pitch
-    
-      int indexAlreadySustained = 0;
-      for (int i=0; i<tempNotes.size(); i++) {  
-        if (tempNotes.get(i).getPitch() == pitch) {
-          indexAlreadySustained = i + 1;
-          break;
-        }
-      }
-      if (indexAlreadySustained>0) {
-        tempNotes.get(indexAlreadySustained-1).setVelocity(velocity);
-      } else {
-        tempNotes.add(newNote);
-      }
-    }
-  }
-
-  //println("tempNotes: "); //debug prints
-  //for (int i=0; i< tempNotes.size(); i++) {
-  //  println(tempNotes.get(i).getPitch() + " ");
-  //}
-  //println("prevNote: ");
-  //println(prevNote.getPitch());
-  
-  /*Antonino Code*/
-  step = 0;
-  isPressed = true;
-  ramp = new Ramp(/*duration = */times[step], /*start time = */millis(), /*ramp range = */0, /*attack step ID is 0*/ step, 0, velValues[0]);
-  startingTime = millis();
-  /*End Antonino Code*/
-  
+   newNote.noteOnEffect();
+   tempNotes.add(newNote);
+   
 }
 
 //NOTE OFF
 void noteOff(int channel, int pitch, int velocity) {
-  isPressed = false;
-  if (sustainPedal) {      //sustain on ---> so i do not want the noteOff
-
-    if (sustainedNotes.size()>0) { //check if it is already sustained
-
-      boolean alreadySustained = false;
-      for (int i=0; i<sustainedNotes.size(); i++) { // if sustain on could be a Note Off of a pitch already in tempChord
-        if (sustainedNotes.get(i).getPitch() == pitch) {
-          alreadySustained = true;
-          break;
-        }
-      }
-      if (!alreadySustained) {
-        Note newSustainedNote = new Note(pitch, velocity);
-        sustainedNotes.add(newSustainedNote);
-      }
-      
-    } else {
-      Note newSustainedNote = new Note(pitch, velocity);
-      sustainedNotes.add(newSustainedNote);
-    }
-    
-  } else {  //sustain off
   
     println("Note OFF");
+    
     
     for (int i=0; i<tempNotes.size(); i++ ) {
       if (tempNotes.get(i).getPitch() == pitch) {
         if (i == tempNotes.size()-1) {//synth animation
           prevNote = tempNotes.get(i); 
         }
-        tempNotes.remove(i);
+        tempNotes.get(i).ramp.startRelease(index); //per rimuovere la nota dopo la fine del release
       }
     }
     
     if (!tempNotes.isEmpty()) { //synth animation
-      tempNotes.get(tempNotes.size()-1).animation("noteOff");
+      tempNotes.get(tempNotes.size()-1).noteOffEffect();
     }
     
   }
-}
 
-//println("tempNotes: "); //debug prints
-//for (int i=0; i< tempNotes.size(); i++) {
-//  println(tempNotes.get(i).getPitch() + " ");
-//}
-//println("sustainedNotes: ");
-//for (int i=0; i< sustainedNotes.size(); i++) {
-//  println(sustainedNotes.get(i).getPitch() + " ");
-//}
-//println("prevNote: ");
-//println(prevNote.getPitch());
 
 //CONTROL CHANGE
 void controllerChange(int channel, int number, int value) {
 
   println("CONTROL: " + number + " CONTROL VALUE: " + value);
-
+  println("channel " + channel);
+  println("t3: " + times[3]);
   switch (number) {
   case 64: //Sustain Pedal  --->   ≤63 off, ≥64 on
 
@@ -139,10 +73,6 @@ void controllerChange(int channel, int number, int value) {
     }
     break;
 
-  //case 11: //Expression Pedal ----> 0-127
-    
-  //  break;
-
   case 1: //Modulation Wheel ---> 0-127
     modulation=mapLog(value, 0, 127, 1, 100);
     break;
@@ -155,30 +85,65 @@ void controllerChange(int channel, int number, int value) {
     break;
     
   case 43:
-    cutOffFilter = mapLog(value, 0, 127, 0.1, 255); //cut off
-    println(cutOffFilter);
-  
+    cutOffFilter = (int)(mapLog(value, 0, 127, 0.1, 255)); //cut off
+    println("Cutoff filter is " + cutOffFilter);
+    break;
+
   case 16: //atck
-    times[0] = map(value, 0, 127, 0, 3000);
+    times[0] = map(value, 0, 127, 0, 3500);
     println("AttackTime is " + times[0]);
     break;
   case 17: //dcy
-    times[1] = map(value, 0, 127, 0, 6000);
+    times[1] = map(value, 0, 127, 0, 4000);
     println("DecayTime is " + times[1]);
     break; 
   
   case 18: //sus
     ampSus = map(value, 0, 127, 0, 100);
+    times[2] = -1;
     break;
   
   case 19: //rel
-    times[2] = map(value, 0, 127, 0, 6000);
-    println("ReleaseTime is " + times[2]);
+    times[3] = mapLog(value, 0, 127, 0.1, 4500);
+    println("ReleaseTime is " + times[3]);
+    break;
+    
+  case 20:
+    EGTimes[0] = map(value, 0, 127, 0, 3000);
+    break;
+      
+  case 21:
+    EGTimes[1] = map(value, 0, 127, 0, 6000);
+    break;
+      
+  case 22:
+    EGAmpSus = map(value, 0, 127, 0, 100);
+    EGTimes[2] = -1;
+    break;
+      
+  case 23:
+    EGTimes[3] = map(value, 0, 127, 0, 6000);
     break;
   
+  case 45: //EG INT
+     /*
+    if(value>=68) {
+      contour = 1;
+    }
+    else if (value<=60) {
+      contour = -1;
+    }
+    else {
+      contour = 0;
+    }*/
+    
+    EGInt = map(value, 0, 127, -100, 100);//prima era mappato da 0 a 255
+    break;
+    
   default:
     //nothing
   }
+  
 }
 
 
