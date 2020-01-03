@@ -23,6 +23,12 @@ void setup() {
   //prevNote = new Note(0, 0);
   
   adsrInit();
+  ampSus = 100;
+  EGAmpSus = 0;
+  cutOffFilter = 255;
+  EGInt = 0;
+  modulationRate = 43.5;
+  modulation = 0;
 
   //Ani.init(this); // Animation library init 
   
