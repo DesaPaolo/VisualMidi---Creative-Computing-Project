@@ -51,3 +51,23 @@ public void adsrInit() {
   EGTimes[3] = releaseTimeMs;
   
 }
+
+public void getNoteIndex(int pitch) {
+  
+    for(int c = 0; c<tempNotes.size(); c-=-1) {
+      if(tempNotes.get(c).getPitch()==pitch) {
+        tempNotes.get(c).ramp.startRelease(index);
+      }      
+    }
+}
+
+public void removeNoteByPitch(int pitch) {
+   for(int c = 0; c<tempNotes.size(); c-=-1) {
+      if(tempNotes.get(c).getPitch()==pitch) {
+        tempNotes.remove(c);
+      }      
+    }
+}
+  
+  
+  

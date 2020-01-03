@@ -25,13 +25,13 @@ void noteOff(int channel, int pitch, int velocity) {
   
     println("Note OFF");
     
+    
     for (int i=0; i<tempNotes.size(); i++ ) {
       if (tempNotes.get(i).getPitch() == pitch) {
         if (i == tempNotes.size()-1) {//synth animation
           prevNote = tempNotes.get(i); 
         }
         tempNotes.get(i).ramp.startRelease(index); //per rimuovere la nota dopo la fine del release
-        //tempNotes.remove(i);
       }
     }
     
@@ -95,11 +95,11 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case 16: //atck
-    times[0] = map(value, 0, 127, 0, 3000);
+    times[0] = map(value, 0, 127, 0, 3500);
     println("AttackTime is " + times[0]);
     break;
   case 17: //dcy
-    times[1] = map(value, 0, 127, 0, 6000);
+    times[1] = map(value, 0, 127, 0, 4000);
     println("DecayTime is " + times[1]);
     break; 
   
@@ -109,7 +109,7 @@ void controllerChange(int channel, int number, int value) {
     break;
   
   case 19: //rel
-    times[3] = map(value, 0, 127, 0, 6000);
+    times[3] = mapLog(value, 0, 127, 0.1, 4500);
     println("ReleaseTime is " + times[3]);
     break;
     
