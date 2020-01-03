@@ -4,6 +4,10 @@ import javax.sound.midi.*;
 import de.looksgood.ani.*;
 import de.looksgood.ani.easing.*;
 import java.lang.Math;
+import java.io.*;
+import java.util.*;
+import java.lang.*;
+import java.text.SimpleDateFormat;  
 
 
 //MidiBus launchPad;
@@ -12,6 +16,8 @@ MidiBus minilogue;
 
 boolean sustainPedal = false;
 ArrayList<Note> sustainedNotes;
+ArrayList<Preset> presets = new ArrayList<Preset>();
+ArrayList<Rectangle> loadButtons = new ArrayList<Rectangle>();
 
 float pitchBend = 0;
 float modulation = 0;
