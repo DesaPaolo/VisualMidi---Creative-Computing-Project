@@ -54,9 +54,16 @@ class Note {
     this.ramp = new Ramp(times[0],millis(),0,0,0,this.adsrValues[0],this, false);
     //println("AttackValueInAmplitude "+this.adsrValues[0]+ " is reached after " + times[0] + "ms");
     //println("SustainValueInAmplitude "+this.adsrValues[1]+ " is reached after " + times[1] + "ms");
-    this.filterAdsrValues[0] = EGInt;//is like the cutoff frequency, from 0 to 255
-    this.filterAdsrValues[1] = EGInt * ((float)EGAmpSus/100);
+    
+    this.filterAdsrValues[0] = cutOffFilter;//is like the cutoff frequency, from 0 to 255
+    this.filterAdsrValues[1] = min(255, cutOffFilter + (cutOffFilter * EGInt/100 * /*contour * */ ((float)EGAmpSus/100)));
+    if(EGInt>0) {
+       this.filterAdsrValues[1] = cutOffFilter + (cutOffFilter * EGInt/100 * /*contour * */ ((float)EGAmpSus/100));
+       if(this.filterAdsrValues[1] > 255) this.filterAdsrValues[1] = 255;
+    }
     this.filterAdsrValues[2] = cutOffFilter;
+
+
     //parto dal cutoff value, arrivo fino all'eg int. Poi mi fermo in sustain nel EG int scalato 
     //per il valore percentuale di sustain, e nel release torno al valore di cutoff
     this.filterRamp = new Ramp(EGTimes[0],millis(),0,0, cutOffFilter, this.filterAdsrValues[0], this, true);

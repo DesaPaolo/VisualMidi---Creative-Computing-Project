@@ -131,7 +131,18 @@ void controllerChange(int channel, int number, int value) {
     break;
   
   case 45: //EG INT
-    EGInt = map(value, 0, 127, 0, 255);
+     /*
+    if(value>=68) {
+      contour = 1;
+    }
+    else if (value<=60) {
+      contour = -1;
+    }
+    else {
+      contour = 0;
+    }*/
+    
+    EGInt = map(value, 0, 127, -100, 100);//prima era mappato da 0 a 255
     break;
     
   default:
