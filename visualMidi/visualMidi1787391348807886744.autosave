@@ -83,9 +83,6 @@ void draw() {
 
 void keyPressed(){
   if (gettingUserInput){
-    if (msg.equals(INIT_MSG)) {
-      msg="";
-    }
     scanInput();
   }
 }
@@ -239,9 +236,7 @@ void storeMode(){
   fill(0);
   text("Store Preset", (xStoreBtn + 20), (yStoreBtn + 20));
   //prevDraw();
-  if(gettingUserInput){
-    showInputScanning();
-  }
+  
   
   if (mousePressed && buttonPressed(xStoreBtn, yStoreBtn, wBtn, hBtn)){
     savePreset();
@@ -261,7 +256,7 @@ void savePreset(){
   Date actualDate = Calendar.getInstance().getTime();
   Preset actualPreset = new Preset(name, actualDate, sustainPedal, modulation, modulationRate, cutOffFilter, times, ampSus);
   
-  loadPresetsFromFile(); //salvataggio from file to var senza grafica //<>//
+  loadPresetsFromFile(); //salvataggio from file to var senza grafica
   addPreset(actualPreset); //Aggiunge preset controllando se overwrite
   
   for(int i=0; i<presets.size(); i++){
@@ -430,10 +425,10 @@ void storePresetToFile (Preset actualPreset){
 
 void showInputScanning(){
   fill(255);
-  text(msg, 100, 200);
+  text(msg, 100, 100);
   
   fill(0,250,0);
-  text("Mouse click to reset message, Return to store", 100, 250);
+  text("Mouse click to reset message, Return to store", 100, 800);
 }
 
 void scanInput(){
