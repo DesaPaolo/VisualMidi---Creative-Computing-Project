@@ -56,11 +56,7 @@ class Note {
     //println("SustainValueInAmplitude "+this.adsrValues[1]+ " is reached after " + times[1] + "ms");
     
     this.filterAdsrValues[0] = cutOffFilter;//is like the cutoff frequency, from 0 to 255
-    this.filterAdsrValues[1] = min(255, cutOffFilter + (cutOffFilter * EGInt/100 * /*contour * */ ((float)EGAmpSus/100)));
-    if(EGInt>0) {
-       this.filterAdsrValues[1] = cutOffFilter + (cutOffFilter * EGInt/100 * /*contour * */ ((float)EGAmpSus/100));
-       if(this.filterAdsrValues[1] > 255) this.filterAdsrValues[1] = 255;
-    }
+    this.filterAdsrValues[1] = min(255, cutOffFilter + (255 * (EGInt/100) * /*contour * */ ((float)EGAmpSus/100)));
     this.filterAdsrValues[2] = cutOffFilter;
 
 
