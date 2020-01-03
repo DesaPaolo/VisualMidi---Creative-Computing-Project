@@ -4,7 +4,7 @@ int choice;
 PImage startscreen;
 PFont newFont;
 int mode;
-int xBtn1, yBtn1, wBtn, hBtn, xBtn2, yBtn2, xBtn3, yBtn3;
+int xBtn1, yBtn1, wBtn, hBtn, xBtn2, yBtn2, xBtn3, yBtn3, xBtn4, yBtn4;
 
 
 void setup() {
@@ -27,12 +27,14 @@ void setup() {
   //Ani.init(this); // Animation library init 
   
   mode = 0; //Menu
-  xBtn1 = 450;
+  xBtn1 = 250; //Store
   yBtn1 = 100;
-  xBtn2 = 800;
+  xBtn2 = 600; //Load
   yBtn2 = 100;
-  xBtn3 = 100;
-  yBtn3 = 50;
+  xBtn3 = 900; //Back to Menu
+  yBtn3 = 100;
+  xBtn4 = 100; //Play
+  yBtn4 = 50;
   wBtn = 150;
   hBtn = 50;
   times = new float [3];
@@ -47,23 +49,28 @@ void draw() {
   if (mode == 0){ //menu
     image(startscreen, 0, 0);
     text("Welcome to Korg Minilogue's Visual MIDI", 600, 70);
+    fill(255);
     rect(xBtn1, yBtn1, wBtn, hBtn);
     fill(0);
     text("Store Mode", (xBtn1 + 20), (yBtn1 + 20));
     fill(255);
     rect(xBtn2, yBtn2, wBtn, hBtn);
     fill(0);
-    text("Load Mode (Play)", (xBtn2 + 20), (yBtn2 + 20));
+    text("Load Mode", (xBtn2 + 20), (yBtn2 + 20));
     fill(255);
+    rect(xBtn3, yBtn3, wBtn, hBtn);
+    fill(0);
+    text("Play Mode", (xBtn3 + 20), (yBtn3 + 20));
     
   }
   else if (mode == 1){ //store
     storeMode();
   }
   else if (mode == 2){ //play
-    
+    loadMode();
+  }
+  else if (mode == 3){ //play
     playDraw();
-    //loadMode();
   }
   
   
@@ -75,9 +82,12 @@ void draw() {
       else if (buttonPressed(xBtn2, yBtn2, wBtn, hBtn)){
         mode = 2;
       }
+      else if (buttonPressed(xBtn3, yBtn3, wBtn, hBtn)){
+        mode = 3; //play
+      }
     }
-    else if (mode == 1 || mode == 2){
-      if (buttonPressed(xBtn3, yBtn3, wBtn, hBtn)){
+    else if (mode == 1 || mode == 2 || mode == 3){
+      if (buttonPressed(xBtn4, yBtn4, wBtn, hBtn)){
         mode = 0;
       }
     }
@@ -94,6 +104,13 @@ void playDraw(){
   fill(cutOffFilter);
   rect(0, 0, width, height);
   lights();
+    
+  fill(255);  
+  text("Play Mode", 500, 100);
+  fill(255);
+  rect(xBtn4, yBtn4, wBtn, hBtn);
+  fill(0);
+  text("Back to Menu", (xBtn4 + 20), (yBtn4 + 20));
  
   //Chiama update della view per ogni nota. Da aggiungere differenza tra monofonia e polifonia e limite 
   //massimo di voci a 4, per rispecchiare sempre l'audio output del minilogue.
@@ -194,14 +211,14 @@ void storeMode(){
   background(0);
   text("Store Mode", 500, 100);
   
-  rect(xBtn3, yBtn3, wBtn, hBtn);
+  fill(255);
+  rect(xBtn4, yBtn4, wBtn, hBtn);
   fill(0);
-  text("Back to Menu", (xBtn3 + 20), (yBtn3 + 20));
+  text("Back to Menu", (xBtn4 + 20), (yBtn4 + 20));
   fill(255);
   rect(xStoreBtn, yStoreBtn, wBtn, hBtn);
   fill(0);
   text("Store Preset", (xStoreBtn + 20), (yStoreBtn + 20));
-  fill(255);
   //prevDraw();
   
   if (mousePressed && buttonPressed(xStoreBtn, yStoreBtn, wBtn, hBtn)){
@@ -320,8 +337,8 @@ void drawMenuPresets(){
   int aListSize = presets.size();
   int xBox, yBox, wBox, hBox, leftMarginNames, upperMarginNames, hLine, xLoadBtn, yLoadBtn, wLoadBtn, hLoadBtn;
   //println("aListSize is " + aListSize);
-  xBtn3 = 100;
-  yBtn3 = 50;
+  xBtn4 = 100;
+  yBtn4 = 50;
   wBtn = 150;
   hBtn = 50;
   xBox = 800;
@@ -338,11 +355,11 @@ void drawMenuPresets(){
   
   background(0);
   fill(255);
-  text("Load Mode (Play)", 500, 100);
+  text("Load Mode", 500, 100);
   fill(255);
-  rect(xBtn3, yBtn3, wBtn, hBtn);
+  rect(xBtn4, yBtn4, wBtn, hBtn);
   fill(0);
-  text("Back to Menu", (xBtn3 + 20), (yBtn3 + 20));
+  text("Back to Menu", (xBtn4 + 20), (yBtn4 + 20));
   
   fill(255);
   rect(xBox, yBox, wBox, hBox);
