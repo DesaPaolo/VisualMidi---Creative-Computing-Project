@@ -276,14 +276,14 @@ void loadPresets() throws Exception{
         //System.out.println(st);
         //println(st.equals("sustainAmp 0.0"));
         if (st.equals("start")) {
-          println("Starting");
+          //println("Starting");
           newPreset = new Preset(); 
         }
         else if ((st.equals("end"))){ //<>//
-            println("i'm done");
-            presets.add(newPreset); //Exception
+            //println("i'm done");
+            addPreset(newPreset); //Exception
           }
-        else if (st.isEmpty()){println("empty String");}
+        else if (st.isEmpty()){}
         else if ((st.substring(0,5)).equals("name ")){newPreset.setPresetName(st.substring(5));}
         else if ((st.substring(0,5)).equals("date ")){newPreset.setCreationDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy",  Locale.ENGLISH).parse(st.substring(5)));} 
         else if ((st.substring(0,10)).equals("decayTime ")){newPreset.setDecay(Float.parseFloat(st.substring(10)));}
@@ -302,7 +302,8 @@ void loadPresets() throws Exception{
       println(e); //<>//
   }
   //Iterator iterator = presets.iterator();
-  int aListSize = 3;
+  int aListSize = presets.size();
+  println("aListSize is " + aListSize);
   xBox = 800;
   yBox = 200;
   wBox = 450;
@@ -321,12 +322,56 @@ void loadPresets() throws Exception{
     fill(0);
     rect(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn);
     fill(255);
-    text("Load", (xLoadBtn + 20), (yLoadBtn + (i*hLine)+10));
+    Rectangle newRect = new Rectangle(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn, i);
+    loadButtons.add(newRect);
+    text("Load", (xLoadBtn + 20), (yLoadBtn + (i*hLine)+12));
     fill(0);
+  }
+  if(mousePressed){
+    if(loadBtnClicked(loadButtons)!= -1){
+      activatePreset(loadBtnClicked(loadButtons));
+    }  
   }
   //while (iterator.hasNext()){}
     //println(iterator.next().toString());
   //}
 }
 
-void activatePreset(){}
+int loadBtnClicked(ArrayList<Rectangle> buttons){
+  for(int i=0; i<buttons.size(); i++){
+    int x = buttons.get(i).getX();
+    int y = buttons.get(i).getY();
+    int w = buttons.get(i).getWidth();
+    int h = buttons.get(i).getHeight();
+    if(buttonPressed(x, y, w, h)){return buttons.get(i).getIndex();}
+  }
+  return -1;
+}
+
+void activatePreset(int index){
+  Preset activePreset = presets.get(index);
+  cutOffFilter = activePreset.getCutoffFil();
+  times[0] = activePreset.getAttack();
+  times[1] = activePreset.getDecay();
+  times[2] = activePreset.getRelease();
+  modulationRate = activePreset.getModRate();
+  modulation = activePreset.getMod();
+  sustainPedal = activePreset.getSusPedal();
+  ampSus = activePreset.getAmpSus();
+  
+  return;
+}
+
+void addPreset (Preset presetToAdd){
+  for(int i=0; i<presets.size(); i++){
+    if (presets.get(i).getPresetName().equals(presetToAdd.getPresetName())){
+      presets.remove(i);
+      presets.add(i, presetToAdd);
+      println("overwriting preset called " + presets.get(i).getPresetName());
+      return;
+    }  
+  }
+  presets.add(presetToAdd);
+  println("saving new preset called " + presets.get(presets.size()-1).getPresetName());
+  return;
+}

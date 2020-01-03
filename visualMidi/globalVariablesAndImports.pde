@@ -17,7 +17,8 @@ MidiBus loopMIDI;
 int instrumentType; //polyphonic or monophonic
 
 ArrayList<Note> tempNotes;
-ArrayList<Preset> presets = new ArrayList<Preset>();;
+ArrayList<Preset> presets = new ArrayList<Preset>();
+ArrayList<Rectangle> loadButtons = new ArrayList<Rectangle>();
 boolean sustainPedal = false;
 ArrayList<Note> sustainedNotes;
 
