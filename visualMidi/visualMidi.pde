@@ -50,7 +50,7 @@ void setup() {
   yBtn1 = 100;
   xBtn2 = 800;
   yBtn2 = 100;
-  xBtn3 = 900;
+  xBtn3 = 100;
   yBtn3 = 50;
   wBtn = 150;
   hBtn = 50;
@@ -169,13 +169,6 @@ void storeMode(){
 }
 
 void loadMode(){
-  background(0);
-  text("Load Mode (Play)", 500, 100);
-  
-  rect(xBtn3, yBtn3, wBtn, hBtn);
-  fill(0);
-  text("Back to Menu", (xBtn3 + 20), (yBtn3 + 20));
-  fill(255);
   //prevDraw();
   
   try {
@@ -234,107 +227,20 @@ void savePreset(){
   Date actualDate = Calendar.getInstance().getTime();
   Preset actualPreset = new Preset(name, actualDate, sustainPedal, modulation, modulationRate, cutOffFilter, times, ampSus);
   
+  loadPresetsFromFile(); //salvataggio from file to var senza grafica
+  addPreset(actualPreset); //Aggiunge preset controllando se overwrite
   
-  
-  try{
-    FileWriter fileWriter = new FileWriter("presets.txt");
-    fileWriter.write("start\n");
-    fileWriter.write("name " + actualPreset.getPresetName() + "\n");
-    fileWriter.write("date " + actualPreset.getCreationDate() +"\n");
-    fileWriter.write("sustainPedal " + actualPreset.getSusPedal() + "\n");
-    fileWriter.write("modulation " + actualPreset.getMod() + "\n");
-    fileWriter.write("modulationRate " + actualPreset.getModRate() + "\n");
-    fileWriter.write("cutoffFilter " + actualPreset.getCutoffFil() + "\n");
-    fileWriter.write("attackTime " + actualPreset.getAttack() + "\n");
-    fileWriter.write("decayTime " + actualPreset.getDecay() + "\n");
-    fileWriter.write("sustainAmp " + actualPreset.getAmpSus() + "\n");
-    fileWriter.write("releaseTime " + actualPreset.getRelease() + "\n");
-    fileWriter.write("end\n");
-    fileWriter.close(); 
-    println("saved preset");
-  } catch (IOException e) {
-    // exception handling
-    println("IO Exception");
+  for(int i=0; i<presets.size(); i++){
+    storePresetToFile(presets.get(i));
   }
-
-
+  
 }
 
-void loadPresets() throws Exception{
+void loadPresets() throws Exception{ 
   
-  int xBox, yBox, wBox, hBox, leftMarginNames, upperMarginNames, hLine, xLoadBtn, yLoadBtn, wLoadBtn, hLoadBtn;
-  
-  
-  File file = new File("presets.txt"); 
-    try {
-      BufferedReader br = new BufferedReader(new FileReader(file)); 
-      Preset newPreset;
-      String st;
-      
-      newPreset = new Preset(); 
-      while ((st = br.readLine()) != null) {
-        //System.out.println(st);
-        //println(st.equals("sustainAmp 0.0"));
-        if (st.equals("start")) {
-          //println("Starting");
-          newPreset = new Preset(); 
-        }
-        else if ((st.equals("end"))){ //<>//
-            //println("i'm done");
-            addPreset(newPreset); //Exception
-          }
-        else if (st.isEmpty()){}
-        else if ((st.substring(0,5)).equals("name ")){newPreset.setPresetName(st.substring(5));}
-        else if ((st.substring(0,5)).equals("date ")){newPreset.setCreationDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy",  Locale.ENGLISH).parse(st.substring(5)));} 
-        else if ((st.substring(0,10)).equals("decayTime ")){newPreset.setDecay(Float.parseFloat(st.substring(10)));}
-        else if ((st.substring(0,11)).equals("modulation ")){newPreset.setMod(Float.parseFloat(st.substring(11)));}
-        else if ((st.substring(0,11)).equals("attackTime ")){newPreset.setAttack(Float.parseFloat(st.substring(11)));}
-        else if ((st.substring(0,11)).equals("sustainAmp ")){newPreset.setAmpSus(Float.parseFloat(st.substring(11)));}
-        else if ((st.substring(0,12)).equals("releaseTime ")){newPreset.setRelease(Float.parseFloat(st.substring(12)));}
-        else if ((st.substring(0,13)).equals("sustainPedal ")){newPreset.setSusPedal(Boolean.parseBoolean(st.substring(13)));}
-        else if ((st.substring(0,13)).equals("cutoffFilter ")){newPreset.setCutoffFil(Float.parseFloat(st.substring(13)));}
-        else if ((st.substring(0,15)).equals("modulationRate ")){newPreset.setModRate(Float.parseFloat(st.substring(15)));}
-        else {System.out.println("Substring is " + st + " Error");}
-      }
-      br.close();
-    } catch (Exception e) {
-    // exception handling
-      println(e); //<>//
-  }
+  loadPresetsFromFile(); //<>// //<>//
   //Iterator iterator = presets.iterator();
-  int aListSize = presets.size();
-  println("aListSize is " + aListSize);
-  xBox = 800;
-  yBox = 200;
-  wBox = 450;
-  hBox = aListSize*50;
-  leftMarginNames = 20;
-  upperMarginNames = 30;
-  hLine = 20;
-  xLoadBtn = 1100;
-  yLoadBtn = ((yBox+upperMarginNames) - 15);
-  wLoadBtn = 80;
-  hLoadBtn = 15;
-  rect(xBox, yBox, wBox, hBox);
-  fill(0);
-  for(int i=0; i<aListSize; i++){
-    text((presets.get(i).getPresetName() + "\t  " + presets.get(i).getCreationDate()), xBox+leftMarginNames, ((yBox+upperMarginNames) + (i*hLine)));
-    fill(0);
-    rect(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn);
-    fill(255);
-    Rectangle newRect = new Rectangle(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn, i);
-    loadButtons.add(newRect);
-    text("Load", (xLoadBtn + 20), (yLoadBtn + (i*hLine)+12));
-    fill(0);
-  }
-  if(mousePressed){
-    if(loadBtnClicked(loadButtons)!= -1){
-      activatePreset(loadBtnClicked(loadButtons));
-    }  
-  }
-  //while (iterator.hasNext()){}
-    //println(iterator.next().toString());
-  //}
+  drawMenuPresets();
 }
 
 int loadBtnClicked(ArrayList<Rectangle> buttons){
@@ -374,4 +280,116 @@ void addPreset (Preset presetToAdd){
   presets.add(presetToAdd);
   println("saving new preset called " + presets.get(presets.size()-1).getPresetName());
   return;
+}
+
+void loadPresetsFromFile(){
+  File file = new File("presets.txt"); 
+    try {
+      BufferedReader br = new BufferedReader(new FileReader(file)); 
+      Preset newPreset;
+      String st;
+      
+      newPreset = new Preset(); 
+      while ((st = br.readLine()) != null) {
+        //System.out.println(st);
+        //println(st.equals("sustainAmp 0.0"));
+        if (st.equals("start")) {
+          //println("Starting");
+          newPreset = new Preset(); 
+        }
+        else if ((st.equals("end"))){
+            //println("i'm done");
+            addPreset(newPreset); //Exception
+          }
+        else if (st.isEmpty()){}
+        else if ((st.substring(0,5)).equals("name ")){newPreset.setPresetName(st.substring(5));}
+        else if ((st.substring(0,5)).equals("date ")){newPreset.setCreationDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy",  Locale.ENGLISH).parse(st.substring(5)));} 
+        else if ((st.substring(0,10)).equals("decayTime ")){newPreset.setDecay(Float.parseFloat(st.substring(10)));}
+        else if ((st.substring(0,11)).equals("modulation ")){newPreset.setMod(Float.parseFloat(st.substring(11)));}
+        else if ((st.substring(0,11)).equals("attackTime ")){newPreset.setAttack(Float.parseFloat(st.substring(11)));}
+        else if ((st.substring(0,11)).equals("sustainAmp ")){newPreset.setAmpSus(Float.parseFloat(st.substring(11)));}
+        else if ((st.substring(0,12)).equals("releaseTime ")){newPreset.setRelease(Float.parseFloat(st.substring(12)));}
+        else if ((st.substring(0,13)).equals("sustainPedal ")){newPreset.setSusPedal(Boolean.parseBoolean(st.substring(13)));}
+        else if ((st.substring(0,13)).equals("cutoffFilter ")){newPreset.setCutoffFil(Float.parseFloat(st.substring(13)));}
+        else if ((st.substring(0,15)).equals("modulationRate ")){newPreset.setModRate(Float.parseFloat(st.substring(15)));}
+        else {System.out.println("Substring is " + st + " Error");}
+      }
+      br.close();
+    } catch (Exception e) {
+    // exception handling
+      println(e);
+  }
+}
+
+void drawMenuPresets(){
+  int aListSize = presets.size();
+  int xBox, yBox, wBox, hBox, leftMarginNames, upperMarginNames, hLine, xLoadBtn, yLoadBtn, wLoadBtn, hLoadBtn;
+  //println("aListSize is " + aListSize);
+  xBtn3 = 100;
+  yBtn3 = 50;
+  wBtn = 150;
+  hBtn = 50;
+  xBox = 800;
+  yBox = 200;
+  wBox = 450;
+  hBox = aListSize*50;
+  leftMarginNames = 20;
+  upperMarginNames = 30;
+  hLine = 20;
+  xLoadBtn = 1100;
+  yLoadBtn = ((yBox+upperMarginNames) - 15);
+  wLoadBtn = 80;
+  hLoadBtn = 15;
+  
+  background(0);
+  fill(255);
+  text("Load Mode (Play)", 500, 100);
+  fill(255);
+  rect(xBtn3, yBtn3, wBtn, hBtn);
+  fill(0);
+  text("Back to Menu", (xBtn3 + 20), (yBtn3 + 20));
+  
+  fill(255);
+  rect(xBox, yBox, wBox, hBox);
+  for(int i=0; i<aListSize; i++){
+    fill(0);
+    text((presets.get(i).getPresetName() + "\t  " + presets.get(i).getCreationDate()), xBox+leftMarginNames, ((yBox+upperMarginNames) + (i*hLine)));
+    fill(0);
+    rect(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn);
+    Rectangle newRect = new Rectangle(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn, i);
+    loadButtons.add(newRect);
+    fill(255);
+    text("Load", (xLoadBtn + 20), (yLoadBtn + (i*hLine)+12));
+  }
+  if(mousePressed){
+    if(loadBtnClicked(loadButtons)!= -1){
+      activatePreset(loadBtnClicked(loadButtons));
+    }  
+  }
+  //while (iterator.hasNext()){}
+    //println(iterator.next().toString());
+  //}
+}
+
+void storePresetToFile (Preset actualPreset){
+  try{
+    FileWriter fileWriter = new FileWriter("presets.txt");
+    fileWriter.write("start\n");
+    fileWriter.write("name " + actualPreset.getPresetName() + "\n");
+    fileWriter.write("date " + actualPreset.getCreationDate() +"\n");
+    fileWriter.write("sustainPedal " + actualPreset.getSusPedal() + "\n");
+    fileWriter.write("modulation " + actualPreset.getMod() + "\n");
+    fileWriter.write("modulationRate " + actualPreset.getModRate() + "\n");
+    fileWriter.write("cutoffFilter " + actualPreset.getCutoffFil() + "\n");
+    fileWriter.write("attackTime " + actualPreset.getAttack() + "\n");
+    fileWriter.write("decayTime " + actualPreset.getDecay() + "\n");
+    fileWriter.write("sustainAmp " + actualPreset.getAmpSus() + "\n");
+    fileWriter.write("releaseTime " + actualPreset.getRelease() + "\n");
+    fileWriter.write("end\n");
+    fileWriter.close(); 
+    println("saved preset");
+  } catch (IOException e) {
+    // exception handling
+    println("IO Exception");
+  }
 }
