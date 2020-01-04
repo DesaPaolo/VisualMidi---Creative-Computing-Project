@@ -129,7 +129,7 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case 23:
-    EGTimes[3] = map(value, 0, 127, 0, 6000);
+    EGTimes[3] = map(value, 0, 127, 0, 4500);
     break;
 
   case 45: //EG INT
