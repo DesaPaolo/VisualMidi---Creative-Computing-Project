@@ -22,9 +22,7 @@ void setup() {
 }
 
 void draw() {
-  
-  println("mode: " + mode);
- 
+   
   if (mode == 0){ //menu
     image(startscreen, 0, 0);
     text("Welcome to Korg Minilogue's Visual MIDI", 600, 70);

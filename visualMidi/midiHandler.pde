@@ -4,7 +4,7 @@ private int instrumentType = 0;
 public void midiInit() {
 
   MidiBus.list(); // List all our MIDI devices
-  minilogue = new MidiBus(this, 0, 3);// Connect to one of the devices
+  minilogue = new MidiBus(this, 1, 3);// Connect to one of the devices
   tempNotes = new ArrayList<Note>();
 }
 
@@ -147,7 +147,13 @@ void controllerChange(int channel, int number, int value) {
   default:
     //nothing
   }
+  updateModel();
 }
+
+private void updateModel() {
+  
+}
+
 
 
 //PITCH BEND CONTROL (!= CONTROL CHANGE)  
@@ -168,7 +174,7 @@ void midiMessage(MidiMessage message) { // You can also use midiMessage(MidiMess
   //println("--------");
   //println("Status Byte/MIDI Command:"+message.getStatus());
   for (int i = 1; i < message.getMessage().length; i++) {    //SHOW MIDI MESSAGES CODE & VALUE
-    //println("Param "+(i+1)+": "+(int)(message.getMessage()[i] & 0xFF));
+    println("Param "+(i+1)+": "+(int)(message.getMessage()[i] & 0xFF));
   }
   if (message.getStatus() == 224) { //PITCHBEND! !!!MSB ARE THE SECOND MESSAGE----> we consider only MSB
     pitchBend = map((int)(message.getMessage()[2] & 0xFF), 0, 127, -64, 64);
