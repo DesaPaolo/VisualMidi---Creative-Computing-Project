@@ -57,6 +57,3 @@ float EGInt;
 int EGIntInteger;
 float[] EGTimes;
 float EGAmpSus;
-
-
-int index = 0; // 0 -> linear glide, 1 -> exp glide

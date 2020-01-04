@@ -4,7 +4,7 @@ private int instrumentType = 0;
 public void midiInit() {
 
   MidiBus.list(); // List all our MIDI devices
-  minilogue = new MidiBus(this, 0, 3);// Connect to one of the devices
+  minilogue = new MidiBus(this, 1, 3);// Connect to one of the devices
   tempNotes = new ArrayList<Note>();
 }
 

@@ -39,6 +39,7 @@ class Note {
     if(toRemove) removeNoteByPitch(this.pitch)/*tempNotes.remove(ramp.index)*/;
     this.sphere.drawSphere(this.ramp.rampValue, this.filterRamp.rampValue, this.velocity);
   }
+  
   public void noteOnEffect() {
     this.initAdsrRamp();
     //this.circle.animateNoteOn();
