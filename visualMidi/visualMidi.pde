@@ -2,8 +2,8 @@
 
 void setup() {
 
-  //size(1200,600, P3D);
-  fullScreen(P3D);
+  size(1200,600, P3D);
+  //fullScreen(P3D);
   background(0);
   startscreen = loadImage("korg.jpg");
   image(startscreen, 0, 0);
@@ -11,11 +11,6 @@ void setup() {
   midiInit();
   
   adsrInit();
-
-  ampSus = 100; //??
-  EGAmpSus = 0;//??
-  cutOffFilter = 255;//??
-  EGInt = 0;//??
   
   menuInit();
   

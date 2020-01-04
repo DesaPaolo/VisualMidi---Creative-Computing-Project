@@ -17,6 +17,11 @@ public void adsrInit() {
   EGTimes[2] = -1;
   EGTimes[3] = releaseTimeMs;
   
+  ampSus = 100; 
+  EGAmpSus = 0;
+  EGInt = 0;
+  contour = 0;
+  
 }
 
 private void nextRamp(Note note) {
