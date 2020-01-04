@@ -134,7 +134,7 @@ void controllerChange(int channel, int number, int value) {
 
   case 45: //EG INT
     /*
-    if(value>=68) {
+    if(value>=68) { 
      contour = 1;
      }
      else if (value<=60) {
