@@ -19,7 +19,7 @@ class Note {
     this.velocity = map(this.velocity, 0, 127, 0, 255);
     this.sphere = new Sphere(x, y, z);
     this.adsrValues = new float[3];
-    this.filterAdsrValues = new float[3];
+    this.filterAdsrValues = new float[4];
   }
 
   int getPitch() {
@@ -57,13 +57,14 @@ class Note {
     //println("SustainValueInAmplitude "+this.adsrValues[1]+ " is reached after " + times[1] + "ms");
     
     this.filterAdsrValues[0] = cutOffFilter;//is like the cutoff frequency, from 0 to 255
-    this.filterAdsrValues[1] = min(255, cutOffFilter + (255 * (EGInt/100) * /*contour * */ ((float)EGAmpSus/100)));
-    this.filterAdsrValues[2] = cutOffFilter;
+    this.filterAdsrValues[1] = min(255, cutOffFilter + (255 * (EGInt/100)));
+    this.filterAdsrValues[2] = min(255, cutOffFilter + 255 * ((float)EGAmpSus/100));
+    this.filterAdsrValues[3] = cutOffFilter;
 
 
     //parto dal cutoff value, arrivo fino all'eg int. Poi mi fermo in sustain nel EG int scalato 
     //per il valore percentuale di sustain, e nel release torno al valore di cutoff
-    this.filterRamp = new Ramp(EGTimes[0],millis(),0,0, cutOffFilter, this.filterAdsrValues[0], this, true);
+    this.filterRamp = new Ramp(EGTimes[0],millis(),0,0, this.filterAdsrValues[0], this.filterAdsrValues[1], this, true);
     //println(EGTimes);
     //println(filterAdsrValues);
 

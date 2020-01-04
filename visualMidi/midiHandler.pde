@@ -113,7 +113,10 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case 20:
-    EGTimes[0] = map(value, 0, 127, 0, 3000);
+    if(value<64) EGTimes[0] = map(value, 0, 127, 0.1, 1400); 
+    else {
+      EGTimes[0] = map(value, 0, 127, 0.1, 3500);
+    }
     break;
 
   case 21:
@@ -126,7 +129,7 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case 23:
-    EGTimes[3] = map(value, 0, 127, 0, 6000);
+    EGTimes[3] = map(value, 0, 127, 0, 4500);
     break;
 
   case 45: //EG INT
@@ -147,7 +150,13 @@ void controllerChange(int channel, int number, int value) {
   default:
     //nothing
   }
+  updateModel();
 }
+
+private void updateModel() {
+  
+}
+
 
 
 //PITCH BEND CONTROL (!= CONTROL CHANGE)  
@@ -168,7 +177,7 @@ void midiMessage(MidiMessage message) { // You can also use midiMessage(MidiMess
   //println("--------");
   //println("Status Byte/MIDI Command:"+message.getStatus());
   for (int i = 1; i < message.getMessage().length; i++) {    //SHOW MIDI MESSAGES CODE & VALUE
-    //println("Param "+(i+1)+": "+(int)(message.getMessage()[i] & 0xFF));
+    println("Param "+(i+1)+": "+(int)(message.getMessage()[i] & 0xFF));
   }
   if (message.getStatus() == 224) { //PITCHBEND! !!!MSB ARE THE SECOND MESSAGE----> we consider only MSB
     pitchBend = map((int)(message.getMessage()[2] & 0xFF), 0, 127, -64, 64);
