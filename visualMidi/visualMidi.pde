@@ -1,4 +1,4 @@
- //<>// //<>//
+ //<>// //<>// //<>//
 
 void setup() {
 
@@ -45,7 +45,6 @@ void draw() {
 
 void playDraw() {
   
-  println("susNotes " + susNotes.size());
 
   //background
   if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0%  
