@@ -37,6 +37,7 @@ void noteOff(int channel, int pitch, int velocity) {
         prevNote = tempNotes.get(i);
       }
       tempNotes.get(i).ramp.startRelease(); //per rimuovere la nota dopo la fine del release
+      tempNotes.get(i).filterRamp.startRelease();
     }
   }
 }
