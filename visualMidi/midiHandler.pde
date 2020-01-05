@@ -162,6 +162,7 @@ void controllerChange(int channel, int number, int value) {
      }*/
 
     EGInt = map(value, 0, 127, -100, 100);//prima era mappato da 0 a 255
+    println(EGInt);
     break;
    case 82:
      if(value == 127) poly = true;

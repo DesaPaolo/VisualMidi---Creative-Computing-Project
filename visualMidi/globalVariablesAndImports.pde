@@ -57,4 +57,6 @@ float EGInt;
 int EGIntInteger;
 float[] EGTimes;
 float EGAmpSus;
+
+float filterRampValueBackground;
 boolean poly;
