@@ -4,7 +4,7 @@ private int instrumentType = 0;
 public void midiInit() {
 
   MidiBus.list(); // List all our MIDI devices
-  minilogue = new MidiBus(this, 1, 3);// Connect to one of the devices
+  minilogue = new MidiBus(this, 0, 3);// Connect to one of the devices
   tempNotes = new ArrayList<Note>();
 }
 
@@ -39,10 +39,6 @@ void noteOff(int channel, int pitch, int velocity) {
       tempNotes.get(i).ramp.startRelease(); //per rimuovere la nota dopo la fine del release
     }
   }
-
-  if (!tempNotes.isEmpty()) { //synth animation
-    tempNotes.get(tempNotes.size()-1).noteOffEffect();
-  }
 }
 
 
@@ -55,7 +51,7 @@ void controllerChange(int channel, int number, int value) {
   switch (number) {
   case 64: //Sustain Pedal  --->   ≤63 off, ≥64 on
 
-    if (instrumentType == 0) { //piano
+    if (instrumentType == 0) {
 
       if (value>=64) { //sustain on
         sustainPedal = true;
@@ -78,14 +74,15 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case 1: //Modulation Wheel ---> 0-127
-    modulation=mapLog(value, 0, 127, 1, 100);
-    break;
-  case 26: //!!!!!!!! MINILOGUE HAS INT VALUE AS MODULATION WHEEL ---> 0-127
-    modulation=map(value, 0, 127, 1, 100); // or mapLog?
+    modulation = mapLog(value, 0, 127, 1, 100);
     break;
 
   case 24:
     modulationRate = mapLog(value, 0, 127, 0.1, 97); // minilogue "rate" knob
+    break;
+
+  case 26: //!!!!!!!! MINILOGUE HAS INT VALUE AS MODULATION WHEEL ---> 0-127
+    modulation = mapLog(value, 0, 127, 1, 100); // or mapLog?
     break;
 
   case 43:
@@ -94,11 +91,11 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case 16: //atck
-    times[0] = map(value, 0, 127, 0, 3500);
+    times[0] = mapLog(value, 0, 127, 1, 3500);
     println("AttackTime is " + times[0]);
     break;
   case 17: //dcy
-    times[1] = map(value, 0, 127, 0, 4000);
+    times[1] = mapLog(value, 0, 127, 1, 4000);
     println("DecayTime is " + times[1]);
     break; 
 
@@ -108,19 +105,20 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case 19: //rel
-    times[3] = mapLog(value, 0, 127, 0.1, 4500);
+    times[3] = mapLog(value, 0, 127, 1, 4500);
     println("ReleaseTime is " + times[3]);
     break;
 
   case 20:
-    if(value<64) EGTimes[0] = map(value, 0, 127, 0.1, 1400); 
-    else {
-      EGTimes[0] = map(value, 0, 127, 0.1, 3500);
+    if (value < 64) {
+      EGTimes[0] = mapLog(value, 0, 127, 1, 1400); 
+    } else {
+      EGTimes[0] = mapLog(value, 0, 127, 1, 3500);
     }
     break;
 
   case 21:
-    EGTimes[1] = map(value, 0, 127, 0, 6000);
+    EGTimes[1] = mapLog(value, 0, 127, 1, 6000);
     break;
 
   case 22:
@@ -129,7 +127,7 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case 23:
-    EGTimes[3] = map(value, 0, 127, 0, 4500);
+    EGTimes[3] = mapLog(value, 0, 127, 1, 4500);
     break;
 
   case 45: //EG INT
@@ -154,7 +152,6 @@ void controllerChange(int channel, int number, int value) {
 }
 
 private void updateModel() {
-  
 }
 
 

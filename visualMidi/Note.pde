@@ -42,11 +42,6 @@ class Note {
   
   public void noteOnEffect() {
     this.initAdsrRamp();
-    //this.circle.animateNoteOn();
-  }
-  
-  public void noteOffEffect() {
-    //this.circle.animateNoteOff();    
   }
   
   private void initAdsrRamp() {
