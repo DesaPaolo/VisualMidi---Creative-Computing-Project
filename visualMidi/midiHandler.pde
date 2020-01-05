@@ -28,6 +28,11 @@ void noteOn(int channel, int pitch, int velocity) {
       newNote.noteOnEffect();
       tempNotes.add(newNote);
   }
+  else {
+    Note n = tempNotes.get(0);
+    n.setPitch(pitch);   
+    /*prendere la voce meno recente, e cambiarne il pitch con portamento time al nuovo pitch*/
+  }
   
 }
 
