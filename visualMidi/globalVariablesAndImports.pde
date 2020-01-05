@@ -9,7 +9,8 @@ import java.util.*;
 import java.lang.*;
 import java.text.SimpleDateFormat;  
 
-MidiBus minilogue;
+MidiBus minilogue, kemper;
+String minilogueBusName, kemperBusName;
 
 //Menu global variables
 ArrayList<Preset> presets;
