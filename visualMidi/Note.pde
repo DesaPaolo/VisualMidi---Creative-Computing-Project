@@ -29,13 +29,14 @@ class Note {
   //Update the view, after the model has changed
   public void update() {
     if (this.toRemove) {
-      releasedNotes--;
+      //releasedNotes--;
       removeNoteByPitch(this.pitch); //tempNotes.remove(ramp.index)
     }
     this.sphere.drawSphere(this.ramp.rampValue, this.filterRamp.rampValue, this.velocity);
   }
 
   public void noteOnEffect() {
+    susNotes.add(this);
     this.initAdsrRamp();
   }
 

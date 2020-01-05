@@ -72,6 +72,7 @@ class Ramp {
    //endedRamp(/*"inizia release"*/1, note);
    /*chiama funzione startRelease(Note note)*/
    stepId = 2;
+   susNotes.remove(this.note);
    endedRamp(note, this.filter);
   }  
 }

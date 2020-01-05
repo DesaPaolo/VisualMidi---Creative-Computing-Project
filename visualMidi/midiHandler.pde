@@ -1,12 +1,14 @@
 private ArrayList<Note> tempNotes;
 private int instrumentType = 0;
-private int releasedNotes = 0;
+private ArrayList<Note> susNotes;
 
 public void midiInit() {
 
   MidiBus.list(); // List all our MIDI devices
   minilogue = new MidiBus(this, 1, 3);// Connect to one of the devices
   tempNotes = new ArrayList<Note>();
+  susNotes = new ArrayList<Note>();
+  
 }
 
 //NOTE ON
@@ -22,12 +24,13 @@ void noteOn(int channel, int pitch, int velocity) {
     prevNote = tempNotes.get(tempNotes.size()-1);
   } 
   
-  if(isAvaiableVoice()) {
+  if(voiceLimiter() - susNotes.size()>0) {
       newNote.noteOnEffect();
       tempNotes.add(newNote);
   }
   
 }
+
 
 private boolean isAvaiableVoice() {
   
@@ -35,7 +38,6 @@ private boolean isAvaiableVoice() {
     return true;
   }
   else {
-    if(voiceLimiter() - releasedNotes < voiceLimiter()) return true;
     
   }
     
@@ -47,13 +49,11 @@ void noteOff(int channel, int pitch, int velocity) {
 
   println("Note OFF");
 
-
   for (int i=0; i<tempNotes.size(); i++ ) {
     if (tempNotes.get(i).getPitch() == pitch) {
       if (i == tempNotes.size()-1) {//synth animation
         prevNote = tempNotes.get(i);
       }
-      releasedNotes++;
       tempNotes.get(i).ramp.startRelease(); //per rimuovere la nota dopo la fine del release
       tempNotes.get(i).filterRamp.startRelease();
     }
