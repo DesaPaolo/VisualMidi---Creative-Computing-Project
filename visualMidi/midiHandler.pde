@@ -4,7 +4,7 @@ private int instrumentType = 0;
 public void midiInit() {
 
   MidiBus.list(); // List all our MIDI devices
-  minilogue = new MidiBus(this, 0, 3);// Connect to one of the devices
+  minilogue = new MidiBus(this, 1, 3);// Connect to one of the devices
   tempNotes = new ArrayList<Note>();
 }
 
@@ -91,11 +91,11 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case 16: //atck
-    times[0] = mapLog(value, 0, 127, 1, 3500);
+    times[0] = mapLog(value, 0, 127, 10, 3500);
     println("AttackTime is " + times[0]);
     break;
   case 17: //dcy
-    times[1] = mapLog(value, 0, 127, 1, 4000);
+    times[1] = mapLog(value, 0, 127, 10, 4000);
     println("DecayTime is " + times[1]);
     break; 
 
@@ -105,7 +105,7 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case 19: //rel
-    times[3] = mapLog(value, 0, 127, 1, 4500);
+    times[3] = mapLog(value, 0, 127, 20, 4500);
     println("ReleaseTime is " + times[3]);
     break;
 
@@ -118,7 +118,7 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case 21:
-    EGTimes[1] = mapLog(value, 0, 127, 1, 6000);
+    EGTimes[1] = mapLog(value, 0, 127, 1, 3000);
     break;
 
   case 22:

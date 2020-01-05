@@ -16,7 +16,7 @@ class Sphere {
     float filtRampValue = filterRampValue;
     noStroke();
     
-    fill(255, 255-velocity, 255-velocity, rampValue);  
+    fill(255, 255, 255, rampValue);  
     this.lfoEffect();
     //println("rampValue = " + rampValue);
     
@@ -30,18 +30,16 @@ class Sphere {
     stretchingScale = map(abs(pitchBend), 0, 64, 1, 2 );
 
     
-    float radius = mapLog(filtRampValue, 0, 255, 5, 45);
+    float radius = map(filtRampValue, 0, 255, 5, 45);
 
     pushMatrix();
     translate(positionX, positionY, positionZ);
     
     if(pitchBend >=0 ) {
           scale(1 , stretchingScale, 1); 
-
     }
     else {
           scale(stretchingScale , 1, 1); 
-
     }
     
     sphere(radius);
