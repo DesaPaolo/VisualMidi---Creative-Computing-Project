@@ -30,7 +30,6 @@ ArrayList<Note> sustainedNotes;
 float pitchBend = 0;
 float modulation = 0;
 float modulationRate = 0;
-Note prevNote;
 int cutOffFilter = 0;
 float ampAtck;
 float ampDcy;

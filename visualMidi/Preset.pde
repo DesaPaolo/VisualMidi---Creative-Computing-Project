@@ -1,5 +1,5 @@
 class Preset {
-  
+
   private String name;
   private boolean susPedal;
   private Date creationDate;
@@ -11,7 +11,7 @@ class Preset {
   private float susAmp;
   private float relTime;
 
-  Preset (String name, Date creationDate, boolean susPedal, float mod, float modRate, int cutoffFil, float[] envTimes, float ampSus){
+  Preset (String name, Date creationDate, boolean susPedal, float mod, float modRate, int cutoffFil, float[] envTimes, float ampSus) {
     this.name = name;
     this.susPedal = susPedal;
     this.creationDate = creationDate;
@@ -23,8 +23,8 @@ class Preset {
     this.relTime = envTimes[2];
     this.susAmp = ampSus;
   }
-  
-  Preset(){
+
+  Preset() {
     this.name = "Name";
     this.susPedal = false;
     this.creationDate = Calendar.getInstance().getTime();
@@ -36,72 +36,72 @@ class Preset {
     this.relTime = 0;
     this.susAmp = 0;
   }
-  
-  public void setPresetName(String name){
+
+  public void setPresetName(String name) {
     this.name = name;
   }
-  
-  public void setSusPedal(boolean susPedal){
+
+  public void setSusPedal(boolean susPedal) {
     this.susPedal = susPedal;
   }
-  public void setCreationDate(Date creationDate){
+  public void setCreationDate(Date creationDate) {
     this.creationDate = creationDate;
   }
-  public void setMod(float modulation){
+  public void setMod(float modulation) {
     this.mod = modulation;
   }
-  public void setModRate(float modulationRate){
+  public void setModRate(float modulationRate) {
     this.modRate = modulationRate;
   }
-  public void setCutoffFil(int cutoffFil){
+  public void setCutoffFil(int cutoffFil) {
     this.cutoffFil = cutoffFil;
   }
-  public void setAttack(float attackTime){
+  public void setAttack(float attackTime) {
     this.atckTime = attackTime;
   }
-  public void setDecay(float dcyTime){
+  public void setDecay(float dcyTime) {
     this.dcyTime = dcyTime;
   }
-  public void setRelease(float releaseTime){
+  public void setRelease(float releaseTime) {
     this.relTime = releaseTime;
   }
-  public void setAmpSus(float ampSus){
-  this.susAmp = ampSus;
+  public void setAmpSus(float ampSus) {
+    this.susAmp = ampSus;
   }
-  
-  public String getPresetName(){
+
+  public String getPresetName() {
     return this.name;
   }
-  
-  public boolean getSusPedal(){
+
+  public boolean getSusPedal() {
     return this.susPedal;
   }
-  public Date getCreationDate(){
+  public Date getCreationDate() {
     return this.creationDate;
   }
-  public float getMod(){
+  public float getMod() {
     return this.mod;
   }
-  public float getModRate(){
+  public float getModRate() {
     return this.modRate;
   }
-  public int getCutoffFil(){
+  public int getCutoffFil() {
     return this.cutoffFil;
   }
-  public float getAttack(){
+  public float getAttack() {
     return this.atckTime;
   }
-  public float getDecay(){
+  public float getDecay() {
     return this.dcyTime;
   }
-  public float getRelease(){
+  public float getRelease() {
     return this.relTime;
   }
-  public float getAmpSus(){
+  public float getAmpSus() {
     return this.susAmp;
   }
-  
-  public String toString(){ //Override
+
+  public String toString() { //Override
     String name = "Preset Name: " + this.name + "\n";
     String susPedal = "susPedal is pressed: " + Boolean.toString(this.susPedal) + "\n";
     String date = "Created on: " + this.creationDate + "\n"; 
@@ -112,10 +112,8 @@ class Preset {
     String atckTime = "Attack Time (ms): " + this.atckTime + "\n"; 
     String dcyTime = "Decay Time (ms): " + this.dcyTime + "\n"; 
     String relTime = "Release Time (ms): " + this.relTime + "\n"; 
-    
-    
-    return name + date + susPedal + modulation + modulationRate + cutoffFil + atckTime + dcyTime + relTime + susAmp;
-    
-  }
 
+
+    return name + date + susPedal + modulation + modulationRate + cutoffFil + atckTime + dcyTime + relTime + susAmp;
+  }
 }

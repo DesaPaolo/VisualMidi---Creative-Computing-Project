@@ -1,5 +1,4 @@
 private ArrayList<Note> tempNotes;
-private int instrumentType = 0;
 private ArrayList<Note> susNotes;
 
 public void midiInit() {
@@ -8,7 +7,6 @@ public void midiInit() {
   minilogue = new MidiBus(this, 1, 3);// Connect to one of the devices
   tempNotes = new ArrayList<Note>();
   susNotes = new ArrayList<Note>();
-  
 }
 
 //NOTE ON
@@ -20,33 +18,24 @@ void noteOn(int channel, int pitch, int velocity) {
 
   //Assuming there is no sustain pedal
 
-  if (!tempNotes.isEmpty()) { 
-    prevNote = tempNotes.get(tempNotes.size()-1);
-  } 
-  
-  if(voiceLimiter() - susNotes.size()>0) {
-      newNote.noteOnEffect();
-      tempNotes.add(newNote);
-  }
-  else {
+  if (voiceLimiter() - susNotes.size()>0) {
+    newNote.noteOnEffect();
+    tempNotes.add(newNote);
+  } else {
     Note n = tempNotes.get(0);
     n.setPitch(pitch);   
     /*prendere la voce meno recente, e cambiarne il pitch con portamento time al nuovo pitch*/
   }
-  
 }
 
 
 private boolean isAvaiableVoice() {
-  
-  if(tempNotes.size() < voiceLimiter()) {
+
+  if (tempNotes.size() < voiceLimiter()) {
     return true;
+  } else {
+    return false;
   }
-  else {
-    
-  }
-    
-  return false;
 }
 
 //NOTE OFF
@@ -56,9 +45,6 @@ void noteOff(int channel, int pitch, int velocity) {
 
   for (int i=0; i<tempNotes.size(); i++ ) {
     if (tempNotes.get(i).getPitch() == pitch) {
-      if (i == tempNotes.size()-1) {//synth animation
-        prevNote = tempNotes.get(i);
-      }
       tempNotes.get(i).ramp.startRelease(); //per rimuovere la nota dopo la fine del release
       tempNotes.get(i).filterRamp.startRelease();
     }
@@ -73,29 +59,6 @@ void controllerChange(int channel, int number, int value) {
   println("channel " + channel);
   println("t3: " + times[3]);
   switch (number) {
-  case 64: //Sustain Pedal  --->   ≤63 off, ≥64 on
-
-    if (instrumentType == 0) {
-
-      if (value>=64) { //sustain on
-        sustainPedal = true;
-      } else { //sustain off ----> noteOff of each sustained notes
-
-        if (sustainedNotes.size()>0) { 
-          for (int i=0; i<sustainedNotes.size(); i++) {
-            for (int j=0; j<tempNotes.size(); j++) {
-              if (sustainedNotes.get(i).getPitch() == tempNotes.get(j).getPitch()) {
-                println("Note Off of " + tempNotes.get(j).getPitch());
-                tempNotes.remove(j);
-              }
-            }
-          }
-        }
-        sustainedNotes.clear();
-        sustainPedal = false;
-      }
-    }
-    break;
 
   case 1: //Modulation Wheel ---> 0-127
     modulation = mapLog(value, 0, 127, 1, 100);
@@ -135,7 +98,7 @@ void controllerChange(int channel, int number, int value) {
 
   case 20:
     if (value < 64) {
-      EGTimes[0] = mapLog(value, 0, 127, 1, 1400); 
+      EGTimes[0] = mapLog(value, 0, 127, 1, 1400);
     } else {
       EGTimes[0] = mapLog(value, 0, 127, 1, 3500);
     }
@@ -169,10 +132,12 @@ void controllerChange(int channel, int number, int value) {
     EGInt = map(value, 0, 127, -100, 100);//prima era mappato da 0 a 255
     println(EGInt);
     break;
-   case 82:
-     if(value == 127) poly = true;
-     else if(value == 0) poly = false;
+
+  case 82:
+    if (value == 127) poly = true;
+    else if (value == 0) poly = false;
     break;
+
   default:
     //nothing
   }
@@ -204,6 +169,6 @@ void midiMessage(MidiMessage message) { // You can also use midiMessage(MidiMess
 }
 
 private int voiceLimiter() {
-  if(poly) return 4;
+  if (poly) return 4;
   return 1;
 }

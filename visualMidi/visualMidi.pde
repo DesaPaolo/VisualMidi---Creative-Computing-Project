@@ -1,5 +1,4 @@
- //<>// //<>// //<>//
-
+ //<>//
 void setup() {
 
   size(1200, 600, P3D);
@@ -12,7 +11,6 @@ void setup() {
   adsrInit();
   menuInit();
   poly = true;
-
 }
 
 void draw() {
@@ -44,15 +42,15 @@ void draw() {
 }
 
 void playDraw() {
-  
+
 
   //background
   if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0%  
-      fill(cutOffFilter);
-    } else {
-      fill(filterRampValueBackground);
-    }
-  
+    fill(cutOffFilter);
+  } else {
+    fill(filterRampValueBackground);
+  }
+
   rect(0, 0, width, height);
   lights();
 
@@ -71,12 +69,10 @@ void playDraw() {
       tempNotes.get(i).filterRamp.trigger();
       tempNotes.get(i).ramp.trigger();
       tempNotes.get(i).update();
-      
     }
-  }
-  else {
-    if(!susNotes.isEmpty()) {
-      while(!susNotes.isEmpty()) susNotes.remove(0);
+  } else {
+    if (!susNotes.isEmpty()) {
+      while (!susNotes.isEmpty()) susNotes.remove(0);
     }
   }
 } 

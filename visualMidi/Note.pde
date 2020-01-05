@@ -59,7 +59,7 @@ class Note {
     //println(EGTimes);
     //println(filterAdsrValues);
   }
-  
+
   public void setPitch(int pitch) {
     this.pitch = pitch;
     float newX = map(this.pitch, 21, 108, 0, width);

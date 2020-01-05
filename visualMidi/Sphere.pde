@@ -50,11 +50,10 @@ class Sphere {
   private void lfoEffect() {
     alfa += 0.1 * modulationRate;
   }
-  
+
   void setPosition(float x, float y, float z) {
     this.position.x = x;
     this.position.y = y;
     this.position.z = z;
-    
   }
 }
