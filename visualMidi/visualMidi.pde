@@ -1,4 +1,4 @@
- //<>//
+ //<>// //<>//
 
 void setup() {
 
@@ -11,6 +11,7 @@ void setup() {
   midiInit();
   adsrInit();
   menuInit();
+  poly = true;
 
 }
 

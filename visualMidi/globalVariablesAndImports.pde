@@ -57,3 +57,4 @@ float EGInt;
 int EGIntInteger;
 float[] EGTimes;
 float EGAmpSus;
+boolean poly;

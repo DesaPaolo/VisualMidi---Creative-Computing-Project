@@ -1,5 +1,6 @@
 private ArrayList<Note> tempNotes;
 private int instrumentType = 0;
+private int releasedNotes = 0;
 
 public void midiInit() {
 
@@ -20,9 +21,25 @@ void noteOn(int channel, int pitch, int velocity) {
   if (!tempNotes.isEmpty()) { 
     prevNote = tempNotes.get(tempNotes.size()-1);
   } 
+  
+  if(isAvaiableVoice()) {
+      newNote.noteOnEffect();
+      tempNotes.add(newNote);
+  }
+  
+}
 
-  newNote.noteOnEffect();
-  tempNotes.add(newNote);
+private boolean isAvaiableVoice() {
+  
+  if(tempNotes.size() < voiceLimiter()) {
+    return true;
+  }
+  else {
+    if(voiceLimiter() - releasedNotes < voiceLimiter()) return true;
+    
+  }
+    
+  return false;
 }
 
 //NOTE OFF
@@ -36,6 +53,7 @@ void noteOff(int channel, int pitch, int velocity) {
       if (i == tempNotes.size()-1) {//synth animation
         prevNote = tempNotes.get(i);
       }
+      releasedNotes++;
       tempNotes.get(i).ramp.startRelease(); //per rimuovere la nota dopo la fine del release
       tempNotes.get(i).filterRamp.startRelease();
     }
@@ -145,7 +163,10 @@ void controllerChange(int channel, int number, int value) {
 
     EGInt = map(value, 0, 127, -100, 100);//prima era mappato da 0 a 255
     break;
-
+   case 82:
+     if(value == 127) poly = true;
+     else if(value == 0) poly = false;
+    break;
   default:
     //nothing
   }
@@ -180,4 +201,9 @@ void midiMessage(MidiMessage message) { // You can also use midiMessage(MidiMess
   if (message.getStatus() == 224) { //PITCHBEND! !!!MSB ARE THE SECOND MESSAGE----> we consider only MSB
     pitchBend = map((int)(message.getMessage()[2] & 0xFF), 0, 127, -64, 64);
   }
+}
+
+private int voiceLimiter() {
+  if(poly) return 4;
+  return 1;
 }
