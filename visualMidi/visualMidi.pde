@@ -11,10 +11,7 @@ void setup() {
   midiInit();
   adsrInit();
   menuInit();
-  ampSus = 100;
-  EGAmpSus = 100;
-  cutOffFilter = 255;
-  EGInt = 0;
+
 }
 
 void draw() {

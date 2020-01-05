@@ -18,9 +18,9 @@ public void adsrInit() {
   EGTimes[3] = releaseTimeMs;
   
   ampSus = 100; 
-  EGAmpSus = 0;
+  EGAmpSus = 100;
+  cutOffFilter = 255;
   EGInt = 0;
-  contour = 0;
   
 }
 
