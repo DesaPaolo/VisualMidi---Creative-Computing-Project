@@ -6,8 +6,8 @@ public void midiInit() {
   MidiBus.list(); // List all our MIDI devices
   minilogue = new MidiBus(this, 2, 3);// Connect to one of the devices
   minilogueBusName = minilogue.getBusName();
-  kemper = new MidiBus(this, 5, 1);// Connect to one of the devices
-  kemperBusName = kemper.getBusName();
+  guitar = new MidiBus(this, 1, 1);// Connect to one of the devices
+  guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();
   susNotes = new ArrayList<Note>();
 }
@@ -60,91 +60,100 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
 
   println("CONTROL: " + number + " CONTROL VALUE: " + value);
   println("channel " + channel);
-  println("is kemper: " + (bus_name == kemperBusName));
+  println("is kemper: " + (bus_name == guitarBusName));
   println("t3: " + times[3]);
-  switch (number) {
-
-  case 1: //Modulation Wheel ---> 0-127
-    modulation = mapLog(value, 0, 127, 1, 100);
-    break;
-
-  case 24:
-    modulationRate = mapLog(value, 0, 127, 0.1, 97); // minilogue "rate" knob
-    break;
-
-  case 26: //!!!!!!!! MINILOGUE HAS INT VALUE AS MODULATION WHEEL ---> 0-127
-    modulation = mapLog(value, 0, 127, 1, 100); // or mapLog?
-    break;
-
-  case 43:
-    cutOffFilter = (int)(mapLog(value, 0, 127, 0.1, 255)); //cut off
-    println("Cutoff filter is " + cutOffFilter);
-    break;
-
-  case 16: //atck
-    times[0] = mapLog(value, 0, 127, 10, 3500);
-    println("AttackTime is " + times[0]);
-    break;
-  case 17: //dcy
-    times[1] = mapLog(value, 0, 127, 10, 4000);
-    println("DecayTime is " + times[1]);
-    break; 
-
-  case 18: //sus
-    ampSus = map(value, 0, 127, 0, 100);
-    times[2] = -1;
-    break;
-
-  case 19: //rel
-    times[3] = mapLog(value, 0, 127, 20, 4500);
-    println("ReleaseTime is " + times[3]);
-    break;
-
-  case 20:
-    if (value < 64) {
-      EGTimes[0] = mapLog(value, 0, 127, 1, 1400);
-    } else {
-      EGTimes[0] = mapLog(value, 0, 127, 1, 3500);
+  
+  if (bus_name == minilogueBusName){ //Potrebbe arrivare lo stesso CC da due bus diversi 
+    switch (number) {
+  
+    case 1: //Modulation Wheel ---> 0-127
+      modulation = mapLog(value, 0, 127, 1, 100);
+      break;
+  
+    case 24:
+      modulationRate = mapLog(value, 0, 127, 0.1, 97); // minilogue "rate" knob
+      break;
+  
+    case 26: //!!!!!!!! MINILOGUE HAS INT VALUE AS MODULATION WHEEL ---> 0-127
+      modulation = mapLog(value, 0, 127, 1, 100); // or mapLog?
+      break;
+  
+    case 43:
+      cutOffFilter = (int)(mapLog(value, 0, 127, 0.1, 255)); //cut off
+      println("Cutoff filter is " + cutOffFilter);
+      break;
+  
+    case 16: //atck
+      times[0] = mapLog(value, 0, 127, 10, 3500);
+      println("AttackTime is " + times[0]);
+      break;
+    case 17: //dcy
+      times[1] = mapLog(value, 0, 127, 10, 4000);
+      println("DecayTime is " + times[1]);
+      break; 
+  
+    case 18: //sus
+      ampSus = map(value, 0, 127, 0, 100);
+      times[2] = -1;
+      break;
+  
+    case 19: //rel
+      times[3] = mapLog(value, 0, 127, 20, 4500);
+      println("ReleaseTime is " + times[3]);
+      break;
+  
+    case 20:
+      if (value < 64) {
+        EGTimes[0] = mapLog(value, 0, 127, 1, 1400);
+      } else {
+        EGTimes[0] = mapLog(value, 0, 127, 1, 3500);
+      }
+      break;
+  
+    case 21:
+      EGTimes[1] = mapLog(value, 0, 127, 1, 3000);
+      break;
+  
+    case 22:
+      EGAmpSus = map(value, 0, 127, 0, 100);
+      EGTimes[2] = -1;
+      break;
+  
+    case 23:
+      EGTimes[3] = mapLog(value, 0, 127, 1, 4500);
+      break;
+  
+    case 45: //EG INT
+      /*
+      if(value>=68) { 
+       contour = 1;
+       }
+       else if (value<=60) {
+       contour = -1;
+       }
+       else {
+       contour = 0;
+       }*/
+  
+      EGInt = map(value, 0, 127, -100, 100);//prima era mappato da 0 a 255
+      println(EGInt);
+      break;
+  
+    case 82:
+      if (value == 127) poly = true;
+      else if (value == 0) poly = false;
+      break;
+  
+    default:
+      //nothing
     }
-    break;
-
-  case 21:
-    EGTimes[1] = mapLog(value, 0, 127, 1, 3000);
-    break;
-
-  case 22:
-    EGAmpSus = map(value, 0, 127, 0, 100);
-    EGTimes[2] = -1;
-    break;
-
-  case 23:
-    EGTimes[3] = mapLog(value, 0, 127, 1, 4500);
-    break;
-
-  case 45: //EG INT
-    /*
-    if(value>=68) { 
-     contour = 1;
-     }
-     else if (value<=60) {
-     contour = -1;
-     }
-     else {
-     contour = 0;
-     }*/
-
-    EGInt = map(value, 0, 127, -100, 100);//prima era mappato da 0 a 255
-    println(EGInt);
-    break;
-
-  case 82:
-    if (value == 127) poly = true;
-    else if (value == 0) poly = false;
-    break;
-
-  default:
-    //nothing
   }
+  
+  if (bus_name == guitarBusName){
+    //Check CC codes of pedalboard
+  }
+  
+  
 }
 
 //PITCH BEND CONTROL (!= CONTROL CHANGE)  
