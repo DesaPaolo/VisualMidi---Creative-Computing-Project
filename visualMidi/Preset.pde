@@ -10,8 +10,15 @@ class Preset {
   private float dcyTime;
   private float susAmp;
   private float relTime;
+  private float susAmpEG;
+  private float atckTimeEG;
+  private float dcyTimeEG;
+  private float relTimeEG;
+  private boolean poly;
+  private float intEG;
 
-  Preset (String name, Date creationDate, boolean susPedal, float mod, float modRate, int cutoffFil, float[] envTimes, float ampSus) {
+  Preset (String name, Date creationDate, boolean susPedal, float mod, float modRate, int cutoffFil, float[] envTimes, float ampSus,
+  float susAmpEG, float atckTimeEG, float dcyTimeEG, float relTimeEG, float poly, float intEG) {
     this.name = name;
     this.susPedal = susPedal;
     this.creationDate = creationDate;
@@ -22,6 +29,12 @@ class Preset {
     this.dcyTime = envTimes[1];
     this.relTime = envTimes[2];
     this.susAmp = ampSus;
+    this.susAmpEG = susAmpEG;
+    this.atckTimeEG = atckTimeEG;
+    this.dcyTimeEG = dcyTimeEG;
+    this.relTimeEG = relTimeEG;
+    this.poly = poly;
+    this.intEG = intEG;
   }
 
   Preset() {
@@ -68,6 +81,25 @@ class Preset {
   public void setAmpSus(float ampSus) {
     this.susAmp = ampSus;
   }
+  public void setAtckTimeEG(float atckTimeEG) {
+    this.atckTimeEG = atckTimeEG;
+  }
+  public void setDcyTimeEG(float dcyTimeEG) {
+    this.dcyTimeEG = dcyTimeEG;
+  }
+  public void setRelTimeEG(float relTimeEG) {
+    this.relTimeEG = relTimeEG;
+  }
+  public void setSusAmpEG(float susAmpEG) {
+    this.susAmpEG = susAmpEG;
+  }
+  public void setIntEG(float intEG) {
+    this.intEG = intEG;
+  }
+  public void setPoly(boolean poly) {
+    this.poly = poly;
+  }
+  
 
   public String getPresetName() {
     return this.name;
@@ -100,6 +132,24 @@ class Preset {
   public float getAmpSus() {
     return this.susAmp;
   }
+  public float getAtckTimeEG() {
+    return this.atckTimeEG;
+  }
+  public float getDcyTimeEG() {
+    return this.dcyTimeEG;
+  }
+  public float getRelTimeEG() {
+    return this.relTimeEG;
+  }
+  public float getSusAmpEG() {
+    return this.susAmpEG;
+  }
+  public float getIntEG() {
+    return this.intEG;
+  }
+  public boolean getPoly() {
+    return this.poly;
+  }
 
   public String toString() { //Override
     String name = "Preset Name: " + this.name + "\n";
@@ -112,8 +162,15 @@ class Preset {
     String atckTime = "Attack Time (ms): " + this.atckTime + "\n"; 
     String dcyTime = "Decay Time (ms): " + this.dcyTime + "\n"; 
     String relTime = "Release Time (ms): " + this.relTime + "\n"; 
+    String atckTimeEG = "EG Attack Time (ms): " + this.relTime + "\n"; 
+    String dcyTimeEG = "EG decay Time (ms): " + this.relTime + "\n"; 
+    String relTimeEG = "EG release Time (ms): " + this.relTime + "\n"; 
+    String susAmpEG = "Amp sus EG: " + this.relTime + "\n"; 
+    String poly = "Poly: " + Boolean.toString(this.poly) + "\n"; 
+    String intEG = "EG Int: " + this.intEG + "\n"; 
 
 
-    return name + date + susPedal + modulation + modulationRate + cutoffFil + atckTime + dcyTime + relTime + susAmp;
+    return name + date + susPedal + modulation + modulationRate + cutoffFil + atckTime + dcyTime + relTime + susAmp + atckTimeEG + dcyTimeEG + relTimeEG + 
+    susAmpEG + poly + intEG;
   }
 }

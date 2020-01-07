@@ -121,11 +121,19 @@ void activatePreset(int index){
   cutOffFilter = activePreset.getCutoffFil();
   times[0] = activePreset.getAttack();
   times[1] = activePreset.getDecay();
-  times[2] = activePreset.getRelease();
+  times[2] = -1;
+  times[3] = activePreset.getRelease();
+  EGTimes[0] = activePreset.getAtckTimeEG();
+  EGTimes[1] = activePreset.getDcyTimeEG();
+  EGTimes[2] = -1;
+  EGTimes[3] = activePreset.getRelTimeEG();
   modulationRate = activePreset.getModRate();
   modulation = activePreset.getMod();
   sustainPedal = activePreset.getSusPedal();
   ampSus = activePreset.getAmpSus();
+  EGAmpSus = activePreset.getSusAmpEG();
+  poly = activePreset.getPoly();
+  EGInt = activePreset.getIntEG();
   
   return;
 }
@@ -165,14 +173,20 @@ void loadPresetsFromFile(){
           }
         else if (st.isEmpty()){}
         else if ((st.substring(0,5)).equals("name ")){newPreset.setPresetName(st.substring(5));}
-        else if ((st.substring(0,5)).equals("date ")){newPreset.setCreationDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy",  Locale.ENGLISH).parse(st.substring(5)));} 
+        else if ((st.substring(0,5)).equals("poly ")){newPreset.setPoly(Boolean.parseBoolean(st.substring(5)));}
+        else if ((st.substring(0,5)).equals("date ")){newPreset.setCreationDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy",  Locale.ENGLISH).parse(st.substring(5)));}
+        else if ((st.substring(0,7)).equals("EG int ")){newPreset.setIntEG(Float.parseFloat(st.substring(7)));} 
         else if ((st.substring(0,10)).equals("decayTime ")){newPreset.setDecay(Float.parseFloat(st.substring(10)));}
         else if ((st.substring(0,11)).equals("modulation ")){newPreset.setMod(Float.parseFloat(st.substring(11)));}
         else if ((st.substring(0,11)).equals("attackTime ")){newPreset.setAttack(Float.parseFloat(st.substring(11)));}
         else if ((st.substring(0,11)).equals("sustainAmp ")){newPreset.setAmpSus(Float.parseFloat(st.substring(11)));}
         else if ((st.substring(0,12)).equals("releaseTime ")){newPreset.setRelease(Float.parseFloat(st.substring(12)));}
         else if ((st.substring(0,13)).equals("sustainPedal ")){newPreset.setSusPedal(Boolean.parseBoolean(st.substring(13)));}
+        else if ((st.substring(0,13)).equals("EG decayTime ")){newPreset.setDcyTimeEG(Float.parseFloat(st.substring(13)));}
         else if ((st.substring(0,13)).equals("cutoffFilter ")){newPreset.setCutoffFil(Integer.parseInt(st.substring(13)));}
+        else if ((st.substring(0,14)).equals("EG attackTime ")){newPreset.setAtckTimeEG(Float.parseFloat(st.substring(14)));}
+        else if ((st.substring(0,14)).equals("EG sustainAmp ")){newPreset.setSusAmpEG(Float.parseFloat(st.substring(14)));}
+        else if ((st.substring(0,15)).equals("EG releaseTime ")){newPreset.setRelTimeEG(Float.parseFloat(st.substring(15)));}
         else if ((st.substring(0,15)).equals("modulationRate ")){newPreset.setModRate(Float.parseFloat(st.substring(15)));}
         else {System.out.println("Substring is " + st + " Error");}
       }
@@ -247,6 +261,12 @@ void storePresetToFile (Preset actualPreset){
     fileWriter.write("decayTime " + actualPreset.getDecay() + "\n");
     fileWriter.write("sustainAmp " + actualPreset.getAmpSus() + "\n");
     fileWriter.write("releaseTime " + actualPreset.getRelease() + "\n");
+    fileWriter.write("EG attackTime " + actualPreset.getRelease() + "\n");
+    fileWriter.write("EG decayTime " + actualPreset.getRelease() + "\n");
+    fileWriter.write("EG sustainAMP " + actualPreset.getRelease() + "\n");
+    fileWriter.write("EG releaseTime " + actualPreset.getRelease() + "\n");
+    fileWriter.write("EG int " + actualPreset.getRelease() + "\n");
+    fileWriter.write("poly " + actualPreset.getRelease() + "\n");
     fileWriter.write("end\n");
     fileWriter.close(); 
     println("saved preset");
