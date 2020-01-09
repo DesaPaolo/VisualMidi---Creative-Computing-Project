@@ -4,7 +4,7 @@ private ArrayList<Note> susNotes;
 public void midiInit() {
 
   MidiBus.list(); // List all our MIDI devices
-  minilogue = new MidiBus(this, 1, 3);// Connect to one of the devices
+  minilogue = new MidiBus(this, 4, 3);// Connect to one of the devices
   tempNotes = new ArrayList<Note>();
   susNotes = new ArrayList<Note>();
 }

@@ -87,7 +87,7 @@ void loadMode(){
 void savePreset(){
   String name = finalMsg;
   Date actualDate = Calendar.getInstance().getTime();
-  Preset actualPreset = new Preset(name, actualDate, sustainPedal, modulation, modulationRate, cutOffFilter, times, ampSus);
+  Preset actualPreset = new Preset(name, actualDate, sustainPedal, modulation, modulationRate, cutOffFilter, times, ampSus, EGAmpSus, times[0], times[1], times[3], poly, EGInt);
   
   loadPresetsFromFile(); //salvataggio from file to var senza grafica
   addPreset(actualPreset); //Aggiunge preset controllando se overwrite
@@ -261,12 +261,12 @@ void storePresetToFile (Preset actualPreset){
     fileWriter.write("decayTime " + actualPreset.getDecay() + "\n");
     fileWriter.write("sustainAmp " + actualPreset.getAmpSus() + "\n");
     fileWriter.write("releaseTime " + actualPreset.getRelease() + "\n");
-    fileWriter.write("EG attackTime " + actualPreset.getRelease() + "\n");
-    fileWriter.write("EG decayTime " + actualPreset.getRelease() + "\n");
-    fileWriter.write("EG sustainAMP " + actualPreset.getRelease() + "\n");
-    fileWriter.write("EG releaseTime " + actualPreset.getRelease() + "\n");
-    fileWriter.write("EG int " + actualPreset.getRelease() + "\n");
-    fileWriter.write("poly " + actualPreset.getRelease() + "\n");
+    fileWriter.write("EG attackTime " + actualPreset.getAtckTimeEG() + "\n");
+    fileWriter.write("EG decayTime " + actualPreset.getDcyTimeEG() + "\n");
+    fileWriter.write("EG sustainAmp " + actualPreset.getSusAmpEG() + "\n");
+    fileWriter.write("EG releaseTime " + actualPreset.getRelTimeEG() + "\n");
+    fileWriter.write("EG int " + actualPreset.getIntEG() + "\n");
+    fileWriter.write("poly " + actualPreset.getPoly() + "\n");
     fileWriter.write("end\n");
     fileWriter.close(); 
     println("saved preset");

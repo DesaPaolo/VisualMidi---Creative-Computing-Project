@@ -18,7 +18,7 @@ class Preset {
   private float intEG;
 
   Preset (String name, Date creationDate, boolean susPedal, float mod, float modRate, int cutoffFil, float[] envTimes, float ampSus,
-  float susAmpEG, float atckTimeEG, float dcyTimeEG, float relTimeEG, float poly, float intEG) {
+  float susAmpEG, float atckTimeEG, float dcyTimeEG, float relTimeEG, Boolean poly, float intEG) {
     this.name = name;
     this.susPedal = susPedal;
     this.creationDate = creationDate;
@@ -27,7 +27,7 @@ class Preset {
     this.cutoffFil = cutoffFil;
     this.atckTime = envTimes[0];
     this.dcyTime = envTimes[1];
-    this.relTime = envTimes[2];
+    this.relTime = envTimes[3];
     this.susAmp = ampSus;
     this.susAmpEG = susAmpEG;
     this.atckTimeEG = atckTimeEG;
