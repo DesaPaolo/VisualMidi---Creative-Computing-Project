@@ -29,6 +29,7 @@ void mousePressed() {
       }
       else if (buttonPressed(xBtn3, yBtn3, wBtn, hBtn)){
         mode = 3; //play
+        loop(); //Mi accerto che torni il loop
       }
     }
     else if (mode == 1 || mode == 2 || mode == 3){
@@ -72,6 +73,7 @@ void storeMode(){
   }
   
   if (mousePressed && buttonPressed(xStoreBtn, yStoreBtn, wBtn, hBtn)){
+    noLoop();
     savePreset();
   }
 }
@@ -91,15 +93,25 @@ void savePreset(){
   
   loadPresetsFromFile(); //salvataggio from file to var senza grafica
   addPreset(actualPreset); //Aggiunge preset controllando se overwrite
-  
-  for(int i=0; i<presets.size(); i++){
-    storePresetToFile(presets.get(i));
+  try{
+    FileWriter fileWriter = new FileWriter("presets.txt");
+    
+    for(int i=0; i<presets.size(); i++){
+      println("preset size is " + presets.size() + " now we are in index " + i);
+      storePresetToFile(presets.get(i), fileWriter);
+      println("saved preset " + presets.get(i).getPresetName());
+    }
+    
+    fileWriter.close(); 
+  } catch (IOException e) {
+    // exception handling
+    println("IO Exception");
   }
-  
+  loop();
 }
 
 void loadPresets() throws Exception{ 
-  
+  noLoop();
   loadPresetsFromFile(); //<>// //<>//
   //Iterator iterator = presets.iterator();
   drawMenuPresets();
@@ -148,7 +160,7 @@ void addPreset (Preset presetToAdd){
     }  
   }
   presets.add(presetToAdd);
-  println("saving new preset called " + presets.get(presets.size()-1).getPresetName());
+  println("adding new preset called " + presets.get(presets.size()-1).getPresetName());
   return;
 }
 
@@ -247,9 +259,8 @@ void drawMenuPresets(){
   //}
 }
 
-void storePresetToFile (Preset actualPreset){
+void storePresetToFile (Preset actualPreset, FileWriter fileWriter){
   try{
-    FileWriter fileWriter = new FileWriter("presets.txt");
     fileWriter.write("start\n");
     fileWriter.write("name " + actualPreset.getPresetName() + "\n");
     fileWriter.write("date " + actualPreset.getCreationDate() +"\n");
@@ -268,12 +279,10 @@ void storePresetToFile (Preset actualPreset){
     fileWriter.write("EG int " + actualPreset.getIntEG() + "\n");
     fileWriter.write("poly " + actualPreset.getPoly() + "\n");
     fileWriter.write("end\n");
-    fileWriter.close(); 
-    println("saved preset");
   } catch (IOException e) {
-    // exception handling
-    println("IO Exception");
-  }
+      // exception handling
+      println("IO Exception");
+    }
 }
 
 void showInputScanning(){
