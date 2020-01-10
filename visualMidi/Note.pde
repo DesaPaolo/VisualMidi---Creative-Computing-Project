@@ -38,6 +38,12 @@ class Note {
   public void noteOnEffect() {
     susNotes.add(this);
     this.initAdsrRamp();
+    
+    if(isActiveDly){
+      this.sphere.ps = new ParticleSystem(this.sphere.position);
+      println("Creo particle system");
+    }
+    
   }
 
   private void initAdsrRamp() {

@@ -9,7 +9,8 @@ import java.util.*;
 import java.lang.*;
 import java.text.SimpleDateFormat;  
 
-MidiBus minilogue;
+MidiBus minilogue, guitar;
+String minilogueBusName, guitarBusName;
 
 //Menu global variables
 ArrayList<Preset> presets;
@@ -24,6 +25,8 @@ final String INIT_MSG="Start typing";
 String msg=INIT_MSG;
 String finalMsg = "";
 
+
+
 //MIDI CC
 boolean sustainPedal = false;
 ArrayList<Note> sustainedNotes;
@@ -35,6 +38,10 @@ float ampAtck;
 float ampDcy;
 float ampSus;
 float ampRel;
+float hiPassDly = 0;
+float timeDly = 0;
+float feedbackDly = 0;
+Boolean isActiveDly = false;
 
 //ADSR global variables
 /*Antonino variables*/

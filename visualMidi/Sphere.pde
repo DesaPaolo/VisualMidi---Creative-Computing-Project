@@ -5,6 +5,7 @@ class Sphere {
 
   private PVector position;
   private float alfa = 0.0;
+  ParticleSystem ps;
 
   Sphere(float x, float y, float z) {
     this.position = new PVector(x, y, z);
@@ -42,8 +43,9 @@ class Sphere {
     } else {
       scale(stretchingScale, 1, 1);
     }
-
-    sphere(radius);
+ 
+    sphere(radius); //Antonino non sa cosa vuol dire questa riga, ma il resto si
+    
     popMatrix();
   }
 
