@@ -25,12 +25,9 @@ float mapLog(float value, float start1, float stop1, float start2, float stop2) 
 }
 
 public void removeNoteByPitch(int pitch) {
-   for(int c = 0; c<tempNotes.size(); c-=-1) {
-      if(tempNotes.get(c).getPitch()==pitch) {
-        tempNotes.remove(c);
-      }      
+  for (int c = 0; c<tempNotes.size(); c-=-1) {
+    if (tempNotes.get(c).getPitch()==pitch) {
+      tempNotes.remove(c);
     }
+  }
 }
-  
-  
-  

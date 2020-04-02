@@ -36,7 +36,7 @@ class Note {
   }
 
   public void noteOnEffect() {
-    susNotes.add(this);
+    
     this.initAdsrRamp();
     
     if(isActiveDly){

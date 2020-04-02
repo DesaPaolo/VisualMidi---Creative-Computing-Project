@@ -1,15 +1,15 @@
 private ArrayList<Note> tempNotes;
-private ArrayList<Note> susNotes;
+private boolean alreadyInTempChord;
 
 public void midiInit() {
 
   MidiBus.list(); // List all our MIDI devices
-  minilogue = new MidiBus(this, 6, 7);// Connect to one of the devices
+  minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
   minilogueBusName = minilogue.getBusName();
   guitar = new MidiBus(this, 4, 5);// Connect to one of the devices
   guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();
-  susNotes = new ArrayList<Note>();
+  alreadyInTempChord = false;
 }
 
 //NOTE ON
@@ -18,16 +18,35 @@ void noteOn(int channel, int pitch, int velocity) {
   println("Note ON");
 
   Note newNote = new Note(pitch, velocity);
+  
+  int i;
+  for ( i = 0; i<tempNotes.size(); i++) {
+    if (tempNotes.get(i).getPitch() == newNote.pitch) {
+      alreadyInTempChord = true;
+      break;
+    }
+  }
 
   //Assuming there is no sustain pedal
 
-  if (voiceLimiter() - susNotes.size()>0) {
-    newNote.noteOnEffect();
-    tempNotes.add(newNote);
+  if (voiceLimiter() - tempNotes.size()>0) {
+    if(alreadyInTempChord){
+      tempNotes.get(i).noteOnEffect(); // reset adrs
+      alreadyInTempChord =false;
+    } else {
+      newNote.noteOnEffect();
+      tempNotes.add(newNote);
+    }
   } else {
-    Note n = tempNotes.get(0);
-    n.setPitch(pitch);   
-    /*prendere la voce meno recente, e cambiarne il pitch con portamento time al nuovo pitch*/
+    
+    if(alreadyInTempChord) {
+      tempNotes.get(i).noteOnEffect(); //reset adsr
+      alreadyInTempChord = false;
+    } else {
+      newNote.noteOnEffect();
+      tempNotes.remove(tempNotes.size()-1); // la più recente      
+      tempNotes.add(newNote);
+    }
   }
 }
 

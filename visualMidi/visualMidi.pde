@@ -1,4 +1,4 @@
- //<>// //<>//
+//<>// //<>//
 void setup() {
 
   size(1200, 600, P3D);
@@ -71,8 +71,6 @@ void playDraw() {
       tempNotes.get(i).update();
     }
   } else {
-    if (!susNotes.isEmpty()) {
-      while (!susNotes.isEmpty()) susNotes.remove(0);
-    }
+    print("VUOTOOOOOOOOOOOOOO");
   }
 } 
