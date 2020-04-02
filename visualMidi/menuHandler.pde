@@ -89,7 +89,7 @@ void loadMode(){
 void savePreset(){
   String name = finalMsg;
   Date actualDate = Calendar.getInstance().getTime();
-  Preset actualPreset = new Preset(name, actualDate, sustainPedal, modulation, modulationRate, cutOffFilter, times, ampSus, EGAmpSus, times[0], times[1], times[3], poly, EGInt);
+  Preset actualPreset = new Preset(name, actualDate, sustainPedal, modulation, modulationRate, cutOffFilter, times, ampSus, EGAmpSus, times[0], times[1], times[3], poly, EGInt, hiPassDly, timeDly, feedbackDly, isActiveDly);
   
   loadPresetsFromFile(); //salvataggio from file to var senza grafica
   addPreset(actualPreset); //Aggiunge preset controllando se overwrite
@@ -146,6 +146,11 @@ void activatePreset(int index){
   EGAmpSus = activePreset.getSusAmpEG();
   poly = activePreset.getPoly();
   EGInt = activePreset.getIntEG();
+  hiPassDly = activePreset.getHiPassDly();
+  timeDly = activePreset.getTimeDly();
+  feedbackDly = activePreset.getFeedbackDly();
+  isActiveDly = activePreset.getIsActiveDly();
+  println(activePreset.toString());
   
   return;
 }
@@ -192,14 +197,18 @@ void loadPresetsFromFile(){
         else if ((st.substring(0,11)).equals("modulation ")){newPreset.setMod(Float.parseFloat(st.substring(11)));}
         else if ((st.substring(0,11)).equals("attackTime ")){newPreset.setAttack(Float.parseFloat(st.substring(11)));}
         else if ((st.substring(0,11)).equals("sustainAmp ")){newPreset.setAmpSus(Float.parseFloat(st.substring(11)));}
+        else if ((st.substring(0,11)).equals("time delay ")){newPreset.setTimeDly(Float.parseFloat(st.substring(11)));}
         else if ((st.substring(0,12)).equals("releaseTime ")){newPreset.setRelease(Float.parseFloat(st.substring(12)));}
         else if ((st.substring(0,13)).equals("sustainPedal ")){newPreset.setSusPedal(Boolean.parseBoolean(st.substring(13)));}
         else if ((st.substring(0,13)).equals("EG decayTime ")){newPreset.setDcyTimeEG(Float.parseFloat(st.substring(13)));}
         else if ((st.substring(0,13)).equals("cutoffFilter ")){newPreset.setCutoffFil(Integer.parseInt(st.substring(13)));}
+        else if ((st.substring(0,13)).equals("hipass delay ")){newPreset.setHiPassDly(Float.parseFloat(st.substring(13)));}
         else if ((st.substring(0,14)).equals("EG attackTime ")){newPreset.setAtckTimeEG(Float.parseFloat(st.substring(14)));}
         else if ((st.substring(0,14)).equals("EG sustainAmp ")){newPreset.setSusAmpEG(Float.parseFloat(st.substring(14)));}
         else if ((st.substring(0,15)).equals("EG releaseTime ")){newPreset.setRelTimeEG(Float.parseFloat(st.substring(15)));}
         else if ((st.substring(0,15)).equals("modulationRate ")){newPreset.setModRate(Float.parseFloat(st.substring(15)));}
+        else if ((st.substring(0,15)).equals("feedback delay ")){newPreset.setFeedbackDly(Float.parseFloat(st.substring(15)));}
+        else if ((st.substring(0,15)).equals("isActive delay ")){newPreset.setIsActiveDly(Boolean.parseBoolean(st.substring(15)));}
         else {System.out.println("Substring is " + st + " Error");}
       }
       br.close();
@@ -278,6 +287,10 @@ void storePresetToFile (Preset actualPreset, FileWriter fileWriter){
     fileWriter.write("EG releaseTime " + actualPreset.getRelTimeEG() + "\n");
     fileWriter.write("EG int " + actualPreset.getIntEG() + "\n");
     fileWriter.write("poly " + actualPreset.getPoly() + "\n");
+    fileWriter.write("hipass delay " + actualPreset.getHiPassDly() + "\n");
+    fileWriter.write("time delay " + actualPreset.getTimeDly() + "\n");
+    fileWriter.write("feedback delay " + actualPreset.getFeedbackDly() + "\n");
+    fileWriter.write("isActive delay " + actualPreset.getIsActiveDly() + "\n");
     fileWriter.write("end\n");
   } catch (IOException e) {
       // exception handling

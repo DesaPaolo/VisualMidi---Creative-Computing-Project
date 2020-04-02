@@ -16,9 +16,13 @@ class Preset {
   private float relTimeEG;
   private boolean poly;
   private float intEG;
+  private float hiPassDly;
+  private float timeDly;
+  private float feedbackDly;
+  private boolean isActiveDly;
 
   Preset (String name, Date creationDate, boolean susPedal, float mod, float modRate, int cutoffFil, float[] envTimes, float ampSus,
-  float susAmpEG, float atckTimeEG, float dcyTimeEG, float relTimeEG, Boolean poly, float intEG) {
+  float susAmpEG, float atckTimeEG, float dcyTimeEG, float relTimeEG, Boolean poly, float intEG, float hiPassDly, float timeDly, float feedbackDly, boolean isActiveDly) {
     this.name = name;
     this.susPedal = susPedal;
     this.creationDate = creationDate;
@@ -35,6 +39,10 @@ class Preset {
     this.relTimeEG = relTimeEG;
     this.poly = poly;
     this.intEG = intEG;
+    this.hiPassDly = hiPassDly;
+    this.timeDly = timeDly;
+    this.feedbackDly = feedbackDly;
+    this.isActiveDly = isActiveDly;
   }
 
   Preset() {
@@ -48,6 +56,16 @@ class Preset {
     this.dcyTime = 0;
     this.relTime = 0;
     this.susAmp = 0;
+    this.susAmpEG = 0;
+    this.atckTimeEG = 0;
+    this.dcyTimeEG = 0;
+    this.relTimeEG = 0;
+    this.poly = false;
+    this.intEG = 0;
+    this.hiPassDly = 0;
+    this.timeDly = 0;
+    this.feedbackDly = 0;
+    this.isActiveDly = false;
   }
 
   public void setPresetName(String name) {
@@ -98,6 +116,18 @@ class Preset {
   }
   public void setPoly(boolean poly) {
     this.poly = poly;
+  }
+  public void setHiPassDly(float hiPassDly) {
+    this.hiPassDly = hiPassDly;
+  }
+  public void setTimeDly(float timeDly) {
+    this.timeDly = timeDly;
+  }
+  public void setFeedbackDly(float feedbackDly) {
+    this.feedbackDly = feedbackDly;
+  }
+  public void setIsActiveDly(boolean isActiveDly) {
+    this.isActiveDly = isActiveDly;
   }
   
 
@@ -150,6 +180,18 @@ class Preset {
   public boolean getPoly() {
     return this.poly;
   }
+  public float getHiPassDly() {
+    return this.hiPassDly;
+  }
+  public float getTimeDly() {
+    return this.timeDly;
+  }
+  public float getFeedbackDly() {
+    return this.feedbackDly;
+  }
+  public boolean getIsActiveDly() {
+    return this.isActiveDly;
+  }
 
   public String toString() { //Override
     String name = "Preset Name: " + this.name + "\n";
@@ -167,10 +209,13 @@ class Preset {
     String relTimeEG = "EG release Time (ms): " + this.relTime + "\n"; 
     String susAmpEG = "Amp sus EG: " + this.relTime + "\n"; 
     String poly = "Poly: " + Boolean.toString(this.poly) + "\n"; 
-    String intEG = "EG Int: " + this.intEG + "\n"; 
+    String intEG = "EG Int: " + this.intEG + "\n"; String delay = "HiPass: " + this.hiPassDly + "\n" + 
+                   "Time: " + this.timeDly + "\n" + 
+                   "Feedback: " + this.feedbackDly + "\n" +
+                   "isActive: " + Boolean.toString(this.isActiveDly) + "\n"; 
 
 
     return name + date + susPedal + modulation + modulationRate + cutoffFil + atckTime + dcyTime + relTime + susAmp + atckTimeEG + dcyTimeEG + relTimeEG + 
-    susAmpEG + poly + intEG;
+    susAmpEG + poly + intEG + delay;
   }
 }

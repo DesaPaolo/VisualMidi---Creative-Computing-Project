@@ -1,11 +1,4 @@
-//Paolo is the new Pry (sono Antonino)
-//Giulia Cosentini ti amo
-//Franca Garzotto no
-
- //<>//
-
-
-// A class to describe a group of Particles
+// A class to describe a group of Particles //<>//
 // An ArrayList is used to manage the list of Particles 
 
 class ParticleSystem {
@@ -17,13 +10,14 @@ class ParticleSystem {
     origin = position.copy();
     particles = new ArrayList<Particle>();
     lifespan = feedbackDly;
+    println("lifespan is " + lifespan);
   }
 
   void addParticle() {
     if(this.lifespan > 0 ){
       println("Carmelo piantala con 'sti bonghi " + lifespan);
       particles.add(new Particle(origin));
-      lifespan -= 1.0;
+      lifespan -= 0.5;
     }
   }
 
@@ -36,11 +30,6 @@ class ParticleSystem {
       }
     }
   }
-  
-  void drawParticles() {
-  addParticle();
-  run();
-}
 }
 
 
@@ -51,7 +40,6 @@ class Particle {
   PVector velocity;
   PVector acceleration;
   float lifespan;
-  color c = color(255,0, 0);
 
   Particle(PVector l) {
     acceleration = new PVector(0, 0.1*timeDly/100);
@@ -75,9 +63,9 @@ class Particle {
   // Method to display
   void display() {
     stroke(0, lifespan);
-    fill(c, lifespan);
-    translate(position.x, position.y);
-    sphere(10);
+    fill(255, 0, 0, lifespan);
+    ellipse(position.x, position.y, 8, 8);
+    println("Drawing the ellipse");
   }
 
   // Is the particle still useful?

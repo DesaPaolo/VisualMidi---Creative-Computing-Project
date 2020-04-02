@@ -9,6 +9,9 @@ class Note {
   float[] filterAdsrValues;
   Ramp ramp;
   Ramp filterRamp;
+  
+  
+  ParticleSystem ps;
 
   Note(int pitch, int velocity) {
     this.pitch = pitch;
@@ -20,6 +23,7 @@ class Note {
     this.sphere = new Sphere(x, y, z);
     this.adsrValues = new float[3];
     this.filterAdsrValues = new float[4];
+    this.ps = new ParticleSystem(new PVector(x+100, y+100));
   }
 
   int getPitch() {
@@ -33,6 +37,13 @@ class Note {
       removeNoteByPitch(this.pitch); //tempNotes.remove(ramp.index)
     }
     this.sphere.drawSphere(this.ramp.rampValue, this.filterRamp.rampValue, this.velocity);
+    
+    if(isActiveDly){
+      println("Delay is active: " + isActiveDly);
+      this.ps.addParticle();
+      this.ps.run();
+    }
+    
   }
 
   public void noteOnEffect() {

@@ -66,3 +66,6 @@ float EGAmpSus;
 
 float filterRampValueBackground;
 boolean poly;
+
+ParticleSystem ps;
+boolean drawBool = false;

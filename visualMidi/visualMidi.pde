@@ -2,6 +2,7 @@
 void setup() {
 
   size(1200, 600, P3D);
+  
   //fullScreen(P3D);
   background(0);
   startscreen = loadImage("korg.jpg");
