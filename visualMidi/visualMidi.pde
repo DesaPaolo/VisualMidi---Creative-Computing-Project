@@ -71,6 +71,6 @@ void playDraw() {
       tempNotes.get(i).update();
     }
   } else {
-    print("VUOTOOOOOOOOOOOOOO");
+    //tempNotes vuoto
   }
 } 
