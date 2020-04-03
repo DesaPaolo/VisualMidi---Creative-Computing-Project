@@ -1,36 +1,50 @@
 //<>// //<>//
 void setup() {
-
-  size(1200, 600, P3D);
   
-  //fullScreen(P3D);
-  background(0);
   startscreen = loadImage("korg.jpg");
-  image(startscreen, 0, 0);
+  //int a = startscreen.width;
+  //int b = startscreen.height;
+  //println(a +" ", b);
+  //size(1200, 1000, P3D);
+  fullScreen(P3D);
+  background(0);
+  imageMode(CENTER);
+  textSize(24);
+  
+  //translate(250, 250);
+  image(startscreen, width/2, height * .6);
 
   midiInit();
   adsrInit();
   menuInit();
   poly = true;
 }
+void cleanScreen() {
+  rectMode(CENTER);
+  fill(0);  
+  rect(width/2, height/2, width, height);
+}
 
 void draw() {
-
+  cleanScreen();
+  textSize(24);
   if (mode == 0) { //menu
-    image(startscreen, 0, 0);
-    text("Welcome to Korg Minilogue's Visual MIDI", 600, 70);
+    rectMode(CENTER);
+    textAlign(CENTER, CENTER);
+    image(startscreen, width/2, height * .6);
+    text("Welcome to Korg Minilogue's Visual MIDI", 0, 10);
     fill(255);
     rect(xBtn1, yBtn1, wBtn, hBtn);
     fill(0);
-    text("Store Mode", (xBtn1 + 20), (yBtn1 + 20));
+    text("Store Mode", (xBtn1), (yBtn1));
     fill(255);
     rect(xBtn2, yBtn2, wBtn, hBtn);
     fill(0);
-    text("Load Mode", (xBtn2 + 20), (yBtn2 + 20));
+    text("Load Mode", (xBtn2), (yBtn2));
     fill(255);
     rect(xBtn3, yBtn3, wBtn, hBtn);
     fill(0);
-    text("Play Mode", (xBtn3 + 20), (yBtn3 + 20));
+    text("Play Mode", (xBtn3), (yBtn3));
 
     noLoop();
   } else if (mode == 1) { //store
@@ -51,16 +65,17 @@ void playDraw() {
   } else {
     fill(filterRampValueBackground);
   }
-
-  rect(0, 0, width, height);
+  rect(width/2, height/2, width, height);
   lights();
 
   fill(255);  
-  text("Play Mode", 500, 100);
-  fill(255);
-  rect(xBtn4, yBtn4, wBtn, hBtn);
+  textAlign(CENTER, CENTER);
+  rectMode(CENTER);
+  text("Play Mode", (xBtn3), (yBtn3));
+  //fill(255);
+  //rect(xBtn4, yBtn4, wBtn, hBtn);
   fill(0);
-  text("Back to Menu", (xBtn4 + 20), (yBtn4 + 20));
+  text("Back to Menu", (xBtn4), (yBtn4));
 
   //Chiama update della view per ogni nota. Da aggiungere differenza tra monofonia e polifonia e limite 
   //massimo di voci a 4, per rispecchiare sempre l'audio output del minilogue.

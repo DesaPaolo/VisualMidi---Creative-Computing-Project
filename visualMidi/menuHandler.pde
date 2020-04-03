@@ -2,17 +2,21 @@
 
 public void menuInit() {
   
-  mode = 0; //Menu
-  xBtn1 = 250; //Store
-  yBtn1 = 100;
-  xBtn2 = 600; //Load
-  yBtn2 = 100;
-  xBtn3 = 900; //Back to Menu
-  yBtn3 = 100;
-  xBtn4 = 100; //Play
-  yBtn4 = 50;
-  wBtn = 150;
-  hBtn = 50;
+  mode = 0; //Menu] 
+  wBtn = 180;
+  hBtn = 60;
+  float centerPosition = width/2;
+  final float OMOGENEOUS_COEFF = 1.5;
+  float distanceFactor = wBtn * 1.5 * OMOGENEOUS_COEFF;
+  xBtn1 = (int) (centerPosition  - distanceFactor );//250; //Store
+  yBtn1 = (int) (height * .06);//100;
+  xBtn2 = (int) (centerPosition);//;600; //Load
+  yBtn2 = (int) (height * .06);
+  xBtn3 = (int) (centerPosition  + distanceFactor); //Play
+  yBtn3 = (int) (height * .06);
+  xBtn4 = (int) (centerPosition - 2* distanceFactor); // Back to menu
+  yBtn4 = (int) (height * .06);
+
   
   presets = new ArrayList<Preset>();
   loadButtons = new ArrayList<Rectangle>();
@@ -43,36 +47,36 @@ void mousePressed() {
     loop();
 }
 
-boolean buttonPressed(int x, int y, int width, int height){
-  if (mouseX >= x && mouseX <= x+width && 
-      mouseY >= y && mouseY <= y+height){
+boolean buttonPressed(int x, int y, int sizeVert, int sizeHoriz){
+  if ( ( x-sizeHoriz/2 <= mouseX && mouseX <= x+sizeHoriz/2) && (
+      y-sizeVert/2 <=mouseY && mouseY <= y+sizeVert/2)){
     return true;
   }
   else return false;
 }
 
 void storeMode(){
-  
-  int xStoreBtn = 500;
-  int yStoreBtn = 200;
+
   gettingUserInput = true;
   background(0);
-  text("Store Mode", 500, 100);
-  
+  textAlign(CENTER, CENTER);
+  rectMode(CENTER);
+  fill(0);
+  text("Store Mode", width/2, height * .05);
   fill(255);
   rect(xBtn4, yBtn4, wBtn, hBtn);
   fill(0);
-  text("Back to Menu", (xBtn4 + 20), (yBtn4 + 20));
+  text("Back to Menu", (xBtn4), (yBtn4));
   fill(255);
-  rect(xStoreBtn, yStoreBtn, wBtn, hBtn);
+  rect(width/2, (height/2)-150, wBtn, hBtn);
   fill(0);
-  text("Store Preset", (xStoreBtn + 20), (yStoreBtn + 20));
+  text("Store Preset", (width/2), (height/2)-150);
   //prevDraw();
   if(gettingUserInput){
     showInputScanning();
   }
   
-  if (mousePressed && buttonPressed(xStoreBtn, yStoreBtn, wBtn, hBtn)){
+  if (mousePressed && buttonPressed(width/4, yBtn1, wBtn, hBtn)){
     noLoop();
     savePreset();
   }
@@ -240,11 +244,11 @@ void drawMenuPresets(){
   
   background(0);
   fill(255);
-  text("Load Mode", 500, 100);
+  text("Load Mode", width/2, height * .10);
   fill(255);
   rect(xBtn4, yBtn4, wBtn, hBtn);
   fill(0);
-  text("Back to Menu", (xBtn4 + 20), (yBtn4 + 20));
+  text("Back to Menu", (xBtn4), (yBtn4));
   
   fill(255);
   rect(xBox, yBox, wBox, hBox);
@@ -299,11 +303,11 @@ void storePresetToFile (Preset actualPreset, FileWriter fileWriter){
 }
 
 void showInputScanning(){
-  fill(255);
-  text(msg, 100, 200);
+  fill(0,230,25);
+  text(msg, width/2, height/2);
   
   fill(0,250,0);
-  text("Mouse click to reset message, Return to store", 100, 250);
+  text("Mouse click to reset message, Return to store", width/2, (height/2)+80);
 }
 
 void scanInput(){
