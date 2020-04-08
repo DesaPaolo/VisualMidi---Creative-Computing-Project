@@ -24,6 +24,18 @@ public void menuInit() {
 }
 
 void mousePressed() {
+  
+  /* Debugging Code
+  float a = xBtn1 + wBtn;
+  float b = xBtn2 +wBtn;
+  float c = xBtn3 +wBtn;
+  float d = yBtn1 + hBtn;
+  println("Actual mode is: "+ mode +"mouse is pressed in position " + "x: "+mouseX +"y: "+mouseY+"\n");
+  println("store button extension from x= " + xBtn1 + "to x=" + a +"from y= "+yBtn1 +"to y= "+ d +"\n");
+  println("load button extension from x= " + xBtn2 + "to x=" + b +"from y= "+yBtn2 +"to y= "+ d +"\n");
+  println("play button extension from x= " + xBtn3 + "to x=" + c +"from y= "+yBtn3 +"to y= "+ d +"\n");
+  */
+
   if(mode == 0) {
       if (buttonPressed(xBtn1, yBtn1, wBtn, hBtn)){
         mode = 1;
@@ -226,25 +238,21 @@ void drawMenuPresets(){
   int aListSize = presets.size();
   int xBox, yBox, wBox, hBox, leftMarginNames, upperMarginNames, hLine, xLoadBtn, yLoadBtn, wLoadBtn, hLoadBtn;
   //println("aListSize is " + aListSize);
-  xBtn4 = 100;
-  yBtn4 = 50;
-  wBtn = 150;
-  hBtn = 50;
-  xBox = 800;
+  xBox = width/2;
   yBox = 200;
   wBox = 450;
   hBox = aListSize*50;
   leftMarginNames = 20;
   upperMarginNames = 30;
-  hLine = 20;
-  xLoadBtn = 1100;
-  yLoadBtn = ((yBox+upperMarginNames) - 15);
+  hLine = 30;
+  xLoadBtn = xBtn3;
+  yLoadBtn = ((yBox+upperMarginNames));
   wLoadBtn = 80;
-  hLoadBtn = 15;
+  hLoadBtn = 40;
   
   background(0);
   fill(255);
-  text("Load Mode", width/2, height * .10);
+  text("Load Mode", width/2, height * .06);
   fill(255);
   rect(xBtn4, yBtn4, wBtn, hBtn);
   fill(0);
@@ -252,15 +260,16 @@ void drawMenuPresets(){
   
   fill(255);
   rect(xBox, yBox, wBox, hBox);
+
   for(int i=0; i<aListSize; i++){
     fill(0);
-    text((presets.get(i).getPresetName() + "\t  " + presets.get(i).getCreationDate()), xBox+leftMarginNames, ((yBox+upperMarginNames) + (i*hLine)));
-    fill(0);
+    text((presets.get(i).getPresetName() + "\t  " + presets.get(i).getCreationDate()), xBox, (yBox + (i*hLine)));
+    fill(255);
     rect(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn);
     Rectangle newRect = new Rectangle(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn, i);
     loadButtons.add(newRect);
-    fill(255);
-    text("Load", (xLoadBtn + 20), (yLoadBtn + (i*hLine)+12));
+    fill(0);
+    text("Load", (xLoadBtn), (yLoadBtn + (i*hLine)));
   }
   if(mousePressed){
     if(loadBtnClicked(loadButtons)!= -1){

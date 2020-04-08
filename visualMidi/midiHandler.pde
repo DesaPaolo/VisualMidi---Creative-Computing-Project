@@ -6,8 +6,8 @@ public void midiInit() {
   MidiBus.list(); // List all our MIDI devices
   minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
   minilogueBusName = minilogue.getBusName();
-  guitar = new MidiBus(this, 4, 5);// Connect to one of the devices
-  guitarBusName = guitar.getBusName();
+  //guitar = new MidiBus(this, 4, 5);// Connect to one of the devices
+  //guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();
   alreadyInTempChord = false;
 }
