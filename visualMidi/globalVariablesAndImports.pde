@@ -14,12 +14,13 @@ String minilogueBusName, guitarBusName;
 
 //Menu global variables
 ArrayList<Preset> presets;
-ArrayList<Rectangle> loadButtons;
+ArrayList<Button> loadButtons;
 int choice;
 PImage startscreen;
 PFont newFont;
 int mode;
-int xBtn1, yBtn1, wBtn, hBtn, xBtn2, yBtn2, xBtn3, yBtn3, xBtn4, yBtn4;
+int xBtnStoreMode, yBtnStoreMode, wBtn, hBtn, xBtnLoadMode, yBtnLoadMode, xBtnPlayMode, yBtnPlayMode, xBtnBackToMenu, yBtnBackToMenu;
+Button storeModeBtn, loadModeBtn, playModeBtn, backToMenuBtn, doStoreBtn;
 boolean gettingUserInput = false;
 final String INIT_MSG="Start typing";
 String msg=INIT_MSG;

@@ -8,18 +8,22 @@ public void menuInit() {
   float centerPosition = width/2;
   final float OMOGENEOUS_COEFF = 1.5;
   float distanceFactor = wBtn * 1.5 * OMOGENEOUS_COEFF;
-  xBtn1 = (int) (centerPosition  - distanceFactor );//250; //Store
-  yBtn1 = (int) (height * .06);//100;
-  xBtn2 = (int) (centerPosition);//;600; //Load
-  yBtn2 = (int) (height * .06);
-  xBtn3 = (int) (centerPosition  + distanceFactor); //Play
-  yBtn3 = (int) (height * .06);
-  xBtn4 = (int) (centerPosition - 1.2* distanceFactor); // Back to menu
-  yBtn4 = (int) (height * .06);
+  xBtnStoreMode = (int) (centerPosition  - distanceFactor );//250; //Store
+  yBtnStoreMode = (int) (height * .06);//100;
+  xBtnLoadMode = (int) (centerPosition);//;600; //Load
+  yBtnLoadMode = (int) (height * .06);
+  xBtnPlayMode = (int) (centerPosition  + distanceFactor); //Play
+  yBtnPlayMode = (int) (height * .06);
+  xBtnBackToMenu = (int) (centerPosition - 1.2* distanceFactor); // Back to menu
+  yBtnBackToMenu = (int) (height * .06);
 
+  storeModeBtn = new Button(xBtnStoreMode, yBtnStoreMode, wBtn, hBtn, "Store Mode", color(255), color(0));
+  loadModeBtn = new Button(xBtnLoadMode, yBtnLoadMode, wBtn, hBtn, "Load Mode", color(255), color(0));
+  playModeBtn = new Button(xBtnPlayMode, yBtnPlayMode, wBtn, hBtn, "Play Mode", color(255), color(0));
+  backToMenuBtn = new Button(xBtnBackToMenu, yBtnBackToMenu, wBtn, hBtn, "Back to Menu", color(255), color(0));
   
   presets = new ArrayList<Preset>();
-  loadButtons = new ArrayList<Rectangle>();
+  loadButtons = new ArrayList<Button>();
   
 }
 
@@ -37,19 +41,21 @@ void mousePressed() {
   */
 
   if(mode == 0) {
-      if (buttonPressed(xBtn1, yBtn1, wBtn, hBtn)){
-        mode = 1;
+      if (storeModeBtn.isPressed()){
+        mode = 1; //store
       }
-      else if (buttonPressed(xBtn2, yBtn2, wBtn, hBtn)){
-        mode = 2;
+      else if (loadModeBtn.isPressed()){
+        mode = 2; //load
       }
-      else if (buttonPressed(xBtn3, yBtn3, wBtn, hBtn)){
+      else if (playModeBtn.isPressed()){
         mode = 3; //play
         loop(); //Mi accerto che torni il loop
       }
     }
     else if (mode == 1 || mode == 2 || mode == 3){
-      if (buttonPressed(xBtn4, yBtn4, wBtn, hBtn)){
+      if (backToMenuBtn.isPressed()){
+        cleanScreen();
+        println("Passo da 1 a 0");
         mode = 0;
       }
     }
@@ -59,18 +65,12 @@ void mousePressed() {
     loop();
 }
 
-boolean buttonPressed(int x, int y, int sizeVert, int sizeHoriz){
-  if ( ( x-sizeHoriz/2 <= mouseX && mouseX <= x+sizeHoriz/2) && (
-      y-sizeVert/2 <=mouseY && mouseY <= y+sizeVert/2)){
-    return true;
-  }
-  else return false;
-}
-
 void storeMode(){
-
+  cleanScreen();
   int xStoreBtn = width/2;
   int yStoreBtn = (height/2)-150;
+  
+  doStoreBtn = new Button (xStoreBtn, yStoreBtn, wBtn, hBtn, "Store Preset", color(255), color(0));
   
   gettingUserInput = true;
   background(0);
@@ -78,20 +78,17 @@ void storeMode(){
   rectMode(CENTER);
   fill(0);
   text("Store Mode", width/2, height * .05);
-  fill(255);
-  rect(xBtn4, yBtn4, wBtn, hBtn);
-  fill(0);
-  text("Back to Menu", (xBtn4), (yBtn4));
-  fill(255);
-  rect(width/2, (height/2)-150, wBtn, hBtn);
-  fill(0);
-  text("Store Preset", xStoreBtn, yStoreBtn);
+  
+  backToMenuBtn.showBtn();
+  
+  doStoreBtn.showBtn();
+  
   //prevDraw();
   if(gettingUserInput){
     showInputScanning();
   }
   
-  if (mousePressed && buttonPressed(xStoreBtn, yStoreBtn, wBtn, hBtn)){
+  if (doStoreBtn.isPressed()){
     noLoop();
     println("Calling savePreset");
     savePreset();
@@ -138,13 +135,9 @@ void loadPresets() throws Exception{
   drawMenuPresets();
 }
 
-int loadBtnClicked(ArrayList<Rectangle> buttons){
+int loadBtnClicked(ArrayList<Button> buttons){
   for(int i=0; i<buttons.size(); i++){
-    int x = buttons.get(i).getX();
-    int y = buttons.get(i).getY();
-    int w = buttons.get(i).getWidth();
-    int h = buttons.get(i).getHeight();
-    if(buttonPressed(x, y, w, h)){return buttons.get(i).getIndex();}
+    if(buttons.get(i).isPressed()){return buttons.get(i).getIndex();}
   }
   return -1;
 }
@@ -250,31 +243,32 @@ void drawMenuPresets(){
   leftMarginNames = 20;
   upperMarginNames = 30;
   hLine = 30;
-  xLoadBtn = xBtn3;
+  xLoadBtn = xBox+wBox-100;
   yLoadBtn = ((yBox+upperMarginNames));
   wLoadBtn = 80;
   hLoadBtn = 40;
   
   background(0);
   fill(255);
-  text("Load Mode", width/2, height * .06);
+  text("Load Mode", width/2, height * .06); //titolo
   fill(255);
-  rect(xBtn4, yBtn4, wBtn, hBtn);
-  fill(0);
-  text("Back to Menu", (xBtn4), (yBtn4));
+  
+  backToMenuBtn.showBtn();
   
   fill(255);
-  rect(xBox, yBox, wBox, hBox);
+  rect(xBox, yBox, wBox, hBox); //box contenente i preset da salvare
 
   for(int i=0; i<aListSize; i++){
+    Button newBtn = new Button(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn, "Load", color(255), color(0));
+    newBtn.setIndex(i);
+    loadButtons.add(newBtn);
+    newBtn.showBtn();
+    
     fill(0);
     text((presets.get(i).getPresetName() + "\t  " + presets.get(i).getCreationDate()), xBox, (yBox + (i*hLine)));
     fill(255);
     rect(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn);
-    Rectangle newRect = new Rectangle(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn, i);
-    loadButtons.add(newRect);
-    fill(0);
-    text("Load", (xLoadBtn), (yLoadBtn + (i*hLine)));
+ 
   }
   if(mousePressed){
     if(loadBtnClicked(loadButtons)!= -1){
@@ -321,7 +315,7 @@ void showInputScanning(){
   text(msg, width/2, height/2);
   
   fill(0,250,0);
-  text("Mouse click to reset message, Return to store", width/2, (height/2)+80);
+  text("Mouse click to reset message, Return to set the name, Click \"Store\" to Store", width/2, (height/2)+80);
 }
 
 void scanInput(){

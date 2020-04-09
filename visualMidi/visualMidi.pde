@@ -20,6 +20,7 @@ void setup() {
   poly = true;
 }
 void cleanScreen() {
+  noStroke();
   rectMode(CENTER);
   fill(0);  
   rect(width/2, height/2, width, height);
@@ -33,18 +34,11 @@ void draw() {
     textAlign(CENTER, CENTER);
     image(startscreen, width/2, height * .6);
     text("Welcome to Korg Minilogue's Visual MIDI", 0, 10);
-    fill(255);
-    rect(xBtn1, yBtn1, wBtn, hBtn);
-    fill(0);
-    text("Store Mode", (xBtn1), (yBtn1));
-    fill(255);
-    rect(xBtn2, yBtn2, wBtn, hBtn);
-    fill(0);
-    text("Load Mode", (xBtn2), (yBtn2));
-    fill(255);
-    rect(xBtn3, yBtn3, wBtn, hBtn);
-    fill(0);
-    text("Play Mode", (xBtn3), (yBtn3));
+    
+    
+    storeModeBtn.showBtn();
+    loadModeBtn.showBtn();
+    playModeBtn.showBtn();
 
     noLoop();
   } else if (mode == 1) { //store
@@ -68,14 +62,11 @@ void playDraw() {
   rect(width/2, height/2, width, height);
   lights();
 
-  fill(255);  
+  //fill(255);  
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
-  text("Play Mode", (xBtn3), (yBtn3));
-  //fill(255);
-  //rect(xBtn4, yBtn4, wBtn, hBtn);
-  fill(0);
-  text("Back to Menu", (xBtn4), (yBtn4));
+  text("Play Mode", (width/2), (height*0.2));
+  backToMenuBtn.showBtn();
 
   //Chiama update della view per ogni nota. Da aggiungere differenza tra monofonia e polifonia e limite 
   //massimo di voci a 4, per rispecchiare sempre l'audio output del minilogue.
