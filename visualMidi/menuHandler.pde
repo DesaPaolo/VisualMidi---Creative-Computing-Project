@@ -14,7 +14,7 @@ public void menuInit() {
   yBtn2 = (int) (height * .06);
   xBtn3 = (int) (centerPosition  + distanceFactor); //Play
   yBtn3 = (int) (height * .06);
-  xBtn4 = (int) (centerPosition - 2* distanceFactor); // Back to menu
+  xBtn4 = (int) (centerPosition - 1.2* distanceFactor); // Back to menu
   yBtn4 = (int) (height * .06);
 
   
@@ -69,6 +69,9 @@ boolean buttonPressed(int x, int y, int sizeVert, int sizeHoriz){
 
 void storeMode(){
 
+  int xStoreBtn = width/2;
+  int yStoreBtn = (height/2)-150;
+  
   gettingUserInput = true;
   background(0);
   textAlign(CENTER, CENTER);
@@ -82,14 +85,15 @@ void storeMode(){
   fill(255);
   rect(width/2, (height/2)-150, wBtn, hBtn);
   fill(0);
-  text("Store Preset", (width/2), (height/2)-150);
+  text("Store Preset", xStoreBtn, yStoreBtn);
   //prevDraw();
   if(gettingUserInput){
     showInputScanning();
   }
   
-  if (mousePressed && buttonPressed(width/4, yBtn1, wBtn, hBtn)){
+  if (mousePressed && buttonPressed(xStoreBtn, yStoreBtn, wBtn, hBtn)){
     noLoop();
+    println("Calling savePreset");
     savePreset();
   }
 }
@@ -119,6 +123,7 @@ void savePreset(){
     }
     
     fileWriter.close(); 
+    println("Closed");
   } catch (IOException e) {
     // exception handling
     println("IO Exception");
