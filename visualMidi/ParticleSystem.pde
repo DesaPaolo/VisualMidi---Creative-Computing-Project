@@ -45,7 +45,7 @@ class Particle {
     acceleration = new PVector(0, 0.1*timeDly/100);
     velocity = new PVector(random(-1, 1), random(-2, 0));
     position = l.copy();
-    lifespan = hiPassDly;
+    lifespan = 255-hiPassDly;
   }
 
   void run() {
