@@ -9,21 +9,21 @@ class Note {
   float[] filterAdsrValues;
   Ramp ramp;
   Ramp filterRamp;
-  
+  float x, y, z;
   
   ParticleSystem ps;
 
   Note(int pitch, int velocity) {
+    println("#######Created a note##########");
     this.pitch = pitch;
     this.velocity = velocity;
-    float x = map(this.pitch, 21, 108, 0, width);
-    float y = map(this.pitch, 21, 108, height, 0);
-    float z = 1;
+    x = map(this.pitch, 21, 108, 0, width);
+    y = map(this.pitch, 21, 108, height, 0);
+    z = 1;
     this.velocity = map(this.velocity, 0, 127, 0, 255);
     this.sphere = new Sphere(x, y, z);
     this.adsrValues = new float[3];
     this.filterAdsrValues = new float[4];
-    this.ps = new ParticleSystem(new PVector(x+100, y+100));
   }
 
   int getPitch() {
@@ -36,13 +36,15 @@ class Note {
       //releasedNotes--;
       removeNoteByPitch(this.pitch); //tempNotes.remove(ramp.index)
     }
+    
     this.sphere.drawSphere(this.ramp.rampValue, this.filterRamp.rampValue, this.velocity);
     
     if(isActiveDly){
-      println("Delay is active: " + isActiveDly);
+      //println("Delay is active: " + isActiveDly);
       this.ps.addParticle();
       this.ps.run();
     }
+
     
   }
 
@@ -51,7 +53,7 @@ class Note {
     this.initAdsrRamp();
     
     if(isActiveDly){
-      this.sphere.ps = new ParticleSystem(this.sphere.position);
+      this.ps = new ParticleSystem(new PVector(x, y+20, z), this.sphere);
       println("Creo particle system");
     }
     

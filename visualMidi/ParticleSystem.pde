@@ -3,11 +3,18 @@
 
 class ParticleSystem {
   ArrayList<Particle> particles;
-  PVector origin;
+  PVector origin = new PVector();
   float lifespan;
 
-  ParticleSystem(PVector position) {
-    origin = position.copy();
+  ParticleSystem(PVector position, Sphere sphere) {
+    println("#######Created a particle##########");
+
+    origin.x = position.x;
+    origin.y = position.y;
+    //origin.z = position.z;
+    println("px: " + position.x + "py:" + position.y + "pz: " + position.z);
+    println("sph pos:" + sphere.position+"sph radius: "+sphere.radius);
+
     particles = new ArrayList<Particle>();
     lifespan = feedbackDly;
     println("lifespan is " + lifespan);
@@ -15,7 +22,7 @@ class ParticleSystem {
 
   void addParticle() {
     if(this.lifespan > 0 ){
-      println("Carmelo piantala con 'sti bonghi " + lifespan);
+      //println("Carmelo piantala con 'sti bonghi " + lifespan);
       particles.add(new Particle(origin));
       lifespan -= 0.5;
     }
@@ -65,7 +72,7 @@ class Particle {
     stroke(0, lifespan);
     fill(255, 0, 0, lifespan);
     ellipse(position.x, position.y, 8, 8);
-    println("Drawing the ellipse");
+    //println("Drawing the ellipse");
   }
 
   // Is the particle still useful?
