@@ -147,11 +147,12 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
       break;
       
     case 30:
-      timeDly = map(value, 0, 127, 0, 100);
+      timeDly = map(value, 0, 127, 0, maximumDelayTime);
       break;
 
     case 31: 
-      feedbackDly = map(value, 0, 127, 0, 1000);
+      feedbackDly = map(value, 0, 127, 0, maximumFeedBack);
+      //change lifespan if move this knob: realtime feedback knob
       break; 
   
     case 45: //EG INT

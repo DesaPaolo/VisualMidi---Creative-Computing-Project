@@ -2,6 +2,7 @@
 // An ArrayList is used to manage the list of Particles 
 
 class ParticleSystem {
+
   ArrayList<Particle> particles;
   PVector origin = new PVector();
   float lifespan;
@@ -24,8 +25,16 @@ class ParticleSystem {
     if(this.lifespan > 0 ){
       //println("Carmelo piantala con 'sti bonghi " + lifespan);
       particles.add(new Particle(origin));
-      lifespan -= 0.5;
+      lifespan -= f1();
     }
+  }
+
+  float f1() {
+    if(feedbackDly==maximumFeedBack){
+      return 0;
+    }
+    return 1;
+
   }
 
   void run() {
@@ -37,6 +46,11 @@ class ParticleSystem {
       }
     }
   }
+
+  public boolean isAlive() {
+    return lifespan>0;
+  };
+
 }
 
 
@@ -49,7 +63,7 @@ class Particle {
   float lifespan;
 
   Particle(PVector l) {
-    acceleration = new PVector(0, 0.1*timeDly/100);
+    acceleration = new PVector(0, 0.01*(maximumDelayTime-timeDly));
     velocity = new PVector(random(-1, 1), random(-2, 0));
     position = l.copy();
     lifespan = 255-hiPassDly;

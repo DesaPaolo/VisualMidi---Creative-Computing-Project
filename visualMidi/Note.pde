@@ -32,7 +32,9 @@ class Note {
 
   //Update the view, after the model has changed
   public void update() {
-    if (this.toRemove) {
+    println("is alive: "+ this.ps.isAlive() +"lifespan== " +this.ps.lifespan);
+
+    if (this.toRemove && !this.ps.isAlive()) {
       //releasedNotes--;
       removeNoteByPitch(this.pitch); //tempNotes.remove(ramp.index)
     }
