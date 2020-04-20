@@ -30,11 +30,15 @@ class ParticleSystem {
   }
 
   float f1() {
-    if(feedbackDly==maximumFeedBack){
+
+    if(maximumFeed()){
       return 0;
     }
     return 1;
+  }
 
+  boolean maximumFeed() {
+    return (feedbackDly>=maximumFeedBack-10);
   }
 
   void run() {
@@ -84,7 +88,7 @@ class Particle {
   // Method to display
   void display() {
     stroke(0, lifespan);
-    fill(255, 0, 0, lifespan);
+    fill(255, hiPassDly, hiPassDly, lifespan);
     ellipse(position.x, position.y, 8, 8);
     //println("Drawing the ellipse");
   }

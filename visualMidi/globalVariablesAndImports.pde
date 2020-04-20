@@ -44,7 +44,7 @@ float timeDly = 0;
 float feedbackDly = 0;
 Boolean isActiveDly = false;
 float maximumDelayTime = 100;
-float maximumFeedBack = 500;
+float maximumFeedBack = 120;
 
 //ADSR global variables
 /*Antonino variables*/
