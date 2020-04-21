@@ -19,7 +19,7 @@ public void adsrInit() {
 
   ampSus = 100; 
   EGAmpSus = 100;
-  cutOffFilter = 255;
+  cutOffFilter = 100;
   EGInt = 0;
 }
 

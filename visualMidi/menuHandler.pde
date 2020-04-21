@@ -21,13 +21,14 @@ public void menuInit() {
   loadModeBtn = new Button(xBtnLoadMode, yBtnLoadMode, wBtn, hBtn, "Load Mode", color(255), color(0));
   playModeBtn = new Button(xBtnPlayMode, yBtnPlayMode, wBtn, hBtn, "Play Mode", color(255), color(0));
   backToMenuBtn = new Button(xBtnBackToMenu, yBtnBackToMenu, wBtn, hBtn, "Back to Menu", color(255), color(0));
-  
+  deviceModeBtn = new Button(xBtnBackToMenu, yBtnBackToMenu+200, wBtn, hBtn, "Change Device", color(255), color(0));
   presets = new ArrayList<Preset>();
   loadButtons = new ArrayList<Button>();
   
 }
 
 void mousePressed() {
+  println("MOUSE PRESSED!!!!!");
   
   /* Debugging Code
   float a = xBtn1 + wBtn;
@@ -46,6 +47,7 @@ void mousePressed() {
         mode = 1; //store
       }
       else if (loadModeBtn.isPressed()){
+
         loadPresetsFromFile(); 
         loadMenu = new LoadMenu(presets.size());
         mode = 2; //load
@@ -54,10 +56,14 @@ void mousePressed() {
         mode = 3; //play
         loop(); //Mi accerto che torni il loop
       }
+      else if(deviceModeBtn.isPressed()) {
+        mode = 4;
+        loop();
+      }
 
     }
 
-    else if (mode == 1 || mode == 2 || mode == 3){
+    else if (mode == 1 || mode == 2 || mode == 3|| mode ==4){
       if (backToMenuBtn.isPressed()){
         cleanScreen();
         println("Passo da 1 a 0");
@@ -71,10 +77,18 @@ void mousePressed() {
     if(mode==2) {
       loadMenu.mousePressedEvent();
     }
+    if(mode==4 && deviceMenu!=null) {
+
+      deviceMenu.mousePressedEvent();
+    }
 
     loop();
 }
-
+void deviceMode() {
+  cleanScreen();
+  deviceMenu = new DeviceMenu(Arrays.asList(MidiBus.availableInputs()).size());
+  deviceMenu.showMenu();
+}
 void storeMode(){
   cleanScreen();
   int xStoreBtn = width/2;
@@ -147,7 +161,7 @@ void loadPresets() throws Exception{
   //drawMenuPresets();
 }
 
-int loadBtnClicked(ArrayList<Button> buttons){
+int getBtnIndex(ArrayList<Button> buttons){
   for(int i=0; i<buttons.size(); i++){
     if(buttons.get(i).isPressed()){return buttons.get(i).getIndex();}
   }
@@ -280,13 +294,13 @@ void drawMenuPresets(){
     fill(0);
     text((presets.get(i).getPresetName() /*+ "\t  " + presets.get(i).getCreationDate()*/), xBox, (yBox + (i*hLine)+10));
 
-  }
+  }/*
   if(mousePressed){
     println("!!!!!!!!!!!!!!!PRESSED ON LOAD!!!!!!!");
     if(loadBtnClicked(loadButtons)!= -1){
       activatePreset(loadBtnClicked(loadButtons));
     }  
-  }
+  }*/
   //while (iterator.hasNext()){}
     //println(iterator.next().toString());
   //}

@@ -15,6 +15,7 @@ void setup() {
   adsrInit();
   menuInit();
 
+
  //drawDevicesMenu();
   poly = true;
 }
@@ -27,6 +28,7 @@ void drawMode0() {
   storeModeBtn.showBtn();
   loadModeBtn.showBtn();
   playModeBtn.showBtn();
+  deviceModeBtn.showBtn();
 }
 
 void cleanScreen() {
@@ -40,6 +42,7 @@ void draw() {
 
   cleanScreen();
   textSize(24);
+  //deviceMenu.showMenu();
   if (mode == 0) { //menu
     drawMode0();
     noLoop();
@@ -50,6 +53,10 @@ void draw() {
   } else if (mode == 3) { //play
     playDraw();
   }
+    else if (mode == 4) {
+    deviceMode();
+  }
+
 }
 
 void playDraw() {

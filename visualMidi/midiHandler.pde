@@ -2,11 +2,13 @@ private ArrayList<Note> tempNotes;
 private boolean alreadyInTempChord;
 
 public void midiInit() {
+
   
   MidiBus.list();
   minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
-  println(minilogue.getBusName());
   minilogueBusName = minilogue.getBusName();
+
+  minilogue = new MidiBus(this);// Connect to one of the devices
   //guitar = new MidiBus(this, 4, 5);// Connect to one of the devices
   //guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();

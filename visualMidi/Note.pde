@@ -68,7 +68,7 @@ class Note {
     //println("AttackValueInAmplitude "+this.adsrValues[0]+ " is reached after " + times[0] + "ms");
     //println("SustainValueInAmplitude "+this.adsrValues[1]+ " is reached after " + times[1] + "ms");
 
-    this.filterAdsrValues[0] = cutOffFilter;//is like the cutoff frequency, from 0 to 255
+    this.filterAdsrValues[0] = cutOffFilter;//is like the cutoff frequency, from 0 to 100
     this.filterAdsrValues[1] = min(100, cutOffFilter + EGInt);
     this.filterAdsrValues[2] = min(100, cutOffFilter + EGInt * ((float)EGAmpSus/100));
     this.filterAdsrValues[3] = cutOffFilter;

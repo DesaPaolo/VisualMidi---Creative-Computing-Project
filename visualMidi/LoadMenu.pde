@@ -12,9 +12,9 @@ class LoadMenu extends Menu{
         if(mousePressed){
             println("PREMO IL MOUSE, RE CECCONI");
 
-            if(loadBtnClicked(menuButtons)!= -1){
+            if(getBtnIndex(menuButtons)!= -1){
 
-                activatePreset(loadBtnClicked(menuButtons));
+                activatePreset(getBtnIndex(menuButtons));
                 /*
                 fill(255,255,255);
                 text("PRESET LOADED !", 120, 120);
@@ -27,7 +27,6 @@ class LoadMenu extends Menu{
 
     public void showMenu() {
 
-        background(0);
         fill(255);
         text(title, width/2, height * .06); 
         fill(255);
