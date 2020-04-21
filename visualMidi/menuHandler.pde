@@ -51,6 +51,7 @@ void mousePressed() {
         mode = 3; //play
         loop(); //Mi accerto che torni il loop
       }
+
     }
 
     else if (mode == 1 || mode == 2 || mode == 3){
@@ -112,7 +113,7 @@ void savePreset(){
   loadPresetsFromFile(); //salvataggio from file to var senza grafica
   addPreset(actualPreset); //Aggiunge preset controllando se overwrite
   try{
-    FileWriter fileWriter = new FileWriter("presets.txt");
+    FileWriter fileWriter = new FileWriter("../presets.txt");
     
     for(int i=0; i<presets.size(); i++){
       println("preset size is " + presets.size() + " now we are in index " + i);
@@ -185,7 +186,7 @@ void addPreset (Preset presetToAdd){
 }
 
 void loadPresetsFromFile(){
-  File file = new File("presets.txt"); 
+  File file = new File("../presets.txt"); 
     try {
       BufferedReader br = new BufferedReader(new FileReader(file)); 
       Preset newPreset;
@@ -235,19 +236,20 @@ void loadPresetsFromFile(){
 
 void drawMenuPresets(){
   int aListSize = presets.size();
+  println("alistSize: "+ aListSize);
   int xBox, yBox, wBox, hBox, leftMarginNames, upperMarginNames, hLine, xLoadBtn, yLoadBtn, wLoadBtn, hLoadBtn;
   //println("aListSize is " + aListSize);
   xBox = width/2;
   yBox = 200;
   wBox = 450;
-  hBox = aListSize*50;
+  hBox = aListSize*60;
   leftMarginNames = 20;
   upperMarginNames = 30;
   hLine = 30;
   xLoadBtn = xBox+wBox-100;
   yLoadBtn = ((yBox+upperMarginNames));
   wLoadBtn = 80;
-  hLoadBtn = 40;
+  hLoadBtn = 60;
   
   background(0);
   fill(255);
@@ -260,18 +262,17 @@ void drawMenuPresets(){
   rect(xBox, yBox, wBox, hBox); //box contenente i preset da salvare
 
   for(int i=0; i<aListSize; i++){
-    Button newBtn = new Button(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn, "Load", color(255), color(0));
+    Button newBtn = new Button(xLoadBtn, (yLoadBtn + (i*hLine)+10), wLoadBtn, hLoadBtn, "Load");
     newBtn.setIndex(i);
     loadButtons.add(newBtn);
     newBtn.showBtn();
     
     fill(0);
-    text((presets.get(i).getPresetName() + "\t  " + presets.get(i).getCreationDate()), xBox, (yBox + (i*hLine)));
-    fill(255);
-    rect(xLoadBtn, (yLoadBtn + (i*hLine)), wLoadBtn, hLoadBtn);
- 
+    text((presets.get(i).getPresetName() /*+ "\t  " + presets.get(i).getCreationDate()*/), xBox, (yBox + (i*hLine)+10));
+
   }
   if(mousePressed){
+    println("!!!!!!!!!!!!!!!PRESSED ON LOAD!!!!!!!");
     if(loadBtnClicked(loadButtons)!= -1){
       activatePreset(loadBtnClicked(loadButtons));
     }  

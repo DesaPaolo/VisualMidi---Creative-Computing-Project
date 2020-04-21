@@ -5,23 +5,30 @@ import controlP5.*;
 void setup() {
   
   startscreen = loadImage("korg.jpg");
-  //int a = startscreen.width;
-  //int b = startscreen.height;
-  //println(a +" ", b);
-  //size(1920, 1080, P3D);
-  fullScreen(P3D);
+  size(1280, 800, P3D);
+  //fullScreen(P3D);
   background(0);
   imageMode(CENTER);
   textSize(24);
-  
-  //translate(250, 250);
-  image(startscreen, width/2, height * .6);
 
   midiInit();
   adsrInit();
   menuInit();
+
+ //drawDevicesMenu();
   poly = true;
 }
+
+void drawMode0() {
+  rectMode(CENTER);
+  textAlign(CENTER, CENTER);
+  image(startscreen, width/2, height * .6);
+  text("Welcome to Korg Minilogue's Visual MIDI", 100, 10);    
+  storeModeBtn.showBtn();
+  loadModeBtn.showBtn();
+  playModeBtn.showBtn();
+}
+
 void cleanScreen() {
   noStroke();
   rectMode(CENTER);
@@ -30,23 +37,15 @@ void cleanScreen() {
 }
 
 void draw() {
+
   cleanScreen();
   textSize(24);
   if (mode == 0) { //menu
-    rectMode(CENTER);
-    textAlign(CENTER, CENTER);
-    image(startscreen, width/2, height * .6);
-    text("Welcome to Korg Minilogue's Visual MIDI", 0, 10);
-    
-    
-    storeModeBtn.showBtn();
-    loadModeBtn.showBtn();
-    playModeBtn.showBtn();
-
+    drawMode0();
     noLoop();
   } else if (mode == 1) { //store
     storeMode();
-  } else if (mode == 2) { //play
+  } else if (mode == 2) { //load
     loadMode();
   } else if (mode == 3) { //play
     playDraw();
