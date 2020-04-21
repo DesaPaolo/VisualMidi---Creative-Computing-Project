@@ -28,6 +28,7 @@ public void menuInit() {
 }
 
 void mousePressed() {
+  println("MOUSE PRESSED!!!!!");
   
   /* Debugging Code
   float a = xBtn1 + wBtn;
@@ -41,11 +42,17 @@ void mousePressed() {
   */
 
   if(mode == 0) {
-
+    deviceMenu = new DeviceMenu(Arrays.asList(MidiBus.availableInputs()).size());
+   /* fill(255);
+    rect(100, 100, 100, 80);
+    fill(0);
+    text("a", 100, 100); */
+    //deviceMenu.showMenu();
       if (storeModeBtn.isPressed()){
         mode = 1; //store
       }
       else if (loadModeBtn.isPressed()){
+
         loadPresetsFromFile(); 
         loadMenu = new LoadMenu(presets.size());
         mode = 2; //load
@@ -147,7 +154,7 @@ void loadPresets() throws Exception{
   //drawMenuPresets();
 }
 
-int loadBtnClicked(ArrayList<Button> buttons){
+int getBtnIndex(ArrayList<Button> buttons){
   for(int i=0; i<buttons.size(); i++){
     if(buttons.get(i).isPressed()){return buttons.get(i).getIndex();}
   }
@@ -280,13 +287,13 @@ void drawMenuPresets(){
     fill(0);
     text((presets.get(i).getPresetName() /*+ "\t  " + presets.get(i).getCreationDate()*/), xBox, (yBox + (i*hLine)+10));
 
-  }
+  }/*
   if(mousePressed){
     println("!!!!!!!!!!!!!!!PRESSED ON LOAD!!!!!!!");
     if(loadBtnClicked(loadButtons)!= -1){
       activatePreset(loadBtnClicked(loadButtons));
     }  
-  }
+  }*/
   //while (iterator.hasNext()){}
     //println(iterator.next().toString());
   //}

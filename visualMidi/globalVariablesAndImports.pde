@@ -27,6 +27,7 @@ String msg=INIT_MSG;
 String finalMsg = "";
 ArrayList<Button> deviceButtons = new ArrayList();
 LoadMenu loadMenu;
+DeviceMenu deviceMenu;
 
 
 //MIDI CC
