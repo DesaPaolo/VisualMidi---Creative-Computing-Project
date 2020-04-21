@@ -113,7 +113,7 @@ void savePreset(){
   loadPresetsFromFile(); //salvataggio from file to var senza grafica
   addPreset(actualPreset); //Aggiunge preset controllando se overwrite
   try{
-    FileWriter fileWriter = new FileWriter("/presets.txt");
+    FileWriter fileWriter = new FileWriter(sketchPath("presets.txt"));
     
     for(int i=0; i<presets.size(); i++){
       println("preset size is " + presets.size() + " now we are in index " + i);
@@ -132,7 +132,7 @@ void savePreset(){
 
 void loadPresets() throws Exception{ 
   noLoop();
-  loadPresetsFromFile(); //<>// //<>// //<>//
+  loadPresetsFromFile(); //<>// //<>// //<>// //<>//
   //Iterator iterator = presets.iterator();
   loadMenu = new LoadMenu(presets.size());
   loadMenu.showMenu();
@@ -188,7 +188,7 @@ void addPreset (Preset presetToAdd){
 }
 
 void loadPresetsFromFile(){
-  File file = new File("/presets.txt"); 
+  File file = new File(sketchPath("presets.txt")); 
     try {
       BufferedReader br = new BufferedReader(new FileReader(file)); 
       Preset newPreset;
