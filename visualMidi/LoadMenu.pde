@@ -15,7 +15,10 @@ class LoadMenu extends Menu{
             if(loadBtnClicked(menuButtons)!= -1){
 
                 activatePreset(loadBtnClicked(menuButtons));
-
+                /*
+                fill(255,255,255);
+                text("PRESET LOADED !", 120, 120);
+                */
             }  
 
         }
@@ -43,5 +46,6 @@ class LoadMenu extends Menu{
         }
 
     }
+
 
 }
