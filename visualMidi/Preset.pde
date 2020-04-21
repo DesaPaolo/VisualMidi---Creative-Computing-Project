@@ -5,7 +5,7 @@ class Preset {
   private Date creationDate;
   private float mod;
   private float modRate;
-  private int cutoffFil;
+  private float cutoffFil;
   private float atckTime;
   private float dcyTime;
   private float susAmp;
@@ -21,7 +21,7 @@ class Preset {
   private float feedbackDly;
   private boolean isActiveDly;
 
-  Preset (String name, Date creationDate, boolean susPedal, float mod, float modRate, int cutoffFil, float[] envTimes, float ampSus,
+  Preset (String name, Date creationDate, boolean susPedal, float mod, float modRate, float cutoffFil, float[] envTimes, float ampSus,
   float susAmpEG, float atckTimeEG, float dcyTimeEG, float relTimeEG, Boolean poly, float intEG, float hiPassDly, float timeDly, float feedbackDly, boolean isActiveDly) {
     this.name = name;
     this.susPedal = susPedal;
@@ -147,7 +147,7 @@ class Preset {
   public float getModRate() {
     return this.modRate;
   }
-  public int getCutoffFil() {
+  public float getCutoffFil() {
     return this.cutoffFil;
   }
   public float getAttack() {

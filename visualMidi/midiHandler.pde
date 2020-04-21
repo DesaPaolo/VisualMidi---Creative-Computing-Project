@@ -2,9 +2,11 @@ private ArrayList<Note> tempNotes;
 private boolean alreadyInTempChord;
 
 public void midiInit() {
-
+  
+  MidiBus.list();
   minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
-
+  println(minilogue.getBusName());
+  minilogueBusName = minilogue.getBusName();
   //guitar = new MidiBus(this, 4, 5);// Connect to one of the devices
   //guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();
@@ -85,11 +87,11 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
     switch (number) {
   
     case 1: //Modulation Wheel ---> 0-127
-      modulation = mapLog(value, 0, 127, 1, 100);
+      modulation = mapLog(value, 0, 127, 0.1, 100);
       break;
   
     case 24:
-      modulationRate = mapLog(value, 0, 127, 0.1, 97); // minilogue "rate" knob
+      modulationRate = mapLog(value, 0, 127, 0.02, 1000); // minilogue "rate" knob
       break;
   
     case 26: //!!!!!!!! MINILOGUE HAS INT VALUE AS MODULATION WHEEL ---> 0-127
@@ -97,7 +99,8 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
       break;
   
     case 43:
-      cutOffFilter = (int)(mapLog(value, 0, 127, 0.1, 255)); //cut off
+      if(value == 0 ) cutOffFilter = 0;
+      else cutOffFilter = mapLog(value, 0, 127, 1, 100); //cut off
       println("Cutoff filter is " + cutOffFilter);
       break;
   

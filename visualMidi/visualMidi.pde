@@ -54,12 +54,11 @@ void draw() {
 
 void playDraw() {
 
-
   //background
-  if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0%  
-    fill(cutOffFilter);
+  if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0% 
+    fill((cutOffFilter/100) * 255);
   } else {
-    fill(filterRampValueBackground);
+    fill((filterRampValueBackground/100) * 255);
   }
   rect(width/2, height/2, width, height);
   lights();
