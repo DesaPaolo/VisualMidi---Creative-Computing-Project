@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 
 MidiBus minilogue, guitar;
 String minilogueBusName, guitarBusName;
-
 //Menu global variables
 ArrayList<Preset> presets;
 ArrayList<Button> loadButtons;
@@ -20,7 +19,7 @@ PImage startscreen;
 PFont newFont;
 int mode;
 int xBtnStoreMode, yBtnStoreMode, wBtn, hBtn, xBtnLoadMode, yBtnLoadMode, xBtnPlayMode, yBtnPlayMode, xBtnBackToMenu, yBtnBackToMenu;
-Button storeModeBtn, loadModeBtn, playModeBtn, backToMenuBtn, doStoreBtn;
+Button storeModeBtn, loadModeBtn, playModeBtn, backToMenuBtn, doStoreBtn, deviceModeBtn;
 boolean gettingUserInput = false;
 final String INIT_MSG="Start typing";
 String msg=INIT_MSG;
@@ -28,8 +27,8 @@ String finalMsg = "";
 ArrayList<Button> deviceButtons = new ArrayList();
 LoadMenu loadMenu;
 DeviceMenu deviceMenu;
-
-
+Object context;
+int currentInput=-2;
 //MIDI CC
 boolean sustainPedal = false;
 ArrayList<Note> sustainedNotes;

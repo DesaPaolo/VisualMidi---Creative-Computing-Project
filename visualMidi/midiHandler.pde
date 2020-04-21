@@ -3,8 +3,7 @@ private boolean alreadyInTempChord;
 
 public void midiInit() {
 
-  minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
-
+  minilogue = new MidiBus(this);// Connect to one of the devices
   //guitar = new MidiBus(this, 4, 5);// Connect to one of the devices
   //guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();

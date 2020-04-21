@@ -21,7 +21,7 @@ public void menuInit() {
   loadModeBtn = new Button(xBtnLoadMode, yBtnLoadMode, wBtn, hBtn, "Load Mode", color(255), color(0));
   playModeBtn = new Button(xBtnPlayMode, yBtnPlayMode, wBtn, hBtn, "Play Mode", color(255), color(0));
   backToMenuBtn = new Button(xBtnBackToMenu, yBtnBackToMenu, wBtn, hBtn, "Back to Menu", color(255), color(0));
-  
+  deviceModeBtn = new Button(xBtnBackToMenu, yBtnBackToMenu+200, wBtn, hBtn, "Change Device", color(255), color(0));
   presets = new ArrayList<Preset>();
   loadButtons = new ArrayList<Button>();
   
@@ -42,12 +42,7 @@ void mousePressed() {
   */
 
   if(mode == 0) {
-    deviceMenu = new DeviceMenu(Arrays.asList(MidiBus.availableInputs()).size());
-   /* fill(255);
-    rect(100, 100, 100, 80);
-    fill(0);
-    text("a", 100, 100); */
-    //deviceMenu.showMenu();
+
       if (storeModeBtn.isPressed()){
         mode = 1; //store
       }
@@ -61,10 +56,14 @@ void mousePressed() {
         mode = 3; //play
         loop(); //Mi accerto che torni il loop
       }
+      else if(deviceModeBtn.isPressed()) {
+        mode = 4;
+        loop();
+      }
 
     }
 
-    else if (mode == 1 || mode == 2 || mode == 3){
+    else if (mode == 1 || mode == 2 || mode == 3|| mode ==4){
       if (backToMenuBtn.isPressed()){
         cleanScreen();
         println("Passo da 1 a 0");
@@ -78,10 +77,18 @@ void mousePressed() {
     if(mode==2) {
       loadMenu.mousePressedEvent();
     }
+    if(mode==4 && deviceMenu!=null) {
+
+      deviceMenu.mousePressedEvent();
+    }
 
     loop();
 }
-
+void deviceMode() {
+  cleanScreen();
+  deviceMenu = new DeviceMenu(Arrays.asList(MidiBus.availableInputs()).size());
+  deviceMenu.showMenu();
+}
 void storeMode(){
   cleanScreen();
   int xStoreBtn = width/2;
