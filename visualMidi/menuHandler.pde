@@ -41,10 +41,13 @@ void mousePressed() {
   */
 
   if(mode == 0) {
+
       if (storeModeBtn.isPressed()){
         mode = 1; //store
       }
       else if (loadModeBtn.isPressed()){
+        loadPresetsFromFile(); 
+        loadMenu = new LoadMenu(presets.size());
         mode = 2; //load
       }
       else if (playModeBtn.isPressed()){
@@ -64,6 +67,11 @@ void mousePressed() {
     if(mode==1 && gettingUserInput){
       msg=INIT_MSG;
     }
+
+    if(mode==2) {
+      loadMenu.mousePressedEvent();
+    }
+
     loop();
 }
 
@@ -132,9 +140,9 @@ void savePreset(){
 
 void loadPresets() throws Exception{ 
   noLoop();
-  loadPresetsFromFile(); //<>// //<>// //<>// //<>//
+  //loadPresetsFromFile(); //<>// //<>// //<>// //<>//
   //Iterator iterator = presets.iterator();
-  loadMenu = new LoadMenu(presets.size());
+  //loadMenu = new LoadMenu(presets.size());
   loadMenu.showMenu();
   //drawMenuPresets();
 }
