@@ -1,4 +1,7 @@
 //<>// //<>//
+
+import controlP5.*;
+
 void setup() {
   
   startscreen = loadImage("korg.jpg");

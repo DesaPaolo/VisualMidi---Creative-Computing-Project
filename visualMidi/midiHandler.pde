@@ -1,9 +1,24 @@
+import controlP5.*;
+ControlP5 cp5;
+
 private ArrayList<Note> tempNotes;
 private boolean alreadyInTempChord;
 
 public void midiInit() {
 
-  MidiBus.list(); // List all our MIDI devices
+  PFont pfont;
+  pfont = loadFont("TimesNewRomanPSMT-40.vlw");
+  ControlFont font = new ControlFont(pfont, 24);
+
+  cp5 = new ControlP5(this);
+  List l = Arrays.asList(MidiBus.availableInputs()); // List all our MIDI devices
+  cp5.addScrollableList("dropdown")
+    .setPosition(700, 700)
+    .setSize(400, 600)
+    .setBarHeight(60)
+    .setItemHeight(50)
+    .addItems(l);
+
   minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
   minilogueBusName = minilogue.getBusName();
   //guitar = new MidiBus(this, 4, 5);// Connect to one of the devices
