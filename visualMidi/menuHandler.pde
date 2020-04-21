@@ -51,7 +51,16 @@ void mousePressed() {
         mode = 3; //play
         loop(); //Mi accerto che torni il loop
       }
+      for (int i = 0; i<deviceButtons.size(); i++) {
+        if(deviceButtons.get(i).isPressed()) {
+          minilogue = new MidiBus(this, i, 1);
+          minilogueBusName = minilogue.getBusName();
+          color col = color(255,0,0);
+          deviceButtons.get(i).setBackgroundColor(col);
+        }
+      }
     }
+
     else if (mode == 1 || mode == 2 || mode == 3){
       if (backToMenuBtn.isPressed()){
         cleanScreen();

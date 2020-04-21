@@ -31,6 +31,7 @@ void cleanScreen() {
 
 void draw() {
   cleanScreen();
+  drawDevicesMenu();
   textSize(24);
   if (mode == 0) { //menu
     rectMode(CENTER);

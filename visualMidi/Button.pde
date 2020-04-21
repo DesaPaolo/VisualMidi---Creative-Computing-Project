@@ -51,6 +51,11 @@ class Button {
     this.index = index;
   }
 
+  public void setBackgroundColor(color col) {
+    this.backgroundColor=col;
+    this.showBtn();
+  }
+
 
 
 

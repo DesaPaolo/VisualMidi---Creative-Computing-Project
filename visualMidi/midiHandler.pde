@@ -1,30 +1,25 @@
-import controlP5.*;
-ControlP5 cp5;
-
 private ArrayList<Note> tempNotes;
 private boolean alreadyInTempChord;
 
 public void midiInit() {
 
-  PFont pfont;
-  pfont = loadFont("TimesNewRomanPSMT-40.vlw");
-  ControlFont font = new ControlFont(pfont, 24);
+  //minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
 
-  cp5 = new ControlP5(this);
-  List l = Arrays.asList(MidiBus.availableInputs()); // List all our MIDI devices
-  cp5.addScrollableList("dropdown")
-    .setPosition(700, 700)
-    .setSize(400, 600)
-    .setBarHeight(60)
-    .setItemHeight(50)
-    .addItems(l);
-
-  minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
-  minilogueBusName = minilogue.getBusName();
   //guitar = new MidiBus(this, 4, 5);// Connect to one of the devices
   //guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();
   alreadyInTempChord = false;
+}
+
+public void drawDevicesMenu() {
+  
+  List<String> l = Arrays.asList(MidiBus.availableInputs()); // List all our MIDI devices
+  for(int c =0; c<l.size(); c++) {
+    Button b = new Button(200, 200+(c*40), 250, 40, l.get(c));
+    deviceButtons.add(b);
+    b.showBtn();
+  }
+
 }
 
 //NOTE ON
