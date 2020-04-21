@@ -26,7 +26,7 @@ final String INIT_MSG="Start typing";
 String msg=INIT_MSG;
 String finalMsg = "";
 ArrayList<Button> deviceButtons = new ArrayList();
-
+LoadMenu loadMenu;
 
 
 //MIDI CC

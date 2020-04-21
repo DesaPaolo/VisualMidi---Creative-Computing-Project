@@ -113,7 +113,7 @@ void savePreset(){
   loadPresetsFromFile(); //salvataggio from file to var senza grafica
   addPreset(actualPreset); //Aggiunge preset controllando se overwrite
   try{
-    FileWriter fileWriter = new FileWriter("../presets.txt");
+    FileWriter fileWriter = new FileWriter("/presets.txt");
     
     for(int i=0; i<presets.size(); i++){
       println("preset size is " + presets.size() + " now we are in index " + i);
@@ -134,7 +134,9 @@ void loadPresets() throws Exception{
   noLoop();
   loadPresetsFromFile(); //<>// //<>// //<>//
   //Iterator iterator = presets.iterator();
-  drawMenuPresets();
+  loadMenu = new LoadMenu(presets.size());
+  loadMenu.showMenu();
+  //drawMenuPresets();
 }
 
 int loadBtnClicked(ArrayList<Button> buttons){
@@ -186,7 +188,7 @@ void addPreset (Preset presetToAdd){
 }
 
 void loadPresetsFromFile(){
-  File file = new File("../presets.txt"); 
+  File file = new File("/presets.txt"); 
     try {
       BufferedReader br = new BufferedReader(new FileReader(file)); 
       Preset newPreset;
@@ -247,7 +249,7 @@ void drawMenuPresets(){
   upperMarginNames = 30;
   hLine = 30;
   xLoadBtn = xBox+wBox-100;
-  yLoadBtn = ((yBox+upperMarginNames));
+  yLoadBtn = (yBox);
   wLoadBtn = 80;
   hLoadBtn = 60;
   

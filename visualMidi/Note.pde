@@ -11,7 +11,7 @@ class Note {
   Ramp filterRamp;
   float x, y, z;
   
-  ParticleSystem ps;
+  ParticleSystem ps = new ParticleSystem(new PVector(0,0,0), new Sphere(0,0,0));
 
   Note(int pitch, int velocity) {
     println("#######Created a note##########");
