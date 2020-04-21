@@ -3,23 +3,12 @@ private boolean alreadyInTempChord;
 
 public void midiInit() {
 
-  //minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
+  minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
 
   //guitar = new MidiBus(this, 4, 5);// Connect to one of the devices
   //guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();
   alreadyInTempChord = false;
-}
-
-public void drawDevicesMenu() {
-  
-  List<String> l = Arrays.asList(MidiBus.availableInputs()); // List all our MIDI devices
-  for(int c =0; c<l.size(); c++) {
-    Button b = new Button(200, 200+(c*40), 250, 40, l.get(c));
-    deviceButtons.add(b);
-    b.showBtn();
-  }
-
 }
 
 //NOTE ON

@@ -53,7 +53,6 @@ class Button {
 
   public void setBackgroundColor(color col) {
     this.backgroundColor=col;
-    this.showBtn();
   }
 
 
