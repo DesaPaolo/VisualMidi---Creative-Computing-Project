@@ -24,18 +24,22 @@ abstract class Menu{
         this.hBox = numberOfElements*60;
         this.title = title;
 
-        for(int i = 0; i < this.numberOfElements; i++) {
-
-            Button newBtn = new Button(xBtn, ((yBox-hBox/2) + marginTop + (i*hLine)), wBtn, hBtn, label);
-            newBtn.setIndex(i);
-            menuButtons.add(newBtn);
-
-        }
-
     }
 
     public abstract void mousePressedEvent();
     public abstract void showMenu();
+
+    public void createButtons(int xBtn, int yBtn, String label) {
+
+        for(int i = 0; i < this.numberOfElements; i++) {
+
+            Button newBtn = new Button(xBtn, ((yBtn-hBox/2) + marginTop + (i*hLine)), wBtn, hBtn, label);
+            newBtn.setIndex(i);
+            menuButtons.add(newBtn);
+
+        }
+    }
+    
     
     public void changeButtonColor() {
 

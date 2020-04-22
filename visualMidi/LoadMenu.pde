@@ -4,6 +4,7 @@ class LoadMenu extends Menu{
     public LoadMenu(int size) {
 
         super("Load Menu", size, "Load");
+        createButtons(xBox+150,yBox,"Load");
 
     }
 

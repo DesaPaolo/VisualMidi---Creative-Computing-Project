@@ -1,17 +1,14 @@
 class DeviceMenu extends Menu{
 
+
+
     public DeviceMenu(int size) {
 
-        super("Device Menu", size, "Change");
-
-        xBox = 400;
-        yBox = 300;
-        wBox = 350;
-
-        xBtn = xBox+50;
-        yBtn = yBox;
-        wBtn = 80;
-        hBtn = 50;
+        super("Minilogue Device", size, "Change L");
+        createButtons(450, 350, "Change L");
+        super.xBox = 300;
+        super.yBox = 350;
+        super.wBox = 500;
 
     }
 
@@ -48,7 +45,7 @@ class DeviceMenu extends Menu{
     public void showMenu() {
 
         fill(255);
-        text(title, 200, height * .06); 
+        text(title, 300, 100); 
         fill(255);
         
         backToMenuBtn.showBtn();
@@ -62,7 +59,7 @@ class DeviceMenu extends Menu{
             
             menuButtons.get(i).showBtn();        
             fill(0);
-            text((Arrays.asList(MidiBus.availableInputs()).get(i)), xBox - 90, ((yBox-hBox/2) + marginTop + (i*hLine)));
+            text((Arrays.asList(MidiBus.availableInputs()).get(i)), xBox-90 , ((yBox-hBox/2) + marginTop + (i*hLine)));
 
         }
 
