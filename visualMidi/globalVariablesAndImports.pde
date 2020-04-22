@@ -13,6 +13,7 @@ MidiBus minilogue, guitar;
 String minilogueBusName, guitarBusName;
 //Menu global variables
 ArrayList<Preset> presets;
+ArrayList<GuitarProgram> guitarPrograms;
 ArrayList<Button> loadButtons;
 int choice;
 PImage startscreen;

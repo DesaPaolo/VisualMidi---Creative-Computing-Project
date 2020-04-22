@@ -1,11 +1,14 @@
 public class GuitarProgram {
+    private String name;
     private String overdrive;
     private String amp;
     private String eq;
     private String modulation;
     private String reverb;
 
-    public GuitarProgram(String overdrive, String amp, String eq, String modulation, String reverb) {
+    public GuitarProgram(String name String overdrive, String amp, String eq, String modulation, String reverb) {
+        this.name == name;
+        
         if(overdrive.equals("none") || overdrive.equals("boost") || 
             overdrive.equals("overdrive") || overdrive.equals("distortion") || overdrive.equals("fuzz")){
                 this.overdrive = overdrive;
@@ -35,6 +38,14 @@ public class GuitarProgram {
         this.eq = "normal";
         this.modulation = "none";
         this.reverb = "medium";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setOverdrive(String name) {
+        this.name = name;
     }
 
     public String getOverdrive() {
@@ -91,7 +102,7 @@ public class GuitarProgram {
 
     @Override
     public String toString() {
-        return "GuitarProgram [amp=" + amp + ", eq=" + eq + ", modulation=" + modulation + ", overdrive=" + overdrive
+        return "GuitarProgram Name: " + name + " [amp=" + amp + ", eq=" + eq + ", modulation=" + modulation + ", overdrive=" + overdrive
                 + ", reverb=" + reverb + "]";
     }
     }
