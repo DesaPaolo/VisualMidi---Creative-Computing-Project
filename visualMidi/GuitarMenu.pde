@@ -1,14 +1,13 @@
-class DeviceMenu extends Menu{
+class GuitarMenu extends Menu{
 
-    public DeviceMenu(int size) {
+    public GuitarMenu(int size) {
 
-        super("Device Menu", size, "Change");
-
-        xBox = 400;
+        super("Guitar Device Menu", size, "Change");
+        xBox = 1000;
         yBox = 300;
         wBox = 350;
 
-        xBtn = xBox+50;
+        xBtn = xBox+150;
         yBtn = yBox;
         wBtn = 80;
         hBtn = 50;
@@ -28,13 +27,13 @@ class DeviceMenu extends Menu{
 
                 else {
                     println("PREVIOUS INPUT: " + currentInput);
-                    minilogue.clearInputs();
+                    guitar.clearInputs();
                     currentInput =  getBtnIndex(menuButtons);
                     println("NEW INPUT: " + currentInput);
 
                 }
 
-                minilogue.addInput(currentInput);
+                guitar.addInput(currentInput);
                 println("currentInput: "+currentInput);
                 println("INPUTS" + Arrays.asList(MidiBus.availableInputs()));
                 changeButtonColor();
@@ -48,7 +47,7 @@ class DeviceMenu extends Menu{
     public void showMenu() {
 
         fill(255);
-        text(title, 200, height * .06); 
+        text(title, 1000, height * .06); 
         fill(255);
         
         backToMenuBtn.showBtn();
@@ -56,8 +55,6 @@ class DeviceMenu extends Menu{
         fill(255);
         rect(xBox, yBox, wBox, hBox);
 
-
-        
         for(int i = 0; i < menuButtons.size();i-=-1){
             
             menuButtons.get(i).showBtn();        
@@ -67,5 +64,21 @@ class DeviceMenu extends Menu{
         }
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -58,7 +58,6 @@ void mousePressed() {
       }
       else if(deviceModeBtn.isPressed()) {
         mode = 4;
-        loop();
       }
 
     }
@@ -85,10 +84,14 @@ void mousePressed() {
     loop();
 }
 void deviceMode() {
+  noLoop();
   cleanScreen();
   deviceMenu = new DeviceMenu(Arrays.asList(MidiBus.availableInputs()).size());
+  guitarMenu = new GuitarMenu(Arrays.asList(MidiBus.availableInputs()).size());
   deviceMenu.showMenu();
+  guitarMenu.showMenu();
 }
+
 void storeMode(){
   cleanScreen();
   int xStoreBtn = width/2;
@@ -241,7 +244,7 @@ void loadPresetsFromFile(){
         else if ((st.substring(0,12)).equals("releaseTime ")){newPreset.setRelease(Float.parseFloat(st.substring(12)));}
         else if ((st.substring(0,13)).equals("sustainPedal ")){newPreset.setSusPedal(Boolean.parseBoolean(st.substring(13)));}
         else if ((st.substring(0,13)).equals("EG decayTime ")){newPreset.setDcyTimeEG(Float.parseFloat(st.substring(13)));}
-        else if ((st.substring(0,13)).equals("cutoffFilter ")){newPreset.setCutoffFil(Integer.parseInt(st.substring(13)));}
+        else if ((st.substring(0,13)).equals("cutoffFilter ")){newPreset.setCutoffFil(Float.parseFloat(st.substring(13)));}
         else if ((st.substring(0,13)).equals("hipass delay ")){newPreset.setHiPassDly(Float.parseFloat(st.substring(13)));}
         else if ((st.substring(0,14)).equals("EG attackTime ")){newPreset.setAtckTimeEG(Float.parseFloat(st.substring(14)));}
         else if ((st.substring(0,14)).equals("EG sustainAmp ")){newPreset.setSusAmpEG(Float.parseFloat(st.substring(14)));}

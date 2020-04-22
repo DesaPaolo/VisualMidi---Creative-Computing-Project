@@ -55,6 +55,10 @@ class Button {
     this.backgroundColor=col;
   }
 
+  public color getBackColor() {
+    return this.backgroundColor;
+  }
+
 
 
 

@@ -9,8 +9,8 @@ public void midiInit() {
   minilogueBusName = minilogue.getBusName();
 
   minilogue = new MidiBus(this);// Connect to one of the devices
-  //guitar = new MidiBus(this, 4, 5);// Connect to one of the devices
-  //guitarBusName = guitar.getBusName();
+  guitar = new MidiBus(this);// Connect to one of the devices
+  guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();
   alreadyInTempChord = false;
 }

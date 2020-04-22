@@ -27,6 +27,7 @@ String finalMsg = "";
 ArrayList<Button> deviceButtons = new ArrayList();
 LoadMenu loadMenu;
 DeviceMenu deviceMenu;
+GuitarMenu guitarMenu;
 Object context;
 int currentInput=-2;
 //MIDI CC
@@ -45,7 +46,7 @@ float timeDly = 0;
 float feedbackDly = 0;
 Boolean isActiveDly = false;
 float maximumDelayTime = 100;
-float maximumFeedBack = 120;
+float maximumFeedBack = 45;
 
 //ADSR global variables
 /*Antonino variables*/

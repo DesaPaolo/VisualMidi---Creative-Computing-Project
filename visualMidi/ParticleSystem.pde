@@ -38,7 +38,7 @@ class ParticleSystem {
   }
 
   boolean maximumFeed() {
-    return (feedbackDly>=maximumFeedBack-10);
+    return (feedbackDly>=maximumFeedBack-5);
   }
 
   void run() {

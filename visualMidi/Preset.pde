@@ -84,7 +84,7 @@ class Preset {
   public void setModRate(float modulationRate) {
     this.modRate = modulationRate;
   }
-  public void setCutoffFil(int cutoffFil) {
+  public void setCutoffFil(float cutoffFil) {
     this.cutoffFil = cutoffFil;
   }
   public void setAttack(float attackTime) {
