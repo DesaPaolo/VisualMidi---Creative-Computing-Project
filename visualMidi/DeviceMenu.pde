@@ -15,7 +15,7 @@ class DeviceMenu extends Menu{
     public void mousePressedEvent() {
 
         if(mousePressed){
-            println("getBtnIndex: "+getBtnIndex(menuButtons));
+            println("GET BTN INDEX MINI PRY !!!!: "+getBtnIndex(menuButtons));
 
             if(getBtnIndex(menuButtons)!= -1){
 

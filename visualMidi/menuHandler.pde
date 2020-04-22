@@ -79,6 +79,7 @@ void mousePressed() {
     if(mode==4 && deviceMenu!=null) {
 
       deviceMenu.mousePressedEvent();
+      guitarMenu.mousePressedEvent();
     }
 
     loop();

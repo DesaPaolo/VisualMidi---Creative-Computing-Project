@@ -18,7 +18,7 @@ class GuitarMenu extends Menu{
     public void mousePressedEvent() {
 
         if(mousePressed){
-            println("getBtnIndex: "+getBtnIndex(menuButtons));
+            println("GET BTN INDEX GUITAR PRY !!!!: "+getBtnIndex(menuButtons));
 
             if(getBtnIndex(menuButtons)!= -1){
 
