@@ -1,4 +1,4 @@
-void savePreset(){
+void savePrograms(){
   String name;
   Date actualDate = Calendar.getInstance().getTime();
   GuitarProgram actualProgram = new GuitarProgram();
@@ -16,7 +16,7 @@ void savePreset(){
     
     for(int i=0; i<guitarPrograms.size(); i++){
       println("preset size is " + guitarPrograms.size() + " now we are in index " + i);
-      storePresetToFile(guitarPrograms.get(i), fileWriter);
+      storeGuitarProgramToFile(guitarPrograms.get(i), fileWriter);
       println("saved preset " + guitarPrograms.get(i).getName());
     }
     
@@ -37,7 +37,7 @@ void loadGuitarProgramsFromFile(){
       GuitarProgram newProgram;
       String st;
       
-      newPreset = new GuitarProgram(); 
+      newProgram = new GuitarProgram(); 
       while ((st = br.readLine()) != null) {
         //System.out.println(st);
         //println(st.equals("sustainAmp 0.0"));
@@ -89,7 +89,7 @@ void activateProgram(int index){
   gtrEq = guitarPrograms.get(index).getEq();
   gtrReverb = guitarPrograms.get(index).getReverb();
   gtrModulation = guitarPrograms.get(index).getModulation();
-  println(activePreset.toString());
+  println(activeProgram.toString());
   
   return;
 }

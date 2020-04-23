@@ -171,6 +171,13 @@ void loadPresets() throws Exception{
   //drawMenuPresets();
 }
 
+int getGtrParamBtnIndex(ArrayList<GuitarParamButton> buttons){
+  for(int i=0; i<buttons.size(); i++){
+    if(buttons.get(i).isPressed()){return buttons.get(i).getIndex();}
+  }
+  return -1;
+}
+
 int getBtnIndex(ArrayList<Button> buttons){
   for(int i=0; i<buttons.size(); i++){
     if(buttons.get(i).isPressed()){return buttons.get(i).getIndex();}
