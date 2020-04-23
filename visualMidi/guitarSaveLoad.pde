@@ -1,17 +1,23 @@
 void savePreset(){
   String name;
   Date actualDate = Calendar.getInstance().getTime();
-  Preset actualProgram = new GuitarProgram();
+  GuitarProgram actualProgram = new GuitarProgram();
+  actualProgram.setAmp(gtrAmp);
+  actualProgram.setOverdrive(gtrOverdrive);
+  actualProgram.setEq(gtrEq);
+  actualProgram.setReverb(gtrReverb);
+  actualProgram.setModulation(gtrModulation);
   
   loadGuitarProgramsFromFile(); //salvataggio from file to var senza grafica
   addProgram(actualProgram); //Aggiunge preset controllando se overwrite
+  actualProgram.setName("Program " + (guitarPrograms.size()-1));
   try{
     FileWriter fileWriter = new FileWriter(sketchPath("guitar-programs.txt"));
     
     for(int i=0; i<guitarPrograms.size(); i++){
       println("preset size is " + guitarPrograms.size() + " now we are in index " + i);
       storePresetToFile(guitarPrograms.get(i), fileWriter);
-      println("saved preset " + presets.get(i).getPresetName());
+      println("saved preset " + guitarPrograms.get(i).getName());
     }
     
     fileWriter.close(); 
@@ -41,7 +47,7 @@ void loadGuitarProgramsFromFile(){
         }
         else if ((st.equals("end"))){
             //println("i'm done");
-            addPreset(newProgram); //Exception
+            addProgram(newProgram); //Exception
           }
         else if (st.isEmpty()){}
         else if ((st.substring(0,3)).equals("eq ")){newProgram.setEq(st.substring(3));}
@@ -75,15 +81,20 @@ void storeGuitarProgramToFile (GuitarProgram actualProgram, FileWriter fileWrite
     }
 }
 
-void activatePreset(int index){
+void activateProgram(int index){
   GuitarProgram activeProgram = guitarPrograms.get(index);
   //Qui bisogna assegnare alle variabili globali della grafica, i valori ottenuti dal preset attivo
+  gtrAmp = guitarPrograms.get(index).getAmp();
+  gtrOverdrive = guitarPrograms.get(index).getOverdrive();
+  gtrEq = guitarPrograms.get(index).getEq();
+  gtrReverb = guitarPrograms.get(index).getReverb();
+  gtrModulation = guitarPrograms.get(index).getModulation();
   println(activePreset.toString());
   
   return;
 }
 
-void addPreset (GuitarProgram programToAdd){
+void addProgram (GuitarProgram programToAdd){
   for(int i=0; i<guitarPrograms.size(); i++){
     if (guitarPrograms.get(i).getName().equals(programToAdd.getName())){
       guitarPrograms.remove(i);

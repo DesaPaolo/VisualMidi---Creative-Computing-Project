@@ -20,7 +20,7 @@ PImage startscreen;
 PFont newFont;
 int mode;
 int xBtnStoreMode, yBtnStoreMode, wBtn, hBtn, xBtnLoadMode, yBtnLoadMode, xBtnPlayMode, yBtnPlayMode, xBtnBackToMenu, yBtnBackToMenu;
-Button storeModeBtn, loadModeBtn, playModeBtn, backToMenuBtn, doStoreBtn, deviceModeBtn;
+Button storeModeBtn, loadModeBtn, playModeBtn, backToMenuBtn, doStoreBtn, deviceModeBtn, programStoreBtn;
 boolean gettingUserInput = false;
 final String INIT_MSG="Start typing";
 String msg=INIT_MSG;
@@ -29,6 +29,7 @@ ArrayList<Button> deviceButtons = new ArrayList();
 LoadMenu loadMenu;
 DeviceMenu deviceMenu;
 GuitarMenu guitarMenu;
+ProgramStoreMenu programStoreMenu;
 Object context;
 int currentInput=-2;
 //MIDI CC
@@ -72,6 +73,15 @@ float EGAmpSus;
 
 float filterRampValueBackground;
 boolean poly;
+
+/*Guitar variables*/
+String gtrAmp;
+String gtrOverdrive;
+String gtrModulation;
+String gtrEq;
+String gtrReverb;
+
+
 
 ParticleSystem ps;
 boolean drawBool = false;

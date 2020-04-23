@@ -228,12 +228,10 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
     for (int i = 0; i < message.getMessage().length; i++) {    //SHOW MIDI MESSAGES CODE & VALUE
       println("Guitar Param "+(i)+": "+(int)(message.getMessage()[i] & 0xFF));
     }
+
     if((int)(message.getMessage()[0] & 0xFF)==192){
-      if ((int)(message.getMessage()[1] & 0xFF)==0) println("Guitar pres Clean");
-      if ((int)(message.getMessage()[1] & 0xFF)==1) println("Guitar pres Modulation");
-      if ((int)(message.getMessage()[1] & 0xFF)==2) println("Guitar pres Overdrive");
-      if ((int)(message.getMessage()[1] & 0xFF)==3) println("Guitar pres Crunch");
-      if ((int)(message.getMessage()[1] & 0xFF)==4) println("Guitar pres Lead");
+      println("Calling Program" + ((int)(message.getMessage()[1] & 0xFF)));
+      activateProgram((int)(message.getMessage()[1] & 0xFF));
     }
     
   }
@@ -243,3 +241,4 @@ private int voiceLimiter() {
   if (poly) return 4;
   return 1;
 }
+

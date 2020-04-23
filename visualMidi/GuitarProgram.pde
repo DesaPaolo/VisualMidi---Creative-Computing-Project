@@ -33,6 +33,7 @@ public class GuitarProgram {
     }
 
     public GuitarProgram() {
+        this.name = "PC NULL"
         this.overdrive = "none";
         this.amp = "clean";
         this.eq = "normal";

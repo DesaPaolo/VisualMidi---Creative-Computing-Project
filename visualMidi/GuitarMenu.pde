@@ -1,13 +1,7 @@
 class GuitarMenu extends Menu{
 
     public GuitarMenu(int size) {
-        /*
-
-        xBtn = 1100;
-        yBtn = 350;
-        wBtn = 80;
-        hBtn = 50;
-*/
+        
         super("Guitar Device",size, "Change R");
         createButtons(1150, 350, "Change R");
         super.xBox = 1000;

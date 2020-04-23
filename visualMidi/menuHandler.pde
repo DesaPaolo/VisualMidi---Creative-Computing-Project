@@ -57,12 +57,18 @@ void mousePressed() {
         loop(); //Mi accerto che torni il loop
       }
       else if(deviceModeBtn.isPressed()) {
+        deviceMenu = new DeviceMenu(Arrays.asList(MidiBus.availableInputs()).size());
+        guitarMenu = new GuitarMenu(Arrays.asList(MidiBus.availableInputs()).size());
         mode = 4;
+      }
+      else if(programStoreBtn.isPressed()){
+        programStoreMenu = new ProgramStoreMenu(Arrays.asList(guitarPrograms).size());
+        mode = 5;
       }
 
     }
 
-    else if (mode == 1 || mode == 2 || mode == 3|| mode ==4){
+    else if (mode == 1 || mode == 2 || mode == 3|| mode ==4 || mode == 5){
       if (backToMenuBtn.isPressed()){
         cleanScreen();
         println("Passo da 1 a 0");
@@ -81,14 +87,14 @@ void mousePressed() {
       deviceMenu.mousePressedEvent();
       guitarMenu.mousePressedEvent();
     }
-
+    if(mode==5) {
+      programStoreMenu.mousePressedEvent();
+    }
     loop();
 }
 void deviceMode() {
   noLoop();
   cleanScreen();
-  deviceMenu = new DeviceMenu(Arrays.asList(MidiBus.availableInputs()).size());
-  guitarMenu = new GuitarMenu(Arrays.asList(MidiBus.availableInputs()).size());
   deviceMenu.showMenu();
   guitarMenu.showMenu();
 }
@@ -370,4 +376,10 @@ void keyPressed(){
     }
     scanInput();
   }
+}
+
+void programStoreMode(){
+  cleanScreen();
+  noLoop();
+  programStoreMenu.showMenu();
 }

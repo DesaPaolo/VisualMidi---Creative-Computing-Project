@@ -56,6 +56,9 @@ void draw() {
     else if (mode == 4) {
     deviceMode();
   }
+    else if (mode == 5) {
+      programStoreMode();
+    }
 
 }
 
