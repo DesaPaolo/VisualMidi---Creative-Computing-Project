@@ -1,7 +1,8 @@
 //<>// //<>//
 
 import controlP5.*;
-
+import processing.sound.*;
+SoundFile file;
 void setup() {
   
   startscreen = loadImage("korg.jpg");
@@ -14,7 +15,8 @@ void setup() {
   midiInit();
   adsrInit();
   menuInit();
-
+  file = new SoundFile(this, "/data/pry.mp3");
+  file.play();
 
  //drawDevicesMenu();
   poly = true;
