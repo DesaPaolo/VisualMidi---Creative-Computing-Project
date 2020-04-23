@@ -15,7 +15,7 @@ void setup() {
   midiInit();
   adsrInit();
   menuInit();
-  file = new SoundFile(this, "/data/pry.mp3");
+  file = new SoundFile(this, sketchPath("data/pry.mp3"));
   file.play();
 
  //drawDevicesMenu();
@@ -31,6 +31,7 @@ void drawMode0() {
   loadModeBtn.showBtn();
   playModeBtn.showBtn();
   deviceModeBtn.showBtn();
+  programStoreModeBtn.showBtn();
 }
 
 void cleanScreen() {

@@ -59,6 +59,10 @@ class Button {
     return this.backgroundColor;
   }
 
+  public String getText(){
+    return this.txt;
+  }
+
 
 
 

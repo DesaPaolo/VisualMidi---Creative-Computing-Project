@@ -22,6 +22,7 @@ public void menuInit() {
   playModeBtn = new Button(xBtnPlayMode, yBtnPlayMode, wBtn, hBtn, "Play Mode", color(255), color(0));
   backToMenuBtn = new Button(xBtnBackToMenu, yBtnBackToMenu, wBtn, hBtn, "Back to Menu", color(255), color(0));
   deviceModeBtn = new Button(xBtnBackToMenu, yBtnBackToMenu+200, wBtn, hBtn, "Change Device", color(255), color(0));
+  programStoreModeBtn = new Button(xBtnBackToMenu+300, yBtnBackToMenu+200, wBtn, hBtn, "Edit Guitar Programs", color(255), color(0));
   presets = new ArrayList<Preset>();
   loadButtons = new ArrayList<Button>();
   
@@ -61,7 +62,7 @@ void mousePressed() {
         guitarMenu = new GuitarMenu(Arrays.asList(MidiBus.availableInputs()).size());
         mode = 4;
       }
-      else if(programStoreBtn.isPressed()){
+      else if(programStoreModeBtn.isPressed()){
         programStoreMenu = new ProgramStoreMenu(Arrays.asList(guitarPrograms).size());
         mode = 5;
       }

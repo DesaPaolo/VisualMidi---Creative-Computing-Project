@@ -8,28 +8,71 @@ class ProgramStoreMenu extends Menu {
     ArrayList<GuitarParamButton> modulationBtns = new ArrayList<GuitarParamButton>();
     Button storeBtn = new Button(300, 500, wBtn, hBtn, "Store");
     ArrayList<Button> storeBtns = new ArrayList<Button>(); 
+    
 
     public ProgramStoreMenu(int size) {
 
         super("Edit Program", size, "");
         storeBtns.add(storeBtn);
-        this.createButtons(450, 350);
+        this.createButtons(650, 200);
         super.xBox = 300;
         super.yBox = 350;
-        super.wBox = 500;
+        super.wBox = 300;
     }
 
     public void createButtons(int xBtn, int yBtn) {
+        super.wBtn = 115;
+        overdriveValues = new ArrayList<String>(Arrays.asList("none", "boost", "overdrive", "distortion", "fuzz"));
+        ampValues = new ArrayList<String>(Arrays.asList("clean", "crunch", "hiGain"));
+        eqValues = new ArrayList<String>(Arrays.asList("warm", "normal", "bright"));
+        modulationValues = new ArrayList<String>(Arrays.asList("none", "chorus", "phaser", "flanger"));
+        reverbValues = new ArrayList<String>(Arrays.asList("small", "medium", "large"));
 
         for(int i = 0; i < this.numberOfElements; i++) {
 
-            Button newBtn = new Button(xBtn, ((yBtn-hBox/2) + marginTop + (i*hLine)), wBtn, hBtn, ("PC " + (i+1)));
+            Button newBtn = new Button(xBtn-400, ((yBtn-hBox/2) + marginTop + (i*hLine)), wBtn+20, hBtn, ("PC " + (i+1)));
             newBtn.setIndex(i);
             programBtns.add(newBtn);
         }
-        Button newBtn = new Button(xBtn, ((yBtn-hBox/2) + marginTop + ((this.numberOfElements)*hLine)), wBtn, hBtn, ("PC " + (this.numberOfElements+1)));
-        newBtn.setIndex(this.numberOfElements);
-        programBtns.add(newBtn);
+        Button newBtnToAdd = new Button(xBtn-400, ((yBtn-hBox/2) + marginTop + ((this.numberOfElements)*hLine)), wBtn+20, hBtn, ("New: PC " + (this.numberOfElements+1)));
+        newBtnToAdd.setIndex(this.numberOfElements);
+        programBtns.add(newBtnToAdd);
+
+        for(int i = 0; i < overdriveValues.size(); i++) {
+
+            GuitarParamButton newBtn = new GuitarParamButton((overdriveValues.get(i)), xBtn + (i*120), ((yBtn-hBox/2) + (marginTop)), wBtn, hBtn, (overdriveValues.get(i)));
+            newBtn.setIndex(i);
+            overdriveBtns.add(newBtn);
+        }
+
+        for(int i = 0; i < ampValues.size(); i++) {
+
+            GuitarParamButton newBtn = new GuitarParamButton((ampValues.get(i)), xBtn + (i*120), ((yBtn-hBox/2) + (marginTop+70)), wBtn, hBtn, (ampValues.get(i)));
+            newBtn.setIndex(i);
+            ampBtns.add(newBtn);
+        }
+
+        for(int i = 0; i < eqValues.size(); i++) {
+
+            GuitarParamButton newBtn = new GuitarParamButton((eqValues.get(i)), xBtn + (i*120), ((yBtn-hBox/2) + marginTop+70*2), wBtn, hBtn, (eqValues.get(i)));
+            newBtn.setIndex(i);
+            eqBtns.add(newBtn);
+        }
+
+        for(int i = 0; i < modulationValues.size(); i++) {
+
+            GuitarParamButton newBtn = new GuitarParamButton((modulationValues.get(i)), xBtn + (i*120), ((yBtn-hBox/2) + marginTop+70*3), wBtn, hBtn, (modulationValues.get(i)));
+            newBtn.setIndex(i);
+            modulationBtns.add(newBtn);
+        }
+
+        for(int i = 0; i < reverbValues.size(); i++) {
+
+            GuitarParamButton newBtn = new GuitarParamButton((reverbValues.get(i)), xBtn + (i*120), ((yBtn-hBox/2) + marginTop+70*4), wBtn, hBtn, (reverbValues.get(i)));
+            newBtn.setIndex(i);
+            reverbBtns.add(newBtn);
+        }
+
     }
 
     public void mousePressedEvent() {
@@ -89,17 +132,23 @@ class ProgramStoreMenu extends Menu {
         
         backToMenuBtn.showBtn();
         
-        fill(255);
-        rect(xBox, yBox, wBox, hBox);
-
-
-        
-        for(int i = 0; i < menuButtons.size();i-=-1){
-            
-            menuButtons.get(i).showBtn();        
-            fill(0);
-            text((Arrays.asList(MidiBus.availableInputs()).get(i)), xBox-90 , ((yBox-hBox/2) + marginTop + (i*hLine)));
-
+        for(int i = 0; i < programBtns.size(); i++){
+            programBtns.get(i).showBtn(); 
+        }
+        for(int i = 0; i < overdriveBtns.size(); i++){
+            overdriveBtns.get(i).showBtn(); 
+        }
+        for(int i = 0; i < ampBtns.size(); i++){
+            ampBtns.get(i).showBtn(); 
+        }
+        for(int i = 0; i < eqBtns.size(); i++){
+            eqBtns.get(i).showBtn(); 
+        }
+        for(int i = 0; i < modulationBtns.size(); i++){
+            modulationBtns.get(i).showBtn(); 
+        }
+        for(int i = 0; i < reverbBtns.size(); i++){
+            reverbBtns.get(i).showBtn(); 
         }
 
     }
