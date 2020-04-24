@@ -6,7 +6,7 @@ class ProgramStoreMenu extends Menu {
     ArrayList<GuitarParamButton> reverbBtns = new ArrayList<GuitarParamButton>();
     ArrayList<GuitarParamButton> overdriveBtns = new ArrayList<GuitarParamButton>();
     ArrayList<GuitarParamButton> modulationBtns = new ArrayList<GuitarParamButton>();
-    Button storeBtn = new Button(width/2, 580, 115, hBtn, "Store");
+    Button storeBtn = new Button(width/2, xBtn, 100, hBtn, "Store");
 
     
 

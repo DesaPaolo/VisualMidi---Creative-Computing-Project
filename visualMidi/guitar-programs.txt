@@ -24,14 +24,22 @@ reverb small
 end
 start
 name Program 3
-overdrive boost
-amp crunch
+overdrive none
+amp clean
 eq normal
-modulation chorus
+modulation none
 reverb medium
 end
 start
 name Program 4
+overdrive none
+amp clean
+eq normal
+modulation none
+reverb medium
+end
+start
+name Program 5
 overdrive none
 amp clean
 eq normal

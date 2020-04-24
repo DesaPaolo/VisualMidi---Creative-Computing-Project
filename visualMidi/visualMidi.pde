@@ -6,6 +6,7 @@ SoundFile file;
 void setup() {
   
   startscreen = loadImage("korg.jpg");
+  //size(1920, 1080, P3D);
   size(1280, 800, P3D);
   //fullScreen(P3D);
   background(0);
