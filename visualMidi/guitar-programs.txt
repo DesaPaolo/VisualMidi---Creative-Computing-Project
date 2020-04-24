@@ -18,7 +18,7 @@ start
 name Program 2
 overdrive none
 amp clean
-eq warm
+eq normal
 modulation none
 reverb small
 end
@@ -32,14 +32,6 @@ reverb medium
 end
 start
 name Program 4
-overdrive none
-amp clean
-eq normal
-modulation none
-reverb medium
-end
-start
-name Program 5
 overdrive none
 amp clean
 eq normal
