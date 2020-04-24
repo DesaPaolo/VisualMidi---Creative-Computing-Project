@@ -8,12 +8,13 @@ import java.io.*;
 import java.util.*;
 import java.lang.*;
 import java.text.SimpleDateFormat;  
+import processing.serial.*;
 
 MidiBus minilogue, guitar;
 String minilogueBusName, guitarBusName;
 //Menu global variables
 ArrayList<Preset> presets;
-ArrayList<GuitarProgram> guitarPrograms;
+ArrayList<GuitarProgram> guitarPrograms = new ArrayList();
 ArrayList<Button> loadButtons;
 int choice;
 PImage startscreen;
@@ -80,12 +81,12 @@ float filterRampValueBackground;
 boolean poly;
 
 /*Guitar variables*/
-String gtrAmp;
-String gtrOverdrive;
-String gtrModulation;
-String gtrEq;
-String gtrReverb;
-
+String gtrAmp = "clean";
+String gtrOverdrive = "none";
+String gtrModulation = "none";
+String gtrEq = "normal";
+String gtrReverb = "medium";
+int currentProgramIndex;
 
 
 ParticleSystem ps;

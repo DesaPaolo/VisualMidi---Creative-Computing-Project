@@ -1,16 +1,7 @@
 void savePrograms(){
   String name;
   Date actualDate = Calendar.getInstance().getTime();
-  GuitarProgram actualProgram = new GuitarProgram();
-  actualProgram.setAmp(gtrAmp);
-  actualProgram.setOverdrive(gtrOverdrive);
-  actualProgram.setEq(gtrEq);
-  actualProgram.setReverb(gtrReverb);
-  actualProgram.setModulation(gtrModulation);
   
-  loadGuitarProgramsFromFile(); //salvataggio from file to var senza grafica
-  addProgram(actualProgram); //Aggiunge preset controllando se overwrite
-  actualProgram.setName("Program " + (guitarPrograms.size()-1));
   try{
     FileWriter fileWriter = new FileWriter(sketchPath("guitar-programs.txt"));
     
@@ -83,6 +74,7 @@ void storeGuitarProgramToFile (GuitarProgram actualProgram, FileWriter fileWrite
 
 void activateProgram(int index){
   GuitarProgram activeProgram = guitarPrograms.get(index);
+  currentProgramIndex = index;
   //Qui bisogna assegnare alle variabili globali della grafica, i valori ottenuti dal preset attivo
   gtrAmp = guitarPrograms.get(index).getAmp();
   gtrOverdrive = guitarPrograms.get(index).getOverdrive();

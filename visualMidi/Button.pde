@@ -63,6 +63,10 @@ class Button {
     return this.txt;
   }
 
+  public void setText(String txt){
+    this.txt = txt;
+  }
+
 
 
 

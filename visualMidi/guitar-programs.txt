@@ -1,0 +1,16 @@
+start
+name Program 0
+overdrive overdrive
+amp hiGain
+eq bright
+modulation phaser
+reverb large
+end
+start
+name Program 1
+overdrive overdrive
+amp hiGain
+eq normal
+modulation phaser
+reverb small
+end

@@ -63,7 +63,8 @@ void mousePressed() {
         mode = 4;
       }
       else if(programStoreModeBtn.isPressed()){
-        programStoreMenu = new ProgramStoreMenu(Arrays.asList(guitarPrograms).size());
+        loadGuitarProgramsFromFile();
+        programStoreMenu = new ProgramStoreMenu(guitarPrograms.size());
         mode = 5;
       }
 
@@ -73,6 +74,9 @@ void mousePressed() {
       if (backToMenuBtn.isPressed()){
         cleanScreen();
         println("Passo da 1 a 0");
+        if (mode == 5){
+          programStoreMenu.mousePressedEvent();
+        }
         mode = 0;
       }
     }
@@ -90,6 +94,7 @@ void mousePressed() {
     }
     if(mode==5) {
       programStoreMenu.mousePressedEvent();
+      
     }
     loop();
 }

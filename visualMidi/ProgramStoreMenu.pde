@@ -7,13 +7,12 @@ class ProgramStoreMenu extends Menu {
     ArrayList<GuitarParamButton> overdriveBtns = new ArrayList<GuitarParamButton>();
     ArrayList<GuitarParamButton> modulationBtns = new ArrayList<GuitarParamButton>();
     Button storeBtn = new Button(300, 500, wBtn, hBtn, "Store");
-    ArrayList<Button> storeBtns = new ArrayList<Button>(); 
+
     
 
     public ProgramStoreMenu(int size) {
 
         super("Edit Program", size, "");
-        storeBtns.add(storeBtn);
         this.createButtons(650, 200);
         super.xBox = 300;
         super.yBox = 350;
@@ -27,20 +26,30 @@ class ProgramStoreMenu extends Menu {
         eqValues = new ArrayList<String>(Arrays.asList("warm", "normal", "bright"));
         modulationValues = new ArrayList<String>(Arrays.asList("none", "chorus", "phaser", "flanger"));
         reverbValues = new ArrayList<String>(Arrays.asList("small", "medium", "large"));
+        currentProgramIndex = 0;
+        println("Size: " + this.numberOfElements);
 
         for(int i = 0; i < this.numberOfElements; i++) {
 
             Button newBtn = new Button(xBtn-400, ((yBtn-hBox/2) + marginTop + (i*hLine)), wBtn+20, hBtn, ("PC " + (i+1)));
             newBtn.setIndex(i);
+            
             programBtns.add(newBtn);
         }
         Button newBtnToAdd = new Button(xBtn-400, ((yBtn-hBox/2) + marginTop + ((this.numberOfElements)*hLine)), wBtn+20, hBtn, ("New: PC " + (this.numberOfElements+1)));
         newBtnToAdd.setIndex(this.numberOfElements);
         programBtns.add(newBtnToAdd);
+        GuitarProgram newProgram = new GuitarProgram();
+        guitarPrograms.add(newProgram);
+        activateProgram(currentProgramIndex);
+        programBtns.get(currentProgramIndex).setBackgroundColor(color(255, 0, 0));
 
         for(int i = 0; i < overdriveValues.size(); i++) {
 
             GuitarParamButton newBtn = new GuitarParamButton((overdriveValues.get(i)), xBtn + (i*120), ((yBtn-hBox/2) + (marginTop)), wBtn, hBtn, (overdriveValues.get(i)));
+            if (newBtn.getValue().equals(guitarPrograms.get(currentProgramIndex).getOverdrive())){
+                newBtn.setBackgroundColor(color(255, 0, 0));
+            }
             newBtn.setIndex(i);
             overdriveBtns.add(newBtn);
         }
@@ -48,6 +57,9 @@ class ProgramStoreMenu extends Menu {
         for(int i = 0; i < ampValues.size(); i++) {
 
             GuitarParamButton newBtn = new GuitarParamButton((ampValues.get(i)), xBtn + (i*120), ((yBtn-hBox/2) + (marginTop+70)), wBtn, hBtn, (ampValues.get(i)));
+            if (newBtn.getValue().equals(guitarPrograms.get(currentProgramIndex).getAmp())){
+                newBtn.setBackgroundColor(color(255, 0, 0));
+            }
             newBtn.setIndex(i);
             ampBtns.add(newBtn);
         }
@@ -55,6 +67,9 @@ class ProgramStoreMenu extends Menu {
         for(int i = 0; i < eqValues.size(); i++) {
 
             GuitarParamButton newBtn = new GuitarParamButton((eqValues.get(i)), xBtn + (i*120), ((yBtn-hBox/2) + marginTop+70*2), wBtn, hBtn, (eqValues.get(i)));
+            if (newBtn.getValue().equals(guitarPrograms.get(currentProgramIndex).getEq())){
+                newBtn.setBackgroundColor(color(255, 0, 0));
+            }
             newBtn.setIndex(i);
             eqBtns.add(newBtn);
         }
@@ -62,6 +77,9 @@ class ProgramStoreMenu extends Menu {
         for(int i = 0; i < modulationValues.size(); i++) {
 
             GuitarParamButton newBtn = new GuitarParamButton((modulationValues.get(i)), xBtn + (i*120), ((yBtn-hBox/2) + marginTop+70*3), wBtn, hBtn, (modulationValues.get(i)));
+            if (newBtn.getValue().equals(guitarPrograms.get(currentProgramIndex).getModulation())){
+                newBtn.setBackgroundColor(color(255, 0, 0));
+            }
             newBtn.setIndex(i);
             modulationBtns.add(newBtn);
         }
@@ -69,6 +87,9 @@ class ProgramStoreMenu extends Menu {
         for(int i = 0; i < reverbValues.size(); i++) {
 
             GuitarParamButton newBtn = new GuitarParamButton((reverbValues.get(i)), xBtn + (i*120), ((yBtn-hBox/2) + marginTop+70*4), wBtn, hBtn, (reverbValues.get(i)));
+            if (newBtn.getValue().equals(guitarPrograms.get(currentProgramIndex).getReverb())){
+                newBtn.setBackgroundColor(color(255, 0, 0));
+            }
             newBtn.setIndex(i);
             reverbBtns.add(newBtn);
         }
@@ -83,8 +104,9 @@ class ProgramStoreMenu extends Menu {
                   variabili globali. Perciò quando si mostreranno i {GuitarParamButton extends Button} si
                   controllerà {if guitarParamButton.value == globalValue => background = Red else background = white}
                 */
-
+                programBtns.get(currentProgramIndex).setBackgroundColor(color(255));
                 activateProgram(getBtnIndex(programBtns));
+                programBtns.get(currentProgramIndex).setBackgroundColor(color(255, 0, 0));
                 applyModelToGtrBtns(gtrEq, eqBtns);
                 applyModelToGtrBtns(gtrReverb, reverbBtns);
                 applyModelToGtrBtns(gtrModulation, modulationBtns);
@@ -93,32 +115,54 @@ class ProgramStoreMenu extends Menu {
             }
             else if(getGtrParamBtnIndex(eqBtns)!=-1) {
                 gtrEq = eqBtns.get(getGtrParamBtnIndex(eqBtns)).getValue();
-                guitarPrograms.get(getGtrParamBtnIndex(eqBtns)).setEq(gtrEq);
+                guitarPrograms.get(currentProgramIndex).setEq(gtrEq);
                 applyModelToGtrBtns(gtrEq, eqBtns);
             }
             else if(getGtrParamBtnIndex(reverbBtns)!=-1) {
                 gtrReverb = reverbBtns.get(getGtrParamBtnIndex(reverbBtns)).getValue();
-                guitarPrograms.get(getGtrParamBtnIndex(reverbBtns)).setReverb(gtrReverb);
+                guitarPrograms.get(currentProgramIndex).setReverb(gtrReverb);
                 applyModelToGtrBtns(gtrReverb, reverbBtns);
             }
             else if(getGtrParamBtnIndex(modulationBtns)!=-1) {
                 gtrModulation = modulationBtns.get(getGtrParamBtnIndex(modulationBtns)).getValue();
-                guitarPrograms.get(getGtrParamBtnIndex(modulationBtns)).setEq(gtrModulation);
+                guitarPrograms.get(currentProgramIndex).setEq(gtrModulation);
                 applyModelToGtrBtns(gtrModulation, modulationBtns);
             }
             else if(getGtrParamBtnIndex(overdriveBtns)!=-1) {
                 gtrOverdrive = overdriveBtns.get(getGtrParamBtnIndex(overdriveBtns)).getValue();
-                guitarPrograms.get(getGtrParamBtnIndex(overdriveBtns)).setEq(gtrOverdrive);
+                guitarPrograms.get(currentProgramIndex).setEq(gtrOverdrive);
                 applyModelToGtrBtns(gtrOverdrive, overdriveBtns);
             }
             else if(getGtrParamBtnIndex(ampBtns)!=-1) {
                 gtrAmp = ampBtns.get(getGtrParamBtnIndex(ampBtns)).getValue();
-                guitarPrograms.get(getGtrParamBtnIndex(ampBtns)).setEq(gtrAmp);
+                println("Null pointer check " + getGtrParamBtnIndex(ampBtns));
+                guitarPrograms.get(currentProgramIndex).setEq(gtrAmp);
                 applyModelToGtrBtns(gtrAmp, ampBtns);
             }
-
-            else if(getBtnIndex(storeBtns)!=-1) {
+            else if(storeBtn.isPressed()) {
+                println("Store Button pressed");
+                if (currentProgramIndex != (guitarPrograms.size()-1)){
+                    guitarPrograms.remove(guitarPrograms.size()-1);
+                }
+                else {
+                    programBtns.get(currentProgramIndex).setText("PC " + (currentProgramIndex+1));
+                    Button newBtnToAdd = new Button(xBtn-400, ((yBtn-hBox/2) + marginTop + ((currentProgramIndex+1)*hLine)), wBtn+20, hBtn, ("New: PC " + (currentProgramIndex+2)));
+                    newBtnToAdd.setIndex(currentProgramIndex+1);
+                    programBtns.add(newBtnToAdd);
+                    GuitarProgram newProgram = new GuitarProgram();
+                    guitarPrograms.add(newProgram);
+                }
+                println("Saving current index" + currentProgramIndex);
                 savePrograms();
+                //storeBtn.setBackgroundColor(color(0, 255, 0));
+                //storeBtn.setBackgroundColor(color(255));
+                
+            }
+            else if(backToMenuBtn.isPressed()){
+                println("Back Pressed, size: " + guitarPrograms.size());
+                guitarPrograms.remove(guitarPrograms.size()-1);
+                loadGuitarProgramsFromFile();
+                println("Removed, size: " + guitarPrograms.size());
             }
         }
 
@@ -150,6 +194,7 @@ class ProgramStoreMenu extends Menu {
         for(int i = 0; i < reverbBtns.size(); i++){
             reverbBtns.get(i).showBtn(); 
         }
+        storeBtn.showBtn();
 
     }
 
