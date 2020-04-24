@@ -68,6 +68,13 @@ class Button {
     this.txt = txt;
   }
 
+  public int getYPos() {
+    return yPos;
+  }
+  public int getXPos() {
+    return xPos;
+  }
+
 
 
 

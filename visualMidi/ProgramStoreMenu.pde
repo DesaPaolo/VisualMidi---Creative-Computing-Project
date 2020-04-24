@@ -6,14 +6,16 @@ class ProgramStoreMenu extends Menu {
     ArrayList<GuitarParamButton> reverbBtns = new ArrayList<GuitarParamButton>();
     ArrayList<GuitarParamButton> overdriveBtns = new ArrayList<GuitarParamButton>();
     ArrayList<GuitarParamButton> modulationBtns = new ArrayList<GuitarParamButton>();
-    Button storeBtn = new Button(width/2, xBtn, 100, hBtn, "Store");
+    Button storeBtn = new Button((int)(width/2), (int)(height*0.8), 100, hBtn, "Store");
     int maxSize = 8;
-    
+    int labelXPos = (int)(width/2-280);  
+    int xPosBtn = (int)(width/2-110);
+    int yPosBtn = (int)(height/2+50);
 
     public ProgramStoreMenu(int size) {
 
         super("Edit Program", size, "");
-        this.createButtons(650, 350);
+        this.createButtons(xPosBtn, yPosBtn);
         super.xBox = 300;
         super.yBox = 350;
         super.wBox = 300;
@@ -154,7 +156,7 @@ class ProgramStoreMenu extends Menu {
                 else {
                     programBtns.get(currentProgramIndex).setText("PC " + (currentProgramIndex+1));
                     if(currentProgramIndex<maxSize-1){
-                    Button newBtnToAdd = new Button(250, ((350-hBox/2) + marginTop + ((guitarPrograms.size())*70)), wBtn+20, hBtn, ("New: PC " + (currentProgramIndex+2)));
+                    Button newBtnToAdd = new Button(xPosBtn-400, (programBtns.get(guitarPrograms.size()-1).getYPos()+70), wBtn+20, hBtn, ("New: PC " + (currentProgramIndex+2)));
                     newBtnToAdd.setIndex(currentProgramIndex+1);
                     programBtns.add(newBtnToAdd);
                     GuitarProgram newProgram = new GuitarProgram();
@@ -208,7 +210,12 @@ class ProgramStoreMenu extends Menu {
             reverbBtns.get(i).showBtn(); 
         }
         storeBtn.showBtn();
-
+        fill(255);
+        text("Modulation",labelXPos,(((int)(height/2+50)-hBox/2) + marginTop+70*3));
+        text("Equalizer",labelXPos,(((int)(height/2+50)-hBox/2) + marginTop+70*2));
+        text("Reverb",labelXPos,(((int)(height/2+50)-hBox/2) + marginTop+70*4));
+        text("OD/Distortion",labelXPos,(((int)(height/2+50)-hBox/2) + marginTop));
+        text("Amplifier",labelXPos,(((int)(height/2+50)-hBox/2) + marginTop+70));
     }
 
     public void applyModelToGtrBtns (String modelParam, ArrayList<GuitarParamButton> buttonList) {

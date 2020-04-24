@@ -1,18 +1,18 @@
 start
 name Program 0
-overdrive overdrive
-amp hiGain
-eq bright
-modulation phaser
-reverb large
+overdrive none
+amp crunch
+eq warm
+modulation none
+reverb small
 end
 start
 name Program 1
-overdrive boost
-amp crunch
-eq normal
-modulation chorus
-reverb medium
+overdrive none
+amp clean
+eq warm
+modulation none
+reverb small
 end
 start
 name Program 2
@@ -20,7 +20,7 @@ overdrive none
 amp clean
 eq normal
 modulation none
-reverb small
+reverb medium
 end
 start
 name Program 3
@@ -32,6 +32,30 @@ reverb medium
 end
 start
 name Program 4
+overdrive none
+amp clean
+eq normal
+modulation none
+reverb medium
+end
+start
+name Program 5
+overdrive none
+amp clean
+eq normal
+modulation none
+reverb medium
+end
+start
+name Program 6
+overdrive none
+amp clean
+eq normal
+modulation none
+reverb medium
+end
+start
+name Program 7
 overdrive none
 amp clean
 eq normal
