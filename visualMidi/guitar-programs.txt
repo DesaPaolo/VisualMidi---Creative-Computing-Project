@@ -8,9 +8,17 @@ reverb large
 end
 start
 name Program 1
-overdrive overdrive
-amp hiGain
+overdrive boost
+amp crunch
 eq normal
-modulation phaser
-reverb small
+modulation chorus
+reverb medium
+end
+start
+name PC NULL
+overdrive none
+amp clean
+eq normal
+modulation none
+reverb medium
 end

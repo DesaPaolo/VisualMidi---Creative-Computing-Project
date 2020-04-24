@@ -116,27 +116,32 @@ class ProgramStoreMenu extends Menu {
             else if(getGtrParamBtnIndex(eqBtns)!=-1) {
                 gtrEq = eqBtns.get(getGtrParamBtnIndex(eqBtns)).getValue();
                 guitarPrograms.get(currentProgramIndex).setEq(gtrEq);
+                println("UPDATING EQ VALUE: "+ guitarPrograms.get(currentProgramIndex).getEq());
                 applyModelToGtrBtns(gtrEq, eqBtns);
             }
             else if(getGtrParamBtnIndex(reverbBtns)!=-1) {
                 gtrReverb = reverbBtns.get(getGtrParamBtnIndex(reverbBtns)).getValue();
                 guitarPrograms.get(currentProgramIndex).setReverb(gtrReverb);
+                println("UPDATING REVERB VALUE: "+ guitarPrograms.get(currentProgramIndex).getEq());
                 applyModelToGtrBtns(gtrReverb, reverbBtns);
             }
             else if(getGtrParamBtnIndex(modulationBtns)!=-1) {
                 gtrModulation = modulationBtns.get(getGtrParamBtnIndex(modulationBtns)).getValue();
-                guitarPrograms.get(currentProgramIndex).setEq(gtrModulation);
+                guitarPrograms.get(currentProgramIndex).setModulation(gtrModulation);
+                println("UPDATING MODULATION VALUE: "+ guitarPrograms.get(currentProgramIndex).getEq());
                 applyModelToGtrBtns(gtrModulation, modulationBtns);
             }
             else if(getGtrParamBtnIndex(overdriveBtns)!=-1) {
                 gtrOverdrive = overdriveBtns.get(getGtrParamBtnIndex(overdriveBtns)).getValue();
-                guitarPrograms.get(currentProgramIndex).setEq(gtrOverdrive);
+                guitarPrograms.get(currentProgramIndex).setOverdrive(gtrOverdrive);
+                println("UPDATING OVERDRIVE VALUE: "+ guitarPrograms.get(currentProgramIndex).getEq());
                 applyModelToGtrBtns(gtrOverdrive, overdriveBtns);
             }
             else if(getGtrParamBtnIndex(ampBtns)!=-1) {
                 gtrAmp = ampBtns.get(getGtrParamBtnIndex(ampBtns)).getValue();
                 println("Null pointer check " + getGtrParamBtnIndex(ampBtns));
-                guitarPrograms.get(currentProgramIndex).setEq(gtrAmp);
+                guitarPrograms.get(currentProgramIndex).setAmp(gtrAmp);
+                println("UPDATING REVERB VALUE: "+ guitarPrograms.get(currentProgramIndex).getEq());
                 applyModelToGtrBtns(gtrAmp, ampBtns);
             }
             else if(storeBtn.isPressed()) {
@@ -152,6 +157,8 @@ class ProgramStoreMenu extends Menu {
                     GuitarProgram newProgram = new GuitarProgram();
                     guitarPrograms.add(newProgram);
                 }
+                /*Bisogna aggiornare anche l'elemento corrente di guitarPrograms*/
+                println("###CURRENT GUITAR PROGRAM ON GLOBAL VARIABLE: "+guitarPrograms.get(currentProgramIndex));
                 println("Saving current index" + currentProgramIndex);
                 savePrograms();
                 //storeBtn.setBackgroundColor(color(0, 255, 0));

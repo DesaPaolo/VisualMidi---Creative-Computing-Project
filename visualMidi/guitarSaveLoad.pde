@@ -65,6 +65,7 @@ void storeGuitarProgramToFile (GuitarProgram actualProgram, FileWriter fileWrite
     fileWriter.write("eq " + actualProgram.getEq() + "\n");
     fileWriter.write("modulation " + actualProgram.getModulation() + "\n");
     fileWriter.write("reverb " + actualProgram.getReverb() + "\n");
+    println("############ACTUAL GUITAR PROGRAM WRITTEN ON FILE: "+actualProgram);
     fileWriter.write("end\n");
   } catch (IOException e) {
       // exception handling
