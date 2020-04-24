@@ -32,7 +32,8 @@ class Button {
     fill(backgroundColor);
     rect(xPos, yPos, wid, hei);
     fill(textColor);
-    text(txt, xPos, yPos);
+    String capitalizedText = txt.substring(0,1).toUpperCase()+txt.substring(1, txt.length());
+    text(capitalizedText, xPos, yPos);
   }
   
   public boolean isPressed(){

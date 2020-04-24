@@ -58,6 +58,7 @@ void loadGuitarProgramsFromFile(){
 
 void storeGuitarProgramToFile (GuitarProgram actualProgram, FileWriter fileWriter){
   try{
+    if(!actualProgram.getName().equals("PC NULL")){
     fileWriter.write("start\n");
     fileWriter.write("name " + actualProgram.getName() + "\n");
     fileWriter.write("overdrive " + actualProgram.getOverdrive() +"\n");
@@ -67,6 +68,7 @@ void storeGuitarProgramToFile (GuitarProgram actualProgram, FileWriter fileWrite
     fileWriter.write("reverb " + actualProgram.getReverb() + "\n");
     println("############ACTUAL GUITAR PROGRAM WRITTEN ON FILE: "+actualProgram);
     fileWriter.write("end\n");
+    }
   } catch (IOException e) {
       // exception handling
       println("IO Exception");

@@ -15,7 +15,23 @@ modulation chorus
 reverb medium
 end
 start
-name PC NULL
+name Program 2
+overdrive none
+amp clean
+eq warm
+modulation none
+reverb small
+end
+start
+name Program 3
+overdrive boost
+amp crunch
+eq normal
+modulation chorus
+reverb medium
+end
+start
+name Program 4
 overdrive none
 amp clean
 eq normal

@@ -6,7 +6,7 @@ class ProgramStoreMenu extends Menu {
     ArrayList<GuitarParamButton> reverbBtns = new ArrayList<GuitarParamButton>();
     ArrayList<GuitarParamButton> overdriveBtns = new ArrayList<GuitarParamButton>();
     ArrayList<GuitarParamButton> modulationBtns = new ArrayList<GuitarParamButton>();
-    Button storeBtn = new Button(300, 500, wBtn, hBtn, "Store");
+    Button storeBtn = new Button(width/2, 580, 115, hBtn, "Store");
 
     
 
@@ -17,6 +17,7 @@ class ProgramStoreMenu extends Menu {
         super.xBox = 300;
         super.yBox = 350;
         super.wBox = 300;
+        super.hLine = 70;
     }
 
     public void createButtons(int xBtn, int yBtn) {
@@ -31,12 +32,12 @@ class ProgramStoreMenu extends Menu {
 
         for(int i = 0; i < this.numberOfElements; i++) {
 
-            Button newBtn = new Button(xBtn-400, ((yBtn-hBox/2) + marginTop + (i*hLine)), wBtn+20, hBtn, ("PC " + (i+1)));
+            Button newBtn = new Button(xBtn-400, ((yBtn-hBox/2) + marginTop + (i*70)), wBtn+20, hBtn, ("PC " + (i+1)));
             newBtn.setIndex(i);
             
             programBtns.add(newBtn);
         }
-        Button newBtnToAdd = new Button(xBtn-400, ((yBtn-hBox/2) + marginTop + ((this.numberOfElements)*hLine)), wBtn+20, hBtn, ("New: PC " + (this.numberOfElements+1)));
+        Button newBtnToAdd = new Button(xBtn-400, ((yBtn-hBox/2) + marginTop + ((this.numberOfElements)*70)), wBtn+20, hBtn, ("New: PC " + (this.numberOfElements+1)));
         newBtnToAdd.setIndex(this.numberOfElements);
         programBtns.add(newBtnToAdd);
         GuitarProgram newProgram = new GuitarProgram();
@@ -146,20 +147,23 @@ class ProgramStoreMenu extends Menu {
             }
             else if(storeBtn.isPressed()) {
                 println("Store Button pressed");
-                if (currentProgramIndex != (guitarPrograms.size()-1)){
-                    guitarPrograms.remove(guitarPrograms.size()-1);
+                if (currentProgramIndex != (guitarPrograms.size()-1) && currentProgramIndex<7){
+                    //guitarPrograms.remove(guitarPrograms.size()-1);
                 }
                 else {
                     programBtns.get(currentProgramIndex).setText("PC " + (currentProgramIndex+1));
-                    Button newBtnToAdd = new Button(xBtn-400, ((yBtn-hBox/2) + marginTop + ((currentProgramIndex+1)*hLine)), wBtn+20, hBtn, ("New: PC " + (currentProgramIndex+2)));
+                    if(currentProgramIndex!=7){
+                    Button newBtnToAdd = new Button(250, ((yBtn-hBox/2) + marginTop + ((currentProgramIndex+1)*hLine)), wBtn+20, hBtn, ("New: PC " + (currentProgramIndex+2)));
                     newBtnToAdd.setIndex(currentProgramIndex+1);
                     programBtns.add(newBtnToAdd);
                     GuitarProgram newProgram = new GuitarProgram();
                     guitarPrograms.add(newProgram);
+                    }
                 }
                 /*Bisogna aggiornare anche l'elemento corrente di guitarPrograms*/
                 println("###CURRENT GUITAR PROGRAM ON GLOBAL VARIABLE: "+guitarPrograms.get(currentProgramIndex));
                 println("Saving current index" + currentProgramIndex);
+                guitarPrograms.get(currentProgramIndex).setName("Program " + (currentProgramIndex));
                 savePrograms();
                 //storeBtn.setBackgroundColor(color(0, 255, 0));
                 //storeBtn.setBackgroundColor(color(255));
@@ -178,7 +182,7 @@ class ProgramStoreMenu extends Menu {
     public void showMenu() {
 
         fill(255);
-        text(title, 300, 100); 
+        text(title, width/2, 60); 
         fill(255);
         
         backToMenuBtn.showBtn();
