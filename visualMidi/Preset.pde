@@ -20,9 +20,10 @@ class Preset {
   private float timeDly;
   private float feedbackDly;
   private boolean isActiveDly;
+  private int id;
 
   Preset (String name, Date creationDate, boolean susPedal, float mod, float modRate, float cutoffFil, float[] envTimes, float ampSus,
-  float susAmpEG, float atckTimeEG, float dcyTimeEG, float relTimeEG, Boolean poly, float intEG, float hiPassDly, float timeDly, float feedbackDly, boolean isActiveDly) {
+  float susAmpEG, float atckTimeEG, float dcyTimeEG, float relTimeEG, Boolean poly, float intEG, float hiPassDly, float timeDly, float feedbackDly, boolean isActiveDly, int id) {
     this.name = name;
     this.susPedal = susPedal;
     this.creationDate = creationDate;
@@ -43,6 +44,7 @@ class Preset {
     this.timeDly = timeDly;
     this.feedbackDly = feedbackDly;
     this.isActiveDly = isActiveDly;
+    this.id = id;
   }
 
   Preset() {
@@ -66,6 +68,7 @@ class Preset {
     this.timeDly = 0;
     this.feedbackDly = 0;
     this.isActiveDly = false;
+    this.id=-1;
   }
 
   public void setPresetName(String name) {
@@ -128,6 +131,9 @@ class Preset {
   }
   public void setIsActiveDly(boolean isActiveDly) {
     this.isActiveDly = isActiveDly;
+  }
+  public void setId(int id){
+    this.id = id;
   }
   
 
@@ -192,6 +198,9 @@ class Preset {
   public boolean getIsActiveDly() {
     return this.isActiveDly;
   }
+  public int getId() {
+    return this.id;
+  }
 
   public String toString() { //Override
     String name = "Preset Name: " + this.name + "\n";
@@ -213,9 +222,10 @@ class Preset {
                    "Time: " + this.timeDly + "\n" + 
                    "Feedback: " + this.feedbackDly + "\n" +
                    "isActive: " + Boolean.toString(this.isActiveDly) + "\n"; 
+    String id = "Id: " + this.id +"\n";
 
 
-    return name + date + susPedal + modulation + modulationRate + cutoffFil + atckTime + dcyTime + relTime + susAmp + atckTimeEG + dcyTimeEG + relTimeEG + 
+    return id + name + date + susPedal + modulation + modulationRate + cutoffFil + atckTime + dcyTime + relTime + susAmp + atckTimeEG + dcyTimeEG + relTimeEG + 
     susAmpEG + poly + intEG + delay;
   }
 }

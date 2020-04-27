@@ -1,28 +1,29 @@
 start
-name Schevchenkooooo
-date Tue Apr 21 16:33:46 CEST 2020
+name TrapForSarti
+date Mon Apr 27 11:31:50 CEST 2020
 sustainPedal false
-modulation 0.0
-modulationRate 0.0
-cutoffFilter 100.0
+modulation 2.8621533
+modulationRate 0.0781675
+cutoffFilter 3.1910748
 attackTime 1.0
 decayTime 1000.0
 sustainAmp 100.0
-releaseTime 1.0
+releaseTime 85.26057
 EG attackTime 1.0
 EG decayTime 1000.0
 EG sustainAmp 100.0
-EG releaseTime 1.0
-EG int 0.0
+EG releaseTime 85.26057
+EG int 84.25197
 poly true
-hipass delay 0.0
-time delay 0.0
-feedback delay 0.0
-isActive delay false
+hipass delay 64.25197
+time delay 29.13386
+feedback delay 15.944882
+isActive delay true
+id 24
 end
 start
-name Piccinini
-date Tue Apr 21 16:35:31 CEST 2020
+name Bruschiz
+date Mon Apr 27 11:47:09 CEST 2020
 sustainPedal false
 modulation 0.0
 modulationRate 0.0
@@ -41,26 +42,5 @@ hipass delay 0.0
 time delay 0.0
 feedback delay 0.0
 isActive delay false
-end
-start
-name JazzForSarti
-date Wed Apr 22 11:20:32 CEST 2020
-sustainPedal false
-modulation 0.0
-modulationRate 0.0
-cutoffFilter 100.0
-attackTime 1.0
-decayTime 1000.0
-sustainAmp 100.0
-releaseTime 1.0
-EG attackTime 1.0
-EG decayTime 1000.0
-EG sustainAmp 100.0
-EG releaseTime 1.0
-EG int 0.0
-poly true
-hipass delay 0.0
-time delay 0.0
-feedback delay 0.0
-isActive delay false
+id 25
 end

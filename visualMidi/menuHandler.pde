@@ -24,6 +24,7 @@ public void menuInit() {
   deviceModeBtn = new Button(xBtnBackToMenu, yBtnBackToMenu+200, wBtn, hBtn, "Change Device", color(255), color(0));
   programStoreModeBtn = new Button(xBtnBackToMenu+300, yBtnBackToMenu+200, wBtn, hBtn, "Edit Guitar Programs", color(255), color(0));
   presets = new ArrayList<Preset>();
+  loadPresetsFromFile();
   loadButtons = new ArrayList<Button>();
   
 }
@@ -146,7 +147,7 @@ void loadMode(){
 void savePreset(){
   String name = finalMsg;
   Date actualDate = Calendar.getInstance().getTime();
-  Preset actualPreset = new Preset(name, actualDate, sustainPedal, modulation, modulationRate, cutOffFilter, times, ampSus, EGAmpSus, times[0], times[1], times[3], poly, EGInt, hiPassDly, timeDly, feedbackDly, isActiveDly);
+  Preset actualPreset = new Preset(name, actualDate, sustainPedal, modulation, modulationRate, cutOffFilter, times, ampSus, EGAmpSus, times[0], times[1], times[3], poly, EGInt, hiPassDly, timeDly, feedbackDly, isActiveDly, id);
   
   loadPresetsFromFile(); //salvataggio from file to var senza grafica
   addPreset(actualPreset); //Aggiunge preset controllando se overwrite
@@ -192,7 +193,12 @@ int getBtnIndex(ArrayList<Button> buttons){
 }
 
 void activatePreset(int index){
-  Preset activePreset = presets.get(index);
+  println("$$$$$$$$$$$$$ Index: "+ index);
+  int ind = getIndexOfPreset(index);
+  println("$$$$$$$$$$$$$ Ind: "+ ind);
+  if(ind!=-1){
+  Preset activePreset = presets.get(ind);
+  println("@@@@@@@@@@@@@@CALLED PRESET: " + activePreset.getPresetName());
   cutOffFilter = activePreset.getCutoffFil();
   times[0] = activePreset.getAttack();
   times[1] = activePreset.getDecay();
@@ -214,11 +220,22 @@ void activatePreset(int index){
   feedbackDly = activePreset.getFeedbackDly();
   isActiveDly = activePreset.getIsActiveDly();
   println(activePreset.toString());
-  
+  }
+
   return;
 }
 
+int getIndexOfPreset(int id) {
+  println("*****presets size: "+ presets.size());
+  for(int i = 0; i< presets.size(); i++){
+    if(presets.get(i).getId()==id) return i;
+     println("i: "+i);
+  }
+  return -1;
+}
+
 void addPreset (Preset presetToAdd){
+  println("ADDING PRESET");
   for(int i=0; i<presets.size(); i++){
     if (presets.get(i).getPresetName().equals(presetToAdd.getPresetName())){
       presets.remove(i);
@@ -233,6 +250,7 @@ void addPreset (Preset presetToAdd){
 }
 
 void loadPresetsFromFile(){
+  println("LOADING PRESETS FROM FILE");
   File file = new File(sketchPath("presets.txt")); 
     try {
       BufferedReader br = new BufferedReader(new FileReader(file)); 
@@ -252,6 +270,7 @@ void loadPresetsFromFile(){
             addPreset(newPreset); //Exception
           }
         else if (st.isEmpty()){}
+        else if ((st.substring(0,3)).equals("id ")){newPreset.setId(Integer.parseInt(st.substring(3)));}
         else if ((st.substring(0,5)).equals("name ")){newPreset.setPresetName(st.substring(5));}
         else if ((st.substring(0,5)).equals("poly ")){newPreset.setPoly(Boolean.parseBoolean(st.substring(5)));}
         else if ((st.substring(0,5)).equals("date ")){newPreset.setCreationDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy",  Locale.ENGLISH).parse(st.substring(5)));}
@@ -352,6 +371,7 @@ void storePresetToFile (Preset actualPreset, FileWriter fileWriter){
     fileWriter.write("time delay " + actualPreset.getTimeDly() + "\n");
     fileWriter.write("feedback delay " + actualPreset.getFeedbackDly() + "\n");
     fileWriter.write("isActive delay " + actualPreset.getIsActiveDly() + "\n");
+    fileWriter.write("id "+actualPreset.getId() +"\n");
     fileWriter.write("end\n");
   } catch (IOException e) {
       // exception handling

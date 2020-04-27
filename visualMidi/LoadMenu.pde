@@ -15,7 +15,7 @@ class LoadMenu extends Menu{
 
             if(getBtnIndex(menuButtons)!= -1){
 
-                activatePreset(getBtnIndex(menuButtons));
+                activatePreset(presets.get(getBtnIndex(menuButtons)).getId());
                 changeButtonColor();
 
             }  
@@ -40,7 +40,7 @@ class LoadMenu extends Menu{
             menuButtons.get(i).showBtn();        
             fill(0);
             text((presets.get(i).getPresetName()), xBox-90, ((yBox-hBox/2) + marginTop + (i*hLine)));
-
+            text((presets.get(i).getId()+1), xBox+20, ((yBox-hBox/2) + marginTop + (i*hLine)));
         }
 
     }

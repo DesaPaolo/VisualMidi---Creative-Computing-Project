@@ -3,7 +3,7 @@ private boolean alreadyInTempChord;
 
 public void midiInit() {
 
-  
+  println("MIDI INIT");
   MidiBus.list();
   minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
   minilogueBusName = minilogue.getBusName();
@@ -221,6 +221,12 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
     }
     if (message.getStatus() == 224) { //PITCHBEND! !!!MSB ARE THE SECOND MESSAGE----> we consider only MSB
       pitchBend = map((int)(message.getMessage()[2] & 0xFF), 0, 127, -64, 64);
+    }
+    if((int)(message.getMessage()[0] & 0xFF)==192){
+      println("Calling Program" + ((int)(message.getMessage()[1] & 0xFF)));
+      //println("Calling Program" + ((message.getMessage() & 0xFF)));
+      id = ((int)(message.getMessage()[1] & 0xFF));
+      activatePreset((int)(message.getMessage()[1] & 0xFF));
     }
   }
   
