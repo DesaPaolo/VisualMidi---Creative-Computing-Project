@@ -6,23 +6,27 @@ public void menuInit() {
   wBtn = 180;
   hBtn = 60;
   float centerPosition = width/2;
-  final float OMOGENEOUS_COEFF = 1.5;
-  float distanceFactor = wBtn * 1.5 * OMOGENEOUS_COEFF;
-  xBtnStoreMode = (int) (centerPosition  - distanceFactor );//250; //Store
+  int offset = (int)(width*0.22);
+  final float OMOGENEOUS_COEFF = 1.2;
+  float distanceFactor = wBtn * 1.1 * OMOGENEOUS_COEFF;
+  float distanceFactor2 = wBtn * 1.5 * OMOGENEOUS_COEFF;
+  xBtnStoreMode = (int) (centerPosition  - distanceFactor -offset);//250; //Store
   yBtnStoreMode = (int) (height * .06);//100;
-  xBtnLoadMode = (int) (centerPosition);//;600; //Load
+  xBtnLoadMode = (int) (centerPosition-offset);//;600; //Load
   yBtnLoadMode = (int) (height * .06);
-  xBtnPlayMode = (int) (centerPosition  + distanceFactor); //Play
+  xBtnPlayMode = (int) (centerPosition  + distanceFactor-offset); //Play
   yBtnPlayMode = (int) (height * .06);
-  xBtnBackToMenu = (int) (centerPosition - 1.2* distanceFactor); // Back to menu
+  xBtnBackToMenu = (int) (centerPosition - 1.2* distanceFactor2); // Back to menu
   yBtnBackToMenu = (int) (height * .06);
+  int xBtnDeviceMode = (int) (centerPosition  + 2*distanceFactor-offset);
+  int xBtnGuitarDeviceMode = (int) (centerPosition  + 3*distanceFactor-offset);
 
   storeModeBtn = new Button(xBtnStoreMode, yBtnStoreMode, wBtn, hBtn, "Store Mode", color(255), color(0));
   loadModeBtn = new Button(xBtnLoadMode, yBtnLoadMode, wBtn, hBtn, "Load Mode", color(255), color(0));
   playModeBtn = new Button(xBtnPlayMode, yBtnPlayMode, wBtn, hBtn, "Play Mode", color(255), color(0));
   backToMenuBtn = new Button(xBtnBackToMenu, yBtnBackToMenu, wBtn, hBtn, "Back to Menu", color(255), color(0));
-  deviceModeBtn = new Button(xBtnBackToMenu, yBtnBackToMenu+200, wBtn, hBtn, "Change Device", color(255), color(0));
-  programStoreModeBtn = new Button(xBtnBackToMenu+300, yBtnBackToMenu+200, wBtn, hBtn, "Edit Guitar Programs", color(255), color(0));
+  deviceModeBtn = new Button(xBtnDeviceMode, yBtnPlayMode, wBtn, hBtn, "Change Device", color(255), color(0));
+  programStoreModeBtn = new Button(xBtnGuitarDeviceMode, yBtnPlayMode, wBtn+80, hBtn, "Edit Guitar Programs", color(255), color(0));
   presets = new ArrayList<Preset>();
   loadPresetsFromFile();
   loadButtons = new ArrayList<Button>();

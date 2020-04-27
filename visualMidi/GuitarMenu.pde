@@ -2,8 +2,9 @@ class GuitarMenu extends Menu{
 
     public GuitarMenu(int size) {
         
-        super("Guitar Device",size, "Change R");
-        createButtons(1150, 350, "Change R");
+        super("Guitar Device",size, "Change");
+        wBtn=120;
+        createButtons(1150, 350, "Change");
         super.xBox = 1000;
         super.yBox = 350;
         super.wBox = 500;
@@ -41,8 +42,8 @@ class GuitarMenu extends Menu{
 
     public void showMenu() {
 
-        fill(255);
-        text(title, 1000, 100); 
+        fill(255,0,0);
+        text(title, 1000, 150); 
         fill(255);
         
         backToMenuBtn.showBtn();

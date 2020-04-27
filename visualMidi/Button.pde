@@ -29,7 +29,9 @@ class Button {
   }
   
   public void showBtn(){
+
     fill(backgroundColor);
+    stroke(255,20,20);//causes issues when passing from store to mode 0, remains the borders of the backToMenuBtn and of the storePresetBtn
     rect(xPos, yPos, wid, hei);
     fill(textColor);
     String capitalizedText = txt.substring(0,1).toUpperCase()+txt.substring(1, txt.length());
