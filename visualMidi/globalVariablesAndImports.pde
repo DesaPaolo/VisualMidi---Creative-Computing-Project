@@ -91,3 +91,4 @@ int currentProgramIndex;
 
 ParticleSystem ps;
 boolean drawBool = false;
+StarField starField = new StarField(1000, 10);
