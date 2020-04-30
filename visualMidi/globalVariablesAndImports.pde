@@ -92,4 +92,4 @@ int currentProgramIndex;
 ParticleSystem ps;
 boolean drawBool = false;
 StarField starField;
-int warpSpeed = 10;
+//int warpSpeed = 10;

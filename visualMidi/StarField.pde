@@ -3,16 +3,13 @@ class StarField{
     private int size;
     private Star[] stars;
 
-
-   public StarField(int size){
+    public StarField(int size){
 
         this.size = size;
         stars = new Star[size];
         for (int i = 0; i < size; i++) {
            stars[i] = new Star();
         }
-        println("SIZE STARFIELD: " +this.size);
-
     }
 
     public void draw() {
@@ -27,8 +24,8 @@ class StarField{
     }
 
     public void setSpeed(int speed) {
-        //this.warpSpeed = speed;
         for (int i = 0; i < size; i++) {
+            stars[i].setSpeed(speed);
         }
     }
 

@@ -70,7 +70,7 @@ void playDraw() {
   //background
   if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0% 
     fill((cutOffFilter/100) * 255);
-    /**/fill(0);
+    /*fill(0);*/
   } else {
     fill((filterRampValueBackground/100) * 255);
   }
@@ -98,5 +98,4 @@ void playDraw() {
 
 void initializeStarField() {
   starField = new StarField(1000);
-
 }
