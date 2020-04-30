@@ -58,23 +58,5 @@ class GuitarMenu extends Menu{
             text((Arrays.asList(MidiBus.availableInputs()).get(i)), xBox-90, ((yBox-hBox/2) + marginTop + (i*hLine)));
 
         }
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

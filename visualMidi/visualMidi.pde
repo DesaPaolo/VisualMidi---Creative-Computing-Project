@@ -1,4 +1,4 @@
-//<>// //<>//
+ //<>//
 
 import controlP5.*;
 import processing.sound.*;
@@ -16,8 +16,11 @@ void setup() {
   midiInit();
   adsrInit();
   menuInit();
+
   //file = new SoundFile(this, sketchPath("data/pry.mp3"));
+
   //file.play();
+  initializeStarField();
 
  //drawDevicesMenu();
   poly = true;
@@ -67,20 +70,19 @@ void draw() {
 }
 
 void playDraw() {
-
   //background
   if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0% 
     fill((cutOffFilter/100) * 255);
+    /*fill(0);*/
   } else {
     fill((filterRampValueBackground/100) * 255);
   }
   rect(width/2, height/2, width, height);
   lights();
-
   //fill(255);  
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
-  text("Play Mode", (width/2), (height*0.2));
+  //text("Play Mode", (width/2), (height*0.2));
   backToMenuBtn.showBtn();
 
   //Chiama update della view per ogni nota. Da aggiungere differenza tra monofonia e polifonia e limite 
@@ -95,4 +97,9 @@ void playDraw() {
   } else {
     //tempNotes vuoto
   }
+    starField.draw();
 } 
+
+void initializeStarField() {
+  starField = new StarField(1000);
+}
