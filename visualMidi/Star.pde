@@ -18,7 +18,7 @@ class Star {
         this.warpSpeed = 10;
         this.starColor = color(100,100,250);
         this.starTrackColor = color(0,0,255);
-        this.opacity =80;
+        this.opacity =70;
         this.weight = 1;
     }
 

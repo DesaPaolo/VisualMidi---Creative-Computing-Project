@@ -79,9 +79,9 @@ void playDraw() {
   //fill(255);  
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
-  text("Play Mode", (width/2), (height*0.2));
+  //text("Play Mode", (width/2), (height*0.2));
   backToMenuBtn.showBtn();
-  starField.draw();
+
   //Chiama update della view per ogni nota. Da aggiungere differenza tra monofonia e polifonia e limite 
   //massimo di voci a 4, per rispecchiare sempre l'audio output del minilogue.
   if (!tempNotes.isEmpty()) {
@@ -94,6 +94,7 @@ void playDraw() {
   } else {
     //tempNotes vuoto
   }
+    starField.draw();
 } 
 
 void initializeStarField() {
