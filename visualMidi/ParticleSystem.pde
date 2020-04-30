@@ -5,40 +5,43 @@ class ParticleSystem {
 
   ArrayList<Particle> particles;
   PVector origin = new PVector();
-  float lifespan;
+  float psLifespan;
+  int timeDlyCont; // rateo
 
-  ParticleSystem(PVector position, Sphere sphere) {
-    println("#######Created a particle##########");
-
-    origin.x = position.x;
-    origin.y = position.y;
-    //origin.z = position.z;
-    println("px: " + position.x + "py:" + position.y + "pz: " + position.z);
-    println("sph pos:" + sphere.position+"sph radius: "+sphere.radius);
-
+  ParticleSystem(PVector position) {
+    println("#######Created a Particle System##########");
+    
     particles = new ArrayList<Particle>();
-    lifespan = feedbackDly;
-    println("lifespan is " + lifespan);
+
+    origin = position.copy();
+    //println("px: " + position.x + "py:" + position.y + "pz: " + position.z);
+    //println("sph pos:" + sphere.position+"sph radius: "+sphere.radius);
+
+    psLifespan = feedbackDly;
+    timeDlyCont = 0;
+    println("psLifespan is " + psLifespan);
   }
 
-  void addParticle() {
-    if(this.lifespan > 0 ){
-      //println("Carmelo piantala con 'sti bonghi " + lifespan);
-      particles.add(new Particle(origin));
-      lifespan -= f1();
+  void addParticle(float radius) {
+    if(timeDlyCont == round(timeDly)){  
+      if (this.psLifespan > 0 ) {
+        particles.add(new Particle(origin,radius));
+        psLifespan -= psLifespanDrop();
+      }
+      timeDlyCont = 0;
     }
+    timeDlyCont++;
   }
 
-  float f1() {
-
-    if(maximumFeed()){
+  float psLifespanDrop() {
+    if (isMaxFeedbackDly()) {
       return 0;
     }
     return 1;
   }
 
-  boolean maximumFeed() {
-    return (feedbackDly>=maximumFeedBack-5);
+  boolean isMaxFeedbackDly() {
+    return (feedbackDly >= maxFeedbackDly-5);
   }
 
   void run() {
@@ -52,50 +55,59 @@ class ParticleSystem {
   }
 
   public boolean isAlive() {
-    return lifespan>0;
-  };
-
+    return psLifespan > 0;
+  }
 }
-
 
 // A simple Particle class
 
 class Particle {
+
   PVector position;
   PVector velocity;
   PVector acceleration;
+  float radius;
   float lifespan;
 
-  Particle(PVector l) {
-    acceleration = new PVector(0, 0.01*(maximumDelayTime-timeDly));
-    velocity = new PVector(random(-1, 1), random(-2, 0));
-    position = l.copy();
-    lifespan = 255-hiPassDly;
+  Particle(PVector position_, float radius_) {
+    acceleration = new PVector(0,0);//0.01*(maxDlyTime-timeDly)
+    float vx = randomGaussian()*0.3;
+    float vy = randomGaussian()*0.3 - 1.0;
+    velocity = new PVector(vx, vy);
+    position = position_.copy();
+    radius = radius_;
+    lifespan = 100;
   }
 
   void run() {
-    update();
+    update(); 
     display();
   }
 
   // Method to update position
   void update() {
-    velocity.add(acceleration);
-    position.add(velocity);
-    lifespan -= 1.0;
+    this.velocity.add(acceleration);
+    this.position.add(velocity);
+    this.lifespan -= 1.0;
   }
 
   // Method to display
   void display() {
-    stroke(0, lifespan);
-    fill(255, hiPassDly, hiPassDly, lifespan);
-    ellipse(position.x, position.y, 8, 8);
-    //println("Drawing the ellipse");
+    
+    if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0% 
+    fill((255 - (cutOffFilter/100) * 255), map(this.lifespan, 0, 100, 0, 255 ));
+  } else {
+    fill((255 - (filterRampValueBackground/100) * 255) , map(this.lifespan, 0, 100, 0, 255 ));
+  }
+  
+  ellipse(this.position.x, this.position.y, this.radius * 2, this.radius * 2);
+  //println("Drawing the ellipse");
+    
   }
 
   // Is the particle still useful?
   boolean isDead() {
-    if (lifespan < 0.0) {
+    if (this.lifespan < 0.0) {
       return true;
     } else {
       return false;

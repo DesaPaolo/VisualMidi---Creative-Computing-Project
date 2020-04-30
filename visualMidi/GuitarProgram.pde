@@ -107,4 +107,3 @@ public class GuitarProgram {
                 + ", reverb=" + reverb + "]";
     }
     }
-

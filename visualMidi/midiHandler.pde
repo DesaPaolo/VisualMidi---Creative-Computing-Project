@@ -151,11 +151,11 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
       break;
       
     case 30:
-      timeDly = map(value, 0, 127, 0, maximumDelayTime);
+      timeDly = mapLog(value, 0, 127, 1, maxDlyTime);
       break;
 
     case 31: 
-      feedbackDly = map(value, 0, 127, 0, maximumFeedBack);
+      feedbackDly = mapLog(value, 0, 127, 1, maxFeedbackDly);
       //change lifespan if move this knob: realtime feedback knob
       break; 
   
@@ -247,4 +247,3 @@ private int voiceLimiter() {
   if (poly) return 4;
   return 1;
 }
-

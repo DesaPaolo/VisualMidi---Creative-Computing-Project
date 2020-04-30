@@ -16,8 +16,8 @@ void setup() {
   midiInit();
   adsrInit();
   menuInit();
-  file = new SoundFile(this, sketchPath("data/pry.mp3"));
-  file.play();
+  //file = new SoundFile(this, sketchPath("data/pry.mp3"));
+  //file.play();
 
  //drawDevicesMenu();
   poly = true;
