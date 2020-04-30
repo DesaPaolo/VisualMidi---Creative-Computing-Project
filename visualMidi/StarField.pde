@@ -2,25 +2,23 @@ class StarField{
 
     private int size;
     private Star[] stars;
-    private int warpSpeed;
 
 
-   public StarField(int size, int warpSpeed){
+   public StarField(int size){
 
-        this.warpSpeed = warpSpeed;
         this.size = size;
         stars = new Star[size];
         for (int i = 0; i < size; i++) {
            stars[i] = new Star();
-           stars[i].setSpeed(warpSpeed);
         }
+        println("SIZE STARFIELD: " +this.size);
 
     }
 
     public void draw() {
 
         translate(width/2, height/2);
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < this.size; i++) {
            stars[i].update();
            stars[i].show();
         }
@@ -29,9 +27,8 @@ class StarField{
     }
 
     public void setSpeed(int speed) {
-        this.warpSpeed = speed;
+        //this.warpSpeed = speed;
         for (int i = 0; i < size; i++) {
-           stars[i].setSpeed(speed);
         }
     }
 

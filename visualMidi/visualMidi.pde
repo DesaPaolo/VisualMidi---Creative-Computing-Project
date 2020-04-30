@@ -18,7 +18,7 @@ void setup() {
   menuInit();
   file = new SoundFile(this, sketchPath("data/pry.mp3"));
   //file.play();
-
+  initializeStarField();
  //drawDevicesMenu();
   poly = true;
 }
@@ -95,3 +95,8 @@ void playDraw() {
     //tempNotes vuoto
   }
 } 
+
+void initializeStarField() {
+  starField = new StarField(1000);
+
+}

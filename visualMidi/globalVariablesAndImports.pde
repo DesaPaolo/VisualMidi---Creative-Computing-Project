@@ -91,4 +91,5 @@ int currentProgramIndex;
 
 ParticleSystem ps;
 boolean drawBool = false;
-StarField starField = new StarField(1000, 10);
+StarField starField;
+int warpSpeed = 10;
