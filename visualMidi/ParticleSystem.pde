@@ -7,65 +7,62 @@ class ParticleSystem {
   float psLifespan;
   int timeDlyCont; // rateo
 
-  ParticleSystem(PVector position) {
+  public ParticleSystem(PVector position) {
     println("#######Created a Particle System##########");
-
-    particles = new ArrayList<Particle>();
-
-    origin = position.copy();
-
-    psLifespan = feedbackDly;
-    timeDlyCont = 0;
-    println("psLifespan is " + psLifespan);
-
+    this.particles = new ArrayList<Particle>();
+    this.origin = position.copy();
+    this.psLifespan = feedbackDly;
+    this.timeDlyCont = round(timeDly);
+    //println("psLifespan is " + psLifespan);
     tempPs.add(this);
   }
 
 
   public void addParticle(float radius) {
-    if (timeDlyCont == round(timeDly)) {  
-      if (this.isAlive()) {
-        particles.add(new Particle(origin, radius));
-        psLifespan -= psLifespanDrop();
+    if (this.timeDlyCont == round(timeDly)) {  
+      if (this.psLifespan > 0) {
+        this.particles.add(new Particle(this.origin, radius));
       }
-      timeDlyCont = 0;
+      this.timeDlyCont = 0;
     }
-    timeDlyCont++;
+    this.timeDlyCont++;
   }
 
-  float psLifespanDrop() {
-    if (isMaxFeedbackDly()) {
+  private float psLifespanDrop() {
+    if (this.isMaxFeedbackDly()) {
       return 0;
     }
     return 1;
   }
 
-  boolean isMaxFeedbackDly() {
+  private boolean isMaxFeedbackDly() {
     return (feedbackDly >= maxFeedbackDly-5);
   }
   
   public void update() {
     if(this.isAlive()) {
       this.run();
+      this.psLifespan -= this.psLifespanDrop();
     } else {
+      println("MORTO");
       removePsByOrigin(this.origin);
     }
   }
   
-  void run() {
-    for (int i = particles.size()-1; i >= 0; i--) {
-      Particle p = particles.get(i);
-      p.run();
-      if (p.isDead()) {
-        particles.remove(i);
+  private void run() {
+    for (int i = this.particles.size()-1; i >= 0; i--) {
+      if (this.particles.get(i).isDead()) {
+        this.particles.remove(i);
+      } else {
+        this.particles.get(i).run();
       }
     }
   }
 
   public boolean isAlive() {
-    return this.psLifespan > 0;
+    return (this.psLifespan > 0 || !(this.particles.isEmpty()));
   }
-  
+   
   public PVector getOrigin() {
     return this.origin; 
   }
@@ -83,29 +80,29 @@ class Particle {
   float lifespan;
 
   Particle(PVector position_, float radius_) {
-    acceleration = new PVector(0, 0);//0.01*(maxDlyTime-timeDly)
+    this.acceleration = new PVector(0, 0);//0.01*(maxDlyTime-timeDly)
     float vx = randomGaussian()*0.3;
     float vy = randomGaussian()*0.3 - 1.0;
-    velocity = new PVector(vx, vy);
-    position = position_.copy();
-    radius = radius_;
-    lifespan = 100;
+    this.velocity = new PVector(vx, vy);
+    this.position = position_.copy();
+    this.radius = radius_;
+    this.lifespan = 100;
   }
 
-  void run() {
+  public void run() {
     update(); 
     display();
   }
 
   // Method to update position
-  void update() {
-    this.velocity.add(acceleration);
-    this.position.add(velocity);
+  private void update() {
+    this.velocity.add(this.acceleration);
+    this.position.add(this.velocity);
     this.lifespan -= 1.0;
   }
 
   // Method to display
-  void display() {
+  private void display() {
 
     fill(100, 100, 250, map(this.lifespan, 0, 100, 0, 255 ));
     //if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0% 
@@ -118,10 +115,7 @@ class Particle {
   }
 
   boolean isDead() {
-    if (this.lifespan < 0.0) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.lifespan < 0.0 ;
   }
+  
 }

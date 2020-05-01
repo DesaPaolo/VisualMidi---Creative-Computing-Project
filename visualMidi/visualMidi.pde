@@ -97,11 +97,12 @@ void playDraw() {
 
   if (!tempPs.isEmpty()) {
     for (int i=0; i<tempPs.size(); i++ ) { 
-      tempPs.get(i).run();
+      tempPs.get(i).update();
     }
   } else {
     //tempPs vuoto
   }
+  println(tempPs.size());
   
   starField.draw();
 } 

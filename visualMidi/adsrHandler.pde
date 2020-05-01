@@ -70,14 +70,14 @@ private void nextFilterRamp(Note note) {
   int stepz = note.filterRamp.stepId;
   switch(stepz) {
   case 1:
-    println("FILTER REACHED DECAY");
+    //println("FILTER REACHED DECAY");
     note.filterRamp = new Ramp(EGTimes[stepz], millis(), 0, stepz, note.filterAdsrValues[1], note.filterAdsrValues[2], note, true);
     break;
   case 2: 
-    println("FILTER REACHED SUSTAIN");
+    //println("FILTER REACHED SUSTAIN");
     break; 
   case 3:
-    println("FILTER REACHED Release 2" + note.filterAdsrValues[2] +" 3" + note.filterAdsrValues[3]);
+    //println("FILTER REACHED Release 2" + note.filterAdsrValues[2] +" 3" + note.filterAdsrValues[3]);
     note.filterRamp = new Ramp(EGTimes[stepz], millis(), 0, stepz, note.filterAdsrValues[2], note.filterAdsrValues[3], note, true);
     break;
   }

@@ -36,11 +36,10 @@ class Note {
     if (this.toRemove) {
       removeNoteByPitch(this.pitch); 
     } else { 
-      this.sphere.drawSphere(this.ramp.rampValue, this.filterRamp.rampValue, this.velocity);
-
       if (isActiveDly) {
         this.ps.addParticle(this.sphere.radius);
       }
+      this.sphere.drawSphere(this.ramp.rampValue, this.filterRamp.rampValue, this.velocity);
     }
   }
 
@@ -50,7 +49,6 @@ class Note {
 
     if (isActiveDly) {
       this.ps = new ParticleSystem(new PVector(x, y, z));
-      println("Creo particle system");
     }
   }
 

@@ -191,8 +191,7 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
   }
   
   if (bus_name == guitarBusName){
-      //Check CC codes of pedalboard
-      
+      //Check CC codes of pedalboard  
   }  
 }
 
@@ -215,10 +214,10 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
   //println("--------");
   //println("Status Byte/MIDI Command:"+message.getStatus());
   if (bus_name == minilogueBusName) {
-    for (int i = 0; i < message.getMessage().length; i++) {    //SHOW MIDI MESSAGES CODE & VALUE
-        if((message.getMessage()[i] & 0xFF)!=248) {
-      println("Param "+(i+1)+": "+(int)(message.getMessage()[i] & 0xFF)); }
-    }
+    //for (int i = 0; i < message.getMessage().length; i++) {    //SHOW MIDI MESSAGES CODE & VALUE
+    //    if((message.getMessage()[i] & 0xFF)!=248) {
+    //  //println("Param "+(i+1)+": "+(int)(message.getMessage()[i] & 0xFF)); }
+    //}
     if (message.getStatus() == 224) { //PITCHBEND! !!!MSB ARE THE SECOND MESSAGE----> we consider only MSB
       pitchBend = map((int)(message.getMessage()[2] & 0xFF), 0, 127, -64, 64);
     }
