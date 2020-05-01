@@ -30,3 +30,11 @@ public void removeNoteByPitch(int pitch) {
     }
   }
 }
+
+public void removePsByOrigin(PVector origin) {
+  for (int c = 0; c<tempPs.size(); c-=-1) {
+    if (tempPs.get(c).getOrigin()==origin) {
+      tempPs.remove(c);
+    }
+  }
+}

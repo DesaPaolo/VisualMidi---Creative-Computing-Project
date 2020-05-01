@@ -1,5 +1,4 @@
-// A class to describe a group of Particles //<>//
-// An ArrayList is used to manage the list of Particles 
+ArrayList<ParticleSystem> tempPs = new ArrayList<ParticleSystem>(); //<>//
 
 class ParticleSystem {
 
@@ -10,22 +9,23 @@ class ParticleSystem {
 
   ParticleSystem(PVector position) {
     println("#######Created a Particle System##########");
-    
+
     particles = new ArrayList<Particle>();
 
     origin = position.copy();
-    //println("px: " + position.x + "py:" + position.y + "pz: " + position.z);
-    //println("sph pos:" + sphere.position+"sph radius: "+sphere.radius);
 
     psLifespan = feedbackDly;
     timeDlyCont = 0;
     println("psLifespan is " + psLifespan);
+
+    tempPs.add(this);
   }
 
-  void addParticle(float radius) {
-    if(timeDlyCont == round(timeDly)){  
-      if (this.psLifespan > 0 ) {
-        particles.add(new Particle(origin,radius));
+
+  public void addParticle(float radius) {
+    if (timeDlyCont == round(timeDly)) {  
+      if (this.isAlive()) {
+        particles.add(new Particle(origin, radius));
         psLifespan -= psLifespanDrop();
       }
       timeDlyCont = 0;
@@ -43,7 +43,15 @@ class ParticleSystem {
   boolean isMaxFeedbackDly() {
     return (feedbackDly >= maxFeedbackDly-5);
   }
-
+  
+  public void update() {
+    if(this.isAlive()) {
+      this.run();
+    } else {
+      removePsByOrigin(this.origin);
+    }
+  }
+  
   void run() {
     for (int i = particles.size()-1; i >= 0; i--) {
       Particle p = particles.get(i);
@@ -55,8 +63,13 @@ class ParticleSystem {
   }
 
   public boolean isAlive() {
-    return psLifespan > 0;
+    return this.psLifespan > 0;
   }
+  
+  public PVector getOrigin() {
+    return this.origin; 
+  }
+  
 }
 
 // A simple Particle class
@@ -70,7 +83,7 @@ class Particle {
   float lifespan;
 
   Particle(PVector position_, float radius_) {
-    acceleration = new PVector(0,0);//0.01*(maxDlyTime-timeDly)
+    acceleration = new PVector(0, 0);//0.01*(maxDlyTime-timeDly)
     float vx = randomGaussian()*0.3;
     float vy = randomGaussian()*0.3 - 1.0;
     velocity = new PVector(vx, vy);
@@ -93,19 +106,17 @@ class Particle {
 
   // Method to display
   void display() {
-    
-    if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0% 
-    fill((255 - (cutOffFilter/100) * 255), map(this.lifespan, 0, 100, 0, 255 ));
-  } else {
-    fill((255 - (filterRampValueBackground/100) * 255) , map(this.lifespan, 0, 100, 0, 255 ));
-  }
-  
-  ellipse(this.position.x, this.position.y, this.radius * 2, this.radius * 2);
-  //println("Drawing the ellipse");
-    
+
+    fill(100, 100, 250, map(this.lifespan, 0, 100, 0, 255 ));
+    //if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0% 
+    //  fill((255 - (cutOffFilter/100) * 255), map(this.lifespan, 0, 100, 0, 255 ));
+    //} else {
+    //  fill((255 - (filterRampValueBackground/100) * 255), map(this.lifespan, 0, 100, 0, 255 ));
+    //}
+
+    ellipse(this.position.x, this.position.y, this.radius * 2, this.radius * 2);
   }
 
-  // Is the particle still useful?
   boolean isDead() {
     if (this.lifespan < 0.0) {
       return true;

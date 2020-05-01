@@ -40,7 +40,6 @@ class Note {
 
       if (isActiveDly) {
         this.ps.addParticle(this.sphere.radius);
-        this.ps.run();
       }
     }
   }

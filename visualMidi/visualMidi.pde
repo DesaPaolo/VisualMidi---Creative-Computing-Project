@@ -4,7 +4,7 @@ import controlP5.*;
 import processing.sound.*;
 SoundFile file;
 void setup() {
-  
+
   startscreen = loadImage("korg.jpg");
   //size(1920, 1080, P3D);
   size(1280, 800, P3D);
@@ -22,7 +22,7 @@ void setup() {
   //file.play();
   initializeStarField();
 
- //drawDevicesMenu();
+  //drawDevicesMenu();
   poly = true;
 }
 
@@ -59,14 +59,11 @@ void draw() {
     loadMode();
   } else if (mode == 3) { //play
     playDraw();
-  }
-    else if (mode == 4) {
+  } else if (mode == 4) {
     deviceMode();
+  } else if (mode == 5) {
+    programStoreMode();
   }
-    else if (mode == 5) {
-      programStoreMode();
-    }
-
 }
 
 void playDraw() {
@@ -97,7 +94,16 @@ void playDraw() {
   } else {
     //tempNotes vuoto
   }
-    starField.draw();
+
+  if (!tempPs.isEmpty()) {
+    for (int i=0; i<tempPs.size(); i++ ) { 
+      tempPs.get(i).run();
+    }
+  } else {
+    //tempPs vuoto
+  }
+  
+  starField.draw();
 } 
 
 void initializeStarField() {
