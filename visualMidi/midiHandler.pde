@@ -191,7 +191,14 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
   }
   
   if (bus_name == guitarBusName){
-      //Check CC codes of pedalboard  
+      //Check CC codes of pedalboard
+      println("Guitar CC");
+      switch(number){
+        case 1: 
+          println("Wah");
+          starField.setSpeed((int)map(value, 0, 127, 5, 100));
+      }
+
   }  
 }
 
@@ -231,7 +238,9 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
   
   if (bus_name == guitarBusName) {
     for (int i = 0; i < message.getMessage().length; i++) {    //SHOW MIDI MESSAGES CODE & VALUE
-      println("Guitar Param "+(i)+": "+(int)(message.getMessage()[i] & 0xFF));
+      if((int)(message.getMessage()[i] & 0xFF)!=254){
+        println("Guitar Param "+(i)+": "+(int)(message.getMessage()[i] & 0xFF));
+      }
     }
 
     if((int)(message.getMessage()[0] & 0xFF)==192){
