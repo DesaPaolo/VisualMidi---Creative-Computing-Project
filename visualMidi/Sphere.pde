@@ -7,9 +7,11 @@ class Sphere {
   private float alfa = 0.0;
   ParticleSystem ps;
   float radius;
+  color c = color(255, 255, 255);
 
   Sphere(float x, float y, float z) {
     this.position = new PVector(x, y, z);
+    this.c = getColorRandom();
   }
 
   //This function computes the graphical result, considering all the parameters (lfo, cutoff, pitch bend etc...)
@@ -30,7 +32,8 @@ class Sphere {
     }
 
     noStroke();
-    fill(255, 255, 255, rampValue);  
+    
+    fill(this.c, rampValue);  
     this.lfoEffect();
 
     //float radius = map(filterRampValue, 0, 255, 5, 45);

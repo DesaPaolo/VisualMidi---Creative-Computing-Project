@@ -78,6 +78,7 @@ class Particle {
   PVector acceleration;
   float radius;
   float lifespan;
+  color c = color(100, 100, 250);
 
   Particle(PVector position_, float radius_) {
     this.acceleration = new PVector(0, 0);//0.01*(maxDlyTime-timeDly)
@@ -87,6 +88,7 @@ class Particle {
     this.position = position_.copy();
     this.radius = radius_;
     this.lifespan = 100;
+    this.c = getColorRandom();
   }
 
   public void run() {
@@ -104,7 +106,7 @@ class Particle {
   // Method to display
   private void display() {
 
-    fill(100, 100, 250, map(this.lifespan, 0, 100, 0, 255 ));
+    fill(this.c, map(this.lifespan, 0, 100, 0, 255 ));
     //if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0% 
     //  fill((255 - (cutOffFilter/100) * 255), map(this.lifespan, 0, 100, 0, 255 ));
     //} else {

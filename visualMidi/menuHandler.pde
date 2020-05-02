@@ -30,6 +30,7 @@ public void menuInit() {
   presets = new ArrayList<Preset>();
   loadPresetsFromFile();
   loadButtons = new ArrayList<Button>();
+  getColorRandom();
   
 }
 
