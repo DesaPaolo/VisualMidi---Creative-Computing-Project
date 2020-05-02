@@ -9,6 +9,7 @@ import java.util.*;
 import java.lang.*;
 import java.text.SimpleDateFormat;  
 import processing.serial.*;
+import uk.co.xfactorylibrarians.coremidi4j.*;
 
 MidiBus minilogue, guitar;
 String minilogueBusName, guitarBusName;

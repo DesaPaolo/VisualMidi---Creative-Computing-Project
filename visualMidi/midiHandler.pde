@@ -237,10 +237,25 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
   }
   
   if (bus_name == guitarBusName) {
-    for (int i = 0; i < message.getMessage().length; i++) {    //SHOW MIDI MESSAGES CODE & VALUE
+    /*for (int i = 0; i < message.getMessage().length; i++) {    //SHOW MIDI MESSAGES CODE & VALUE
       if((int)(message.getMessage()[i] & 0xFF)!=254){
         println("Guitar Param "+(i)+": "+(int)(message.getMessage()[i] & 0xFF));
       }
+    }*/
+
+
+    if(message instanceof SysexMessage){
+      print("SYSTEM ");
+      SysexMessage msg = (SysexMessage)message.clone();
+      //msg = (SysexMessage)message.clone();
+      /*String result = "";
+      result = decodeMessage((SysexMessage) message);
+      print(result);
+      println("");*/
+      for(int i=0; i<msg.getData().length; i++){
+        print(String.format("%02x ", msg.getData()[i]));
+      }
+      println("");
     }
 
     if((int)(message.getMessage()[0] & 0xFF)==192){
@@ -251,7 +266,26 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
   }
 }
 
+private String decodeMessage(SysexMessage message) {
+	byte[] abData = message.getData();
+	String result = null;
+	if (message.getStatus() == SysexMessage.SYSTEM_EXCLUSIVE) 
+		result = "Sysex message: F0" + toHex(abData);
+	 else if (message.getStatus() == SysexMessage.SPECIAL_SYSTEM_EXCLUSIVE)
+		result = "Continued Sysex message F7" + toHex(abData);
+	return result;
+}
+
 private int voiceLimiter() {
   if (poly) return 4;
   return 1;
+}
+
+private String toHex(byte[] data){
+  String str = " ";
+  for(int i=0; i<data.length; i++){
+    str += Integer.toHexString(data[i]);
+    str += " ";
+  }
+  return str;
 }
