@@ -5,14 +5,23 @@ public void midiInit() {
 
   println("MIDI INIT");
   MidiBus.list();
-  minilogue = new MidiBus(this, 1, 1);// Connect to one of the devices
-  minilogueBusName = minilogue.getBusName();
-
   minilogue = new MidiBus(this);// Connect to one of the devices
+  minilogueBusName = minilogue.getBusName();
   guitar = new MidiBus(this);// Connect to one of the devices
+  //for (String device : MidiBus.availableOutputs()){ //Assuming to send MIDI messages to all the devices, to avoid creating new menu
+    guitar.addOutput("CoreMIDI4J - USB Uno MIDI Interface");
+  //}
+  println("Output size: ", guitar.attachedOutputs().length);
   guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();
   alreadyInTempChord = false;
+
+  /*Init ArrayList of kemper stomps*/
+  for (int i=0; i<4; i++){
+    kemperStomps.add(new KemperStomp(50+i));
+  }
+  initScanKemper(); //Scan the kemper parameters at the beginning by sending SysEx requests
+  
 }
 
 //NOTE ON
@@ -245,33 +254,12 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
 
 
     if(message instanceof SysexMessage){
-      print("SYSTEM ");
-      ArrayList<String> strArr = new ArrayList<String>();
-      SysexMessage msg = (SysexMessage)message.clone();
-      for(int i=0; i<msg.getData().length; i++){
-        strArr.add(String.format("%02x", msg.getData()[i]));
-        print(strArr.get(i) + " ");
-      }
-      println("");
-      if (strArr.get(0).equals("00") && strArr.get(1).equals("20") && strArr.get(2).equals("33")){
-        println("Manufacturer: Kemper");
-      }
-      if (strArr.get(5).equals("01")){
-        println("Function: Request Single Parameter");
-        println("Page: " + String.format("%d ", msg.getData()[7]));
-        println("Parameter: " + ((int)msg.getData()[8]));
-        int msbVal = (int)msg.getData()[9];
-        int lsbVal = (int)msg.getData()[10];
-        println("MSB Value: " + (msbVal*128+lsbVal));
-      }else if (strArr.get(5).equals("06")){
-        println("Function: Request Multi Parameter");
-      }
-      
+      parseSysEx((SysexMessage)message);
     }
 
     if((int)(message.getMessage()[0] & 0xFF)==192){
       println("Calling Program" + ((int)(message.getMessage()[1] & 0xFF)));
-      activateProgram((int)(message.getMessage()[1] & 0xFF));
+      //activateProgram((int)(message.getMessage()[1] & 0xFF));
     }
     
   }
@@ -280,4 +268,163 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
 private int voiceLimiter() {
   if (poly) return 4;
   return 1;
+}
+
+public void parseSysEx(SysexMessage sysEx){
+
+  int page = ((int)sysEx.getData()[7]);
+  int ctrl = ((int)sysEx.getData()[8]);
+  int msbVal = ((int)sysEx.getData()[9]);
+  int lsbVal = ((int)sysEx.getData()[10]);
+  ArrayList<String> strArr = new ArrayList<String>();
+
+  /*Stampa messaggio SysEx*/
+  print("SYSTEM ");
+  for(int i=0; i<sysEx.getData().length; i++){
+    strArr.add(String.format("%02x", sysEx.getData()[i]));
+    print(strArr.get(i) + " ");
+  }
+  println("");
+  /*Fine stampa messaggio*/
+
+  /*Start PArsing*/
+  if (strArr.get(0).equals("00") && strArr.get(1).equals("20") && strArr.get(2).equals("33")){//KPA signature
+    println("Manufacturer: Kemper");
+    
+    if (strArr.get(5).equals("01")){ //Function Code for single parameter change
+      //Parsing OD
+      if(page==50 || page==51 || page==52 || page==53){//Stomp A-D
+        println("Stomp single change");
+        
+        if (ctrl==0){
+          println("Get Stomp Type");
+          getStompByAddress(page).setType(getOdTypeByIntResponse(lsbVal));
+        }
+        if (ctrl==3){
+          println("Get Stomp ON/OFF");
+          getStompByAddress(page).setOn(1==lsbVal);
+        }
+      }
+    /*End of Parsing*/
+
+    /*Final Print*/
+      println("Page: " + String.format("%d ", sysEx.getData()[7]));
+      println("MSB Value: " + (msbVal*128+lsbVal));
+      println(getStompByAddress(page).toString()); //Controllo Stomp nel model
+      gtrOverdrive = getOdStompsResult(); //Assign global value overdrive
+    } 
+    /*End Single parameter change*/
+    
+    /*Multi Parameter Change*/
+    else if (strArr.get(5).equals("06")){
+      println("Function: Request Multi Parameter");
+    }
+  }
+}
+
+public KemperStomp getStompByAddress(int address){
+  for (int i=0; i<kemperStomps.size(); i++){
+    if (kemperStomps.get(i).getAddress() == address){
+      return kemperStomps.get(i);
+    }
+  }
+  return new KemperStomp(56);
+}
+
+public String getOdStompsResult(){
+  //Return the type (string) of the most contributing Overdrive effect in the Stomp section
+  String max = "none";
+  HashMap<String,Integer> hm = new HashMap<String,Integer>();
+  hm.put("none", 0);
+  hm.put("boost", 1);
+  hm.put("overdrive", 2);
+  hm.put("distortion", 3);
+  hm.put("fuzz", 4);
+  for (KemperStomp actStomp : kemperStomps){
+    if ((hm.get(actStomp.getType()) > hm.get(max))&&(actStomp.isOn())){
+      max = actStomp.getType();
+    }
+  }
+  println(max);
+  return max;
+}
+
+public String getOdTypeByIntResponse(int lsbVal){
+  switch (lsbVal){
+    case 33: //Hex 21 -> Green OD
+      return "overdrive";
+    case 34: //Hex 22 -> Plus DS
+      return "distortion";
+    case 35: //Hex 23 -> One DS
+      return "distortion";
+    case 36: //Hex 24 -> Muffin
+      return "fuzz";
+    case 37: //Hex 25 -> Mouse
+      return "fuzz";
+    case 38: //Hex 26 -> Fuzz
+      return "fuzz";
+    case 39: //Hex 27 -> Metal
+      return "distortion";
+    case 113: //Hex 71 -> Treble Booster
+      return "boost";
+    case 114: //Hex 72 -> Lead Booster
+      return "boost";
+    case 115: //Hex 73 -> Pure Booster
+      return "boost";
+    default: 
+      return "none";
+  }
+}
+
+public void initScanKemper(){ //Send all the SysExs for all the Kemper Parameters I care
+  guitar.sendMessage(
+    new byte[] {
+      (byte)0xF0, 
+      (byte)0x00, (byte)0x20, (byte)0x33, 
+      (byte)0x00, (byte)0x00,
+      (byte)0x41, (byte)0x00, 
+      (byte)0x32, (byte)0x00, 
+      (byte)0xF7
+    }
+  );
+  
+  /*byte[] stompATypeRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 32 00 F7");
+  guitar.sendMessage(stompATypeRequest);
+  byte[] stompAOnRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 32 03 F7");
+  guitar.sendMessage(stompAOnRequest);
+  byte[] stompBTypeRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 33 00 F7");
+  guitar.sendMessage(stompBTypeRequest);
+  byte[] stompBOnRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 32 03 F7");
+  guitar.sendMessage(stompBOnRequest);
+  byte[] stompCTypeRequest hexStringToByteArray("F0 00 20 33 00 00 41 00 34 00 F7");
+  guitar.sendMessage(stompCTypeRequest);
+  byte[] stompCOnRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 32 03 F7");
+  guitar.sendMessage(stompCOnRequest);
+  byte[] stompDTypeRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 35 00 F7");
+  guitar.sendMessage(stompDTypeRequest);
+  byte[] stompDOnRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 32 03 F7");
+  guitar.sendMessage(stompDOnRequest);
+  byte[] gainAmpRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 0A 04 F7");
+  guitar.sendMessage(gainAmpRequest);
+  byte[] eqRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 0B 07 F7"); //Check only the 'Presence' Parameter
+  guitar.sendMessage(eqRequest);
+  byte[] modulationOnRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 3A 03 F7");
+  guitar.sendMessage(modulationOnRequest);
+  byte[] modulationTypeRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 3A 00 F7");
+  guitar.sendMessage(modulationTypeRequest);
+  byte[] reverbTimeRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 3D 5D F7");
+  guitar.sendMessage(reverbTimeRequest);*/
+  
+  
+  println("Scan DOne");
+}
+
+public static byte[] hexStringToByteArray(String s) {
+    int len = s.length();
+    byte[] data = new byte[len / 2];
+    for (int i = 0; i < len; i += 2) {
+        data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                             + Character.digit(s.charAt(i+1), 16));
+    }
+    return data;
 }
