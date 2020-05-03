@@ -8,6 +8,7 @@ public void midiInit() {
   minilogue = new MidiBus(this);// Connect to one of the devices
   minilogueBusName = minilogue.getBusName();
   guitar = new MidiBus(this);// Connect to one of the devices
+  guitar.sendTimestamps(false);
   //for (String device : MidiBus.availableOutputs()){ //Assuming to send MIDI messages to all the devices, to avoid creating new menu
     guitar.addOutput("CoreMIDI4J - USB Uno MIDI Interface");
   //}
@@ -15,6 +16,7 @@ public void midiInit() {
   guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();
   alreadyInTempChord = false;
+
 
   /*Init ArrayList of kemper stomps*/
   for (int i=0; i<4; i++){
@@ -305,6 +307,9 @@ public void parseSysEx(SysexMessage sysEx){
           getStompByAddress(page).setOn(1==lsbVal);
         }
       }
+      if(page==58){ //MOD Stomp
+        if(true){}
+      }
     /*End of Parsing*/
 
     /*Final Print*/
@@ -376,55 +381,206 @@ public String getOdTypeByIntResponse(int lsbVal){
   }
 }
 
+public String getModTypeByIntResponse(int lsbVal){
+  switch (lsbVal){
+    case 33: //Hex 21 -> Green OD
+      return "overdrive";
+    case 34: //Hex 22 -> Plus DS
+      return "distortion";
+    default: 
+      return "none";
+  }
+}
+
 public void initScanKemper(){ //Send all the SysExs for all the Kemper Parameters I care
-  guitar.sendMessage(
-    new byte[] {
-      (byte)0xF0, 
-      (byte)0x00, (byte)0x20, (byte)0x33, 
-      (byte)0x00, (byte)0x00,
-      (byte)0x41, (byte)0x00, 
-      (byte)0x32, (byte)0x00, 
-      (byte)0xF7
-    }
-  );
-  
-  /*byte[] stompATypeRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 32 00 F7");
-  guitar.sendMessage(stompATypeRequest);
-  byte[] stompAOnRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 32 03 F7");
-  guitar.sendMessage(stompAOnRequest);
-  byte[] stompBTypeRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 33 00 F7");
-  guitar.sendMessage(stompBTypeRequest);
-  byte[] stompBOnRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 32 03 F7");
-  guitar.sendMessage(stompBOnRequest);
-  byte[] stompCTypeRequest hexStringToByteArray("F0 00 20 33 00 00 41 00 34 00 F7");
-  guitar.sendMessage(stompCTypeRequest);
-  byte[] stompCOnRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 32 03 F7");
-  guitar.sendMessage(stompCOnRequest);
-  byte[] stompDTypeRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 35 00 F7");
-  guitar.sendMessage(stompDTypeRequest);
-  byte[] stompDOnRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 32 03 F7");
-  guitar.sendMessage(stompDOnRequest);
-  byte[] gainAmpRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 0A 04 F7");
-  guitar.sendMessage(gainAmpRequest);
-  byte[] eqRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 0B 07 F7"); //Check only the 'Presence' Parameter
-  guitar.sendMessage(eqRequest);
-  byte[] modulationOnRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 3A 03 F7");
-  guitar.sendMessage(modulationOnRequest);
-  byte[] modulationTypeRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 3A 00 F7");
-  guitar.sendMessage(modulationTypeRequest);
-  byte[] reverbTimeRequest = hexStringToByteArray("F0 00 20 33 00 00 41 00 3D 5D F7");
-  guitar.sendMessage(reverbTimeRequest);*/
+  try { //All the methods of SysexMessage, ShortMessage, etc, require try catch blocks
+    SysexMessage stompATypeRequest = new SysexMessage();
+    stompATypeRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x32, (byte)0x00, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(stompATypeRequest);
+
+    SysexMessage stompAOnRequest = new SysexMessage();
+    stompAOnRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x32, (byte)0x03, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(stompAOnRequest);
+
+    SysexMessage stompBTypeRequest = new SysexMessage();
+    stompBTypeRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x33, (byte)0x00, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(stompBTypeRequest);
+
+    SysexMessage stompBOnRequest = new SysexMessage();
+    stompBOnRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x33, (byte)0x03, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(stompBOnRequest);
+
+    SysexMessage stompCTypeRequest = new SysexMessage();
+    stompCTypeRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x34, (byte)0x00, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(stompCTypeRequest);
+
+    SysexMessage stompCOnRequest = new SysexMessage();
+    stompCOnRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x34, (byte)0x03, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(stompCOnRequest);
+
+    SysexMessage stompDTypeRequest = new SysexMessage();
+    stompDTypeRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x35, (byte)0x00, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(stompDTypeRequest);
+
+    SysexMessage stompDOnRequest = new SysexMessage();
+    stompDOnRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x35, (byte)0x03, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(stompDOnRequest);
+
+    SysexMessage gainAmpRequest = new SysexMessage();
+    gainAmpRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x0A, (byte)0x04, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(gainAmpRequest);
+
+    SysexMessage eqRequest = new SysexMessage();
+    eqRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x0B, (byte)0x07, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(eqRequest);
+
+    SysexMessage modulationOnRequest = new SysexMessage();
+    modulationOnRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x3A, (byte)0x03, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(modulationOnRequest);
+
+    SysexMessage modulationTypeRequest = new SysexMessage();
+    modulationTypeRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x3A, (byte)0x00, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(modulationTypeRequest);
+
+    SysexMessage reverbTimeRequest = new SysexMessage();
+    reverbTimeRequest.setMessage(
+      0xF0, 
+      new byte[] {
+        (byte)0x00, (byte)0x20, (byte)0x33, 
+        (byte)0x00, (byte)0x00,
+        (byte)0x41, (byte)0x00, 
+        (byte)0x3D, (byte)0x5D, 
+        (byte)0xF7
+      },
+      10
+    );
+    guitar.sendMessage(reverbTimeRequest);
+
+
+  } catch(Exception e) {
+
+  }
   
   
   println("Scan DOne");
-}
-
-public static byte[] hexStringToByteArray(String s) {
-    int len = s.length();
-    byte[] data = new byte[len / 2];
-    for (int i = 0; i < len; i += 2) {
-        data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                             + Character.digit(s.charAt(i+1), 16));
-    }
-    return data;
 }
