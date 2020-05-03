@@ -246,16 +246,27 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
 
     if(message instanceof SysexMessage){
       print("SYSTEM ");
+      ArrayList<String> strArr = new ArrayList<String>();
       SysexMessage msg = (SysexMessage)message.clone();
-      //msg = (SysexMessage)message.clone();
-      /*String result = "";
-      result = decodeMessage((SysexMessage) message);
-      print(result);
-      println("");*/
       for(int i=0; i<msg.getData().length; i++){
-        print(String.format("%02x ", msg.getData()[i]));
+        strArr.add(String.format("%02x", msg.getData()[i]));
+        print(strArr.get(i) + " ");
       }
       println("");
+      if (strArr.get(0).equals("00") && strArr.get(1).equals("20") && strArr.get(2).equals("33")){
+        println("Manufacturer: Kemper");
+      }
+      if (strArr.get(5).equals("01")){
+        println("Function: Request Single Parameter");
+        println("Page: " + String.format("%d ", msg.getData()[7]));
+        println("Parameter: " + ((int)msg.getData()[8]));
+        int msbVal = (int)msg.getData()[9];
+        int lsbVal = (int)msg.getData()[10];
+        println("MSB Value: " + (msbVal*128+lsbVal));
+      }else if (strArr.get(5).equals("06")){
+        println("Function: Request Multi Parameter");
+      }
+      
     }
 
     if((int)(message.getMessage()[0] & 0xFF)==192){
@@ -266,26 +277,7 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
   }
 }
 
-private String decodeMessage(SysexMessage message) {
-	byte[] abData = message.getData();
-	String result = null;
-	if (message.getStatus() == SysexMessage.SYSTEM_EXCLUSIVE) 
-		result = "Sysex message: F0" + toHex(abData);
-	 else if (message.getStatus() == SysexMessage.SPECIAL_SYSTEM_EXCLUSIVE)
-		result = "Continued Sysex message F7" + toHex(abData);
-	return result;
-}
-
 private int voiceLimiter() {
   if (poly) return 4;
   return 1;
-}
-
-private String toHex(byte[] data){
-  String str = " ";
-  for(int i=0; i<data.length; i++){
-    str += Integer.toHexString(data[i]);
-    str += " ";
-  }
-  return str;
 }
