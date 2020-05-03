@@ -1,8 +1,27 @@
-public color getColorPerlin(float seed){
+public color getColorPerlin(float seed, boolean brighter){
 
-    float x = noise(seed);
-    float y = x*255;
-    return color( (int)y, (int)y, (int)y );
+    float r,g,b;
+
+    if(!brighter){
+        
+        r = (noise(random(1,seed)))*255;
+        g = (noise(random(1,seed)))*255;
+        b = (noise(random(1,seed)))*255;
+        
+    }
+
+    else {
+
+        float x = noise(seed);
+        r = ((random(x,1)))*255;
+        g = ((random(x*0.7,1)))*255;
+        b = ((random(x*0.5,1)))*255;
+
+    }
+
+    color c = color( (int)r, (int)g, (int)b );
+    println("Extracted Color: "+"R = "+red(c)+" G = "+green(c)+" B = " + blue(c));
+    return c;
 
 }
 

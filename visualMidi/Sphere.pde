@@ -11,7 +11,7 @@ class Sphere {
 
   Sphere(float x, float y, float z) {
     this.position = new PVector(x, y, z);
-    this.c = getColorRandom();
+    this.c = getColorPerlin((random(50, 100)), true);
   }
 
   //This function computes the graphical result, considering all the parameters (lfo, cutoff, pitch bend etc...)
