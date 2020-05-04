@@ -15,10 +15,15 @@ The initial screen allows navigation into different pages by clicking the corres
 
 ## Store Mode
 <p align="center"><img height="500" src="https://github.com/DesaPaolo/VisualMidi---Creative-Computing-Project/blob/master/resources/Store.PNG"></p>
-The Store Mode allows a user to save up to 100 Minilogue presets (only from number 0 to 100 on minilogue). After having initialized the minilogue panel (shift+play on minilogue) tune knobs until you find the desired sound. All midi messages are automatically sent to the minilogue. Once you have found the desired sound just set the preset name and store it. It is suggested to store the preset with the same name with which it will be saved on the minilogue. 
+"Store Mode" allows a user to save up to 100 Minilogue presets (only from number 0 to 100 on minilogue). After having initialized the minilogue panel (shift+play on minilogue) tune knobs until you find the desired sound. All midi messages are automatically sent to the minilogue. Once you have found the desired sound just set the preset name and store it. It is suggested to store the preset with the same name with which it will be saved on the minilogue. 
 
 
 ## Load Mode
 
 <p align="center"><img height="500" src="https://github.com/DesaPaolo/VisualMidi---Creative-Computing-Project/blob/master/resources/Load.PNG"></p>
-The Load Mode allows a user to load  Minilogue presets previously stored using "Store Mode". Visual Midi also allows users to load presets using program changes, that means simply by moving the knob "PROGRAM/VALUE" of the minilogue. Even in this case it is necessary the presets have already been stored, using "Store Mode". 
+"Load Mode" allows a user to load  Minilogue presets previously stored using "Store Mode". Visual Midi also allows users to load presets using program changes, that means simply by moving the knob "PROGRAM/VALUE" of the minilogue. Even in this case it is necessary the presets have already been stored, using "Store Mode". 
+
+## Device Mode
+
+<p align="center"><img height="500" src="https://github.com/DesaPaolo/VisualMidi---Creative-Computing-Project/blob/master/resources/Load.PNG"></p>
+The "Device Mode" allows a user to select the proper input drivers, both for the minilogue and the Kemper Profiler. It is also possible to use a virtual midi cable, in order to use "play mode" with already recorded MIDI files.
