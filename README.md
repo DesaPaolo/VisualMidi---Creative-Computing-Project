@@ -25,5 +25,5 @@ The initial screen allows navigation into different pages by clicking the corres
 
 ## Device Mode
 
-<p align="center"><img height="500" src="https://github.com/DesaPaolo/VisualMidi---Creative-Computing-Project/blob/master/resources/Load.PNG"></p>
+<p align="center"><img height="500" src="https://github.com/DesaPaolo/VisualMidi---Creative-Computing-Project/blob/master/resources/Device.PNG"></p>
 The "Device Mode" allows a user to select the proper input drivers, both for the minilogue and the Kemper Profiler. It is also possible to use a virtual midi cable, in order to use "play mode" with already recorded MIDI files.
