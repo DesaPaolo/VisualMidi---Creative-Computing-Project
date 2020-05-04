@@ -88,7 +88,7 @@ class Particle {
     this.position = position_.copy();
     this.radius = radius_;
     this.lifespan = 100;
-    this.c = getColorRandom();
+    this.c = applyEq();
   }
 
   public void run() {

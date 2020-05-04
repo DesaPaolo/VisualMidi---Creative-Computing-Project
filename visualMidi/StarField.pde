@@ -29,4 +29,58 @@ class StarField{
         }
     }
 
+    public void setWeight(float weight) {
+        for (int i = 0; i < size; i++) {
+            stars[i].setWeight(weight);
+        }
+    }
+
+    public void setColor(color starColor) {
+        for (int i = 0; i < size; i++) {
+            stars[i].setColor(starColor);
+        }
+    }
+
+    public void setStarTrack(color starTrackColor) {
+        for (int i = 0; i < size; i++) {
+            stars[i].setStarTrack(starTrackColor);
+        }
+    }
+
+    public void setOpacity(int opacity) {
+        for (int i = 0; i < size; i++) {
+            stars[i].setOpacity(opacity);
+        }
+    }
+
+    public void hideStarField(){
+        for (int i = 0; i < size; i++) {
+            stars[i].setOpacity(0);
+        }
+    }
+
+    public void reShowStarField(){
+        for (int i = 0; i < size; i++) {
+            stars[i].setOpacity(80);
+        }
+    }
+
+    public void showSomeStars(int opacity, int density){
+        for (int i = 0; i < size; i+=density) {
+            stars[i].setOpacity(opacity);
+        }
+    }
+
+    public void setDensity(float density){
+        for (int i = 0; i < size; i++) {
+            stars[i].setDensity(density);
+        }
+    }
+
+    public void setOverdriveFactor(float overdriveFactor){
+        for (int i = 0; i < size; i++) {
+            stars[i].setOverdriveFactor(overdriveFactor);
+        }
+    }
+
 }

@@ -11,7 +11,7 @@ class Sphere {
 
   Sphere(float x, float y, float z) {
     this.position = new PVector(x, y, z);
-    this.c = getColorPerlin((random(50, 100)), true);
+    this.c = applyEq();
   }
 
   //This function computes the graphical result, considering all the parameters (lfo, cutoff, pitch bend etc...)
@@ -26,9 +26,9 @@ class Sphere {
     stretchingScale = map(abs(pitchBend), 0, 64, 1, 2 );
 
     if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0%  
-      radius = map(cutOffFilter, 0, 100, 1, 45);
+      radius = map(cutOffFilter, 0, 100, 1, 35);
     } else {
-      radius = map(filterRampValue, 0, 100, 1, 45); //!!!!!!
+      radius = map(filterRampValue, 0, 100, 1, 35); //!!!!!!
     }
 
     noStroke();
