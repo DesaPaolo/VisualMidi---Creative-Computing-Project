@@ -31,6 +31,7 @@ The initial screen allows navigation into different pages by clicking the corres
 ## Guitar Mode
 
 <p align="center"><img height="500" src="https://github.com/DesaPaolo/VisualMidi---Creative-Computing-Project/blob/master/resources/kemperBoth.jpg"></p>
+
 The software will also show several animations according to some parameters of the Kemper Profiler:
 - Overdrive type;
 - Amplifier gain;
