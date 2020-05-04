@@ -4,7 +4,8 @@ void setup() {
 
   //translate(width/2,height/2);
   startscreen = loadImage("korg.jpg");
-  size(1920, 1080, P3D);
+  //size(1920, 1080, P3D);
+  fullScreen(P3D);
   background(0);
   imageMode(CENTER);
   textSize(24);
