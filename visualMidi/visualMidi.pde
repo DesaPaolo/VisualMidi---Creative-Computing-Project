@@ -1,14 +1,15 @@
- //<>//
-
 import controlP5.*;
 import processing.sound.*;
-SoundFile file;
+import interfascia.*;
+
+GUIController c;
+IFButton b1, b2, b3, b4, b5;
+
 void setup() {
 
+  //translate(width/2,height/2);
   startscreen = loadImage("korg.jpg");
-  //size(1920, 1080, P3D);
-  size(1280, 800, P3D);
-  //fullScreen(P3D);
+  size(1200, 1000, P3D);
   background(0);
   imageMode(CENTER);
   textSize(24);
@@ -17,37 +18,40 @@ void setup() {
   adsrInit();
   menuInit();
 
-  //file = new SoundFile(this, sketchPath("data/pry.mp3"));
-
-  //file.play();
   initializeStarField();
-
-  //drawDevicesMenu();
   poly = true;
 
+  //c = new GUIController (this);
+  textSize(24);
+  //b1 = new IFButton ("Store Mode", 30, 20, 80, 30);
+  //b2 = new IFButton ("Load Mode", 130, 20, 80, 30);
+  //b3 = new IFButton("Change Device", 230, 20, 80, 30);
+  //b4 = new IFButton("Play Mode", 330, 20, 80, 30);
+  //b5 = new IFButton("BRUSCHi", 430, 20, 80, 30); 
 
-  //TEST CODE GUITAR INTGRATION
-  /*
-   gtrAmp = "crunch";
-   gtrOverdrive = "overdrive";
-   gtrModulation = "none";
-   gtrEq = "bright";
-   gtrReverb = "large";
-   */
-
+  //b1.addActionListener(this);
+  //b2.addActionListener(this);
+  //b3.addActionListener(this);
+ // b4.addActionListener(this);
+  //b5.addActionListener(this);
+  //c.add (b1);
+  //c.add (b2);
+  //c.add (b3);
+  //c.add (b4);
+  //c.add (b5);
 
 }
 
 void drawMode0() {
   rectMode(CENTER);
   textAlign(CENTER, CENTER);
-  image(startscreen, width/2, height * .6);
+  image(startscreen,width/2, height/2);
   text("Welcome to Korg Minilogue's Visual MIDI", 100, 10);    
   storeModeBtn.showBtn();
   loadModeBtn.showBtn();
   playModeBtn.showBtn();
   deviceModeBtn.showBtn();
-  programStoreModeBtn.showBtn();
+  //programStoreModeBtn.showBtn();
 }
 
 void cleanScreen() {
@@ -58,7 +62,7 @@ void cleanScreen() {
 }
 
 void draw() {
-
+  cursor();
   cleanScreen();
   textSize(24);
   //deviceMenu.showMenu();
@@ -70,7 +74,16 @@ void draw() {
   } else if (mode == 2) { //load
     loadMode();
   } else if (mode == 3) { //play
-    playDraw();
+    noCursor();
+      if (keyPressed) {
+        if (key == 'e') {
+          cleanScreen();
+          mode=0;
+        }
+      }
+      else {
+        playDraw();
+      }
   } else if (mode == 4) {
     deviceMode();
   } else if (mode == 5) {
@@ -92,7 +105,7 @@ void playDraw() {
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
   //text("Play Mode", (width/2), (height*0.2));
-  backToMenuBtn.showBtn();
+  //backToMenuBtn.showBtn();
 
   //Chiama update della view per ogni nota. Da aggiungere differenza tra monofonia e polifonia e limite 
   //massimo di voci a 4, per rispecchiare sempre l'audio output del minilogue.
@@ -119,6 +132,7 @@ void playDraw() {
   applyOverdrive();
   applyReverb();
   starField.draw();
+
 } 
 
 void initializeStarField() {

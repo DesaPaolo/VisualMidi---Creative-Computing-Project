@@ -1,32 +1,28 @@
-/*Michele Menu's code*/
-
 public void menuInit() {
-  
-  mode = 0; //Menu] 
+
+  mode = 0;
   wBtn = 180;
   hBtn = 60;
   float centerPosition = width/2;
-  int offset = (int)(width*0.22);
+  int offset = (int)(width*0.20);
   final float OMOGENEOUS_COEFF = 1.2;
-  float distanceFactor = wBtn * 1.1 * OMOGENEOUS_COEFF;
-  float distanceFactor2 = wBtn * 1.5 * OMOGENEOUS_COEFF;
-  xBtnStoreMode = (int) (centerPosition  - distanceFactor -offset);//250; //Store
-  yBtnStoreMode = (int) (height * .06);//100;
-  xBtnLoadMode = (int) (centerPosition-offset);//;600; //Load
+  xBtnStoreMode = (int) (width*0.20);
+  yBtnStoreMode = (int) (height * .06);
+  xBtnLoadMode = (int) ( width*0.40);
   yBtnLoadMode = (int) (height * .06);
-  xBtnPlayMode = (int) (centerPosition  + distanceFactor-offset); //Play
+  xBtnPlayMode = (int) (width*0.60);
   yBtnPlayMode = (int) (height * .06);
-  xBtnBackToMenu = (int) (centerPosition - 1.2* distanceFactor2); // Back to menu
+  xBtnBackToMenu = (int) (width*0.20);
   yBtnBackToMenu = (int) (height * .06);
-  int xBtnDeviceMode = (int) (centerPosition  + 2*distanceFactor-offset);
-  int xBtnGuitarDeviceMode = (int) (centerPosition  + 3*distanceFactor-offset);
+  int xBtnDeviceMode = (int) (width*0.80);
+  //int xBtnGuitarDeviceMode = (int) (centerPosition  + 3*distanceFactor-offset);
 
   storeModeBtn = new Button(xBtnStoreMode, yBtnStoreMode, wBtn, hBtn, "Store Mode", color(255), color(0));
   loadModeBtn = new Button(xBtnLoadMode, yBtnLoadMode, wBtn, hBtn, "Load Mode", color(255), color(0));
   playModeBtn = new Button(xBtnPlayMode, yBtnPlayMode, wBtn, hBtn, "Play Mode", color(255), color(0));
   backToMenuBtn = new Button(xBtnBackToMenu, yBtnBackToMenu, wBtn, hBtn, "Back to Menu", color(255), color(0));
   deviceModeBtn = new Button(xBtnDeviceMode, yBtnPlayMode, wBtn, hBtn, "Change Device", color(255), color(0));
-  programStoreModeBtn = new Button(xBtnGuitarDeviceMode, yBtnPlayMode, wBtn+80, hBtn, "Edit Guitar Programs", color(255), color(0));
+  //programStoreModeBtn = new Button(xBtnGuitarDeviceMode, yBtnPlayMode, wBtn+80, hBtn, "Edit Guitar Programs", color(255), color(0));
   presets = new ArrayList<Preset>();
   loadPresetsFromFile();
   loadButtons = new ArrayList<Button>();
@@ -68,15 +64,15 @@ void mousePressed() {
         guitarMenu = new GuitarMenu(Arrays.asList(MidiBus.availableInputs()).size());
         mode = 4;
       }
-      else if(programStoreModeBtn.isPressed()){
+      /*else if(programStoreModeBtn.isPressed()){
         loadGuitarProgramsFromFile();
         programStoreMenu = new ProgramStoreMenu(guitarPrograms.size());
         mode = 5;
-      }
+      }*/
 
     }
 
-    else if (mode == 1 || mode == 2 || mode == 3|| mode ==4 || mode == 5){
+    else if (mode == 1 || mode == 2 || mode ==4 || mode == 5){
       if (backToMenuBtn.isPressed()){
         cleanScreen();
         println("Passo da 1 a 0");
