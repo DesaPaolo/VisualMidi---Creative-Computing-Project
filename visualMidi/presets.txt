@@ -1,5 +1,5 @@
 start
-name TrapForSarti
+name Preset1
 date Mon Apr 27 11:31:50 CEST 2020
 sustainPedal false
 modulation 2.8621533
@@ -22,7 +22,7 @@ isActive delay true
 id 24
 end
 start
-name Bruschiz
+name Preset2
 date Mon Apr 27 11:47:09 CEST 2020
 sustainPedal false
 modulation 0.0

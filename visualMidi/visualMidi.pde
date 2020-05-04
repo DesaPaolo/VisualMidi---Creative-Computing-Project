@@ -1,15 +1,10 @@
 import controlP5.*;
 import processing.sound.*;
-import interfascia.*;
-
-GUIController c;
-IFButton b1, b2, b3, b4, b5;
-
 void setup() {
 
   //translate(width/2,height/2);
   startscreen = loadImage("korg.jpg");
-  size(1200, 1200, P3D);
+  size(1920, 1080, P3D);
   background(0);
   imageMode(CENTER);
   textSize(24);
@@ -96,6 +91,12 @@ void playDraw() {
 
   //Chiama update della view per ogni nota. Da aggiungere differenza tra monofonia e polifonia e limite 
   //massimo di voci a 4, per rispecchiare sempre l'audio output del minilogue.
+
+  if (!tempNotes.isEmpty()) {
+    for (int i=0; i<tempNotes.size(); i++ ) { 
+      applyModulation(tempNotes.get(i).sphere);
+    }
+  }
   if (!tempNotes.isEmpty()) {
     for (int i=0; i<tempNotes.size(); i++ ) { 
 
@@ -114,10 +115,11 @@ void playDraw() {
   } else {
     //tempPs vuoto
   }
-  println(tempPs.size());
+  //println(tempPs.size());
   applyAmp();
   applyOverdrive();
   applyReverb();
+  
   starField.draw();
 
 } 

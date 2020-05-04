@@ -1,9 +1,7 @@
-/*String gtrAmp = "clean"; -> ?
-String gtrOverdrive = "none"; -> change color of stars
-String gtrModulation = "none"; -> give an oscillatory motion to the stars of the starfield or vortex
-String gtrEq = "normal"; -> brightness of notes and delay colors
-String gtrReverb = "medium"; -> opacity of starfield
-*/
+float v = 0.01 ;
+int speed = 3;
+int radius = 50 ;
+
 
 public color applyEq() {
 
@@ -100,6 +98,32 @@ public void applyReverb() {
         starField.showSomeStars(60, 10);
         starField.setDensity(500);
     }
+
+}
+
+public void applyModulation(Sphere sphere) {
+
+    if (gtrModulation.equals("none")) {
+        
+    }
+
+    else if (gtrModulation.equals("phaser")) {
+        radius = 35;
+        speed = 2;
+        sphere.setPosition(sphere.getOrigin().x+radius*cos(speed*v),sphere.getOrigin().y + radius*sin(speed*v),sphere.getPosition().z);
+    }
+
+    else if (gtrModulation.equals("flanger")) {
+        radius = 45;
+        speed = 3;
+        sphere.setPosition(sphere.getOrigin().x+radius*cos(speed*v),sphere.getOrigin().y + radius*sin(speed*v),sphere.getPosition().z);
+    }
+    else if (gtrModulation.equals("chorus")) {
+        radius = 55;
+        speed = 4;
+        sphere.setPosition(sphere.getOrigin().x+radius*cos(speed*v),sphere.getOrigin().y + radius*sin(speed*v),sphere.getPosition().z);
+    }
+    v+=0.02;
 
 }
 

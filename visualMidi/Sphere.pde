@@ -8,9 +8,12 @@ class Sphere {
   ParticleSystem ps;
   float radius;
   color c = color(255, 255, 255);
+  int p = 0;
+  private PVector origin;
 
   Sphere(float x, float y, float z) {
     this.position = new PVector(x, y, z);
+    this.origin = this.position.copy();
     this.c = applyEq();
   }
 
@@ -39,6 +42,10 @@ class Sphere {
     //float radius = map(filterRampValue, 0, 255, 5, 45);
 
     pushMatrix();
+    //rotateX(radians(360*sin(p)));
+    //rotateY(cos(p));
+    //p+=0.2;
+    
     translate(positionX, positionY, positionZ);
 
     if (pitchBend >=0 ) {
@@ -48,7 +55,7 @@ class Sphere {
     }
  
     sphere(radius); //Antonino non sa cosa vuol dire questa riga, ma il resto si -> Paolo risponde: "Lol"
-    
+ 
     popMatrix();
   }
 
@@ -61,4 +68,13 @@ class Sphere {
     this.position.y = y;
     this.position.z = z;
   }
+
+  PVector getPosition() {
+    return this.position.copy();
+  }
+
+  PVector getOrigin() {
+    return this.origin.copy();
+  }
+
 }
