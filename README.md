@@ -11,3 +11,8 @@ This program is thought to be used in live performances, both by bands and singl
 
 ## Initial Screen
 <p align="center"><img height="500" src="https://github.com/DesaPaolo/VisualMidi---Creative-Computing-Project/blob/master/resources/InitialScreen.PNG"></p>
+The initial screen allows navigation into different pages by clicking the corresponding button.
+
+## Store Mode
+<p align="center"><img height="500" src="https://github.com/DesaPaolo/VisualMidi---Creative-Computing-Project/blob/master/resources/Store.PNG"></p>
+The Store Mode allows a user to save Minilogue presets. After having initialized the minilogue panel (shift+play on minilogue) tune knobs until you find the desired sound. All midi messages are automatically sent to the minilogue. Once you have found the desired sound just set the preset name and store it. It is suggested to store the preset with the same name with which it will be saved on the minilogue.
