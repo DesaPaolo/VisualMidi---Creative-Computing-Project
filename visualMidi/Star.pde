@@ -9,6 +9,8 @@ class Star {
     private color starTrackColor;
     private int opacity;
     private float weight;
+    private float density;
+    private float overdriveFactor=0;
 
     Star() {
         this.x = random(-width/2, width/2);
@@ -37,8 +39,8 @@ class Star {
 
         fill(this.starColor, this.opacity);
         noStroke();
-        float sx = map(this.x / this.z, 0, 1, 0, width/2);
-        float sy = map(this.y / this.z, 0, 1, 0, height/2);
+        float sx = map(this.x / this.z, 0, 1, 0, width/2 + this.overdriveFactor);
+        float sy = map(this.y / this.z, 0, 1, 0, height/2 + this.overdriveFactor);
         float r = map(this.z, 0, width/2, 16, 0);
         ellipse(sx, sy, r, r);
         float px = map(this.x / this.pz, 0, 1, 0, width/2);
@@ -76,6 +78,14 @@ class Star {
 
     public void reShowStarField(){
         this.opacity=80;
+    }
+    
+    public void setDensity(float density){
+        this.density=density;
+    }
+
+    public void setOverdriveFactor(float overdriveFactor){
+        this.overdriveFactor=overdriveFactor;
     }
 
 }

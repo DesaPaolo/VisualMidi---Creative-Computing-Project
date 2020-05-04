@@ -24,6 +24,18 @@ void setup() {
 
   //drawDevicesMenu();
   poly = true;
+
+
+  //TEST CODE GUITAR INTGRATION
+  /*
+   gtrAmp = "crunch";
+   gtrOverdrive = "overdrive";
+   gtrModulation = "none";
+   gtrEq = "bright";
+   gtrReverb = "large";
+   */
+
+
 }
 
 void drawMode0() {
@@ -103,7 +115,9 @@ void playDraw() {
     //tempPs vuoto
   }
   println(tempPs.size());
-  
+  applyAmp();
+  applyOverdrive();
+  applyReverb();
   starField.draw();
 } 
 
