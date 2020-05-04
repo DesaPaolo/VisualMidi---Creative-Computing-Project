@@ -27,3 +27,29 @@ The initial screen allows navigation into different pages by clicking the corres
 
 <p align="center"><img height="500" src="https://github.com/DesaPaolo/VisualMidi---Creative-Computing-Project/blob/master/resources/Device.PNG"></p>
 "Device Mode" allows a user to select the proper input drivers, both for the minilogue and the Kemper Profiler. It is also possible to use a virtual midi cable, in order to use "play mode" with already recorded MIDI files.
+
+## Guitar Mode
+
+<p align="center"><img height="500" src="https://github.com/DesaPaolo/VisualMidi---Creative-Computing-Project/blob/master/resources/kemperBoth.jpg"></p>
+The software will also show several animations according to some parameters of the Kemper Profiler:
+- Overdrive type;
+- Amplifier gain;
+- EQ type;
+- Modulation type;
+- Reverb Size;
+
+The aforementioned parameters are obtained through the exchange of MIDI SysEx calls, with NRPN messages encapsulated inside them.
+The structure of the used SysEx messages is the following:
+- 0xF0: Start of SysEx;
+- 0x00 0x20 0x33: Manifacturer ID (Kemper);
+- 0x02 0x7f: Product type and device ID (Head, Rack Pedalboard, etc.);
+- 0x02 0x7f: Product type and device ID (Head, Rack Pedalboard, etc.);
+- 0x01, 0x06 or 0x41: Function code to specify how to interpret the carried data;
+- 0x00: Instance (always zero);
+- 0x4A (example): Controller MSB (the upper 7-bit of the 14-bit NRPN address);
+- 0x04 (example): Controller LSB (the lower 7-bit of the 14-bit NRPN address);
+- 0x40 (example): Value MSB (the upper 7-bit of the 14-bit value, not used when asking for some value with func. code 0x41);
+- 0x3A (example): Value LSB (the lower 7-bit of the 14-bit value, not used when asking for some value with func. code 0x41);
+- 0xF7: End of SysEx.
+
+The combination of sending (0x41 to request parameters' values) and receiving (0x01 and 0x06 to receive parameters' values) SysEx messages is used along all the execution of the program to get at each time the representation of the status of the Kemper Profiling Amplifier.
