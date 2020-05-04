@@ -10,6 +10,7 @@ public void midiInit() {
   guitar = new MidiBus(this);// Connect to one of the devices
   guitar.sendTimestamps(false);
   //for (String device : MidiBus.availableOutputs()){ //Assuming to send MIDI messages to all the devices, to avoid creating new menu
+    guitar.addInput("CoreMIDI4J - USB Uno MIDI Interface");
     guitar.addOutput("CoreMIDI4J - USB Uno MIDI Interface");
   //}
   println("Output size: ", guitar.attachedOutputs().length);
@@ -208,6 +209,24 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
         case 1: 
           println("Wah");
           starField.setSpeed((int)map(value, 0, 127, 5, 100));
+          break;
+        case 50:
+          initScanKemper();
+          break;
+        case 51:
+          initScanKemper();
+          break;
+        case 52:
+          initScanKemper();
+          break;
+        case 53:
+          initScanKemper();
+          break;
+        case 54:
+          initScanKemper();
+          break;
+        default:
+          break;
       }
 
   }  
@@ -259,9 +278,8 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
       parseSysEx((SysexMessage)message);
     }
 
-    if((int)(message.getMessage()[0] & 0xFF)==192){
-      println("Calling Program" + ((int)(message.getMessage()[1] & 0xFF)));
-      //activateProgram((int)(message.getMessage()[1] & 0xFF));
+    if((int)(message.getMessage()[0] & 0xFF)==192){ //Guitar PC
+      initScanKemper();
     }
     
   }
@@ -291,9 +309,9 @@ public void parseSysEx(SysexMessage sysEx){
 
   /*Start PArsing*/
   if (strArr.get(0).equals("00") && strArr.get(1).equals("20") && strArr.get(2).equals("33")){//KPA signature
-    println("Manufacturer: Kemper");
     
     if (strArr.get(5).equals("01")){ //Function Code for single parameter change
+
       //Parsing OD
       if(page==50 || page==51 || page==52 || page==53){//Stomp A-D
         println("Stomp single change");
@@ -306,23 +324,61 @@ public void parseSysEx(SysexMessage sysEx){
           println("Get Stomp ON/OFF");
           getStompByAddress(page).setOn(1==lsbVal);
         }
+        println(getStompByAddress(page).toString()); //Controllo Stomp nel model
+        gtrOverdrive = getOdStompsResult(); //Assign global value overdrive
       }
+      //Parsing MOD Stomp
       if(page==58){ //MOD Stomp
-        if(true){}
+        if(ctrl==3){ //On Off ctrl
+          if(lsbVal==1){ //On
+            kemperModOn = true;
+            if (kemperModType != "none"){gtrModulation = kemperModType;}
+          }
+          else {
+            kemperModOn = false;
+            gtrModulation = "none";
+          }
+        }
+        if(ctrl==0){ //Type ctrl
+          kemperModType = getModTypeByIntResponse(lsbVal);
+          if(kemperModOn){
+            gtrModulation = kemperModType;
+          }
+        }
       }
-    /*End of Parsing*/
-
-    /*Final Print*/
-      println("Page: " + String.format("%d ", sysEx.getData()[7]));
-      println("MSB Value: " + (msbVal*128+lsbVal));
-      println(getStompByAddress(page).toString()); //Controllo Stomp nel model
-      gtrOverdrive = getOdStompsResult(); //Assign global value overdrive
+      //Parsing Amplifier
+      if(page==10){ //Amp ctrl
+        if(ctrl==4){ //Gain
+          gtrAmp = getAmpTypeByIntResponses(msbVal, lsbVal);
+        }
+      }
+      //Parsing EQ
+      if(page==11){ //EQ ctrl
+        if(ctrl==7){ //Gain
+          gtrEq = getEqTypeByIntResponses(msbVal, lsbVal);
+        }
+      }
+      //Parsing Reverb
+      if(page==61){ //Reverb stomp ctrl
+        if(ctrl==93){ //Gain
+          gtrReverb = getReverbTypeByIntResponses(msbVal, lsbVal);
+        }
+      }
+      
+      /*Final Print*/
+      print("Overdrive: " + gtrOverdrive);
+      print(" Amp: " + gtrAmp);
+      print(" Eq: " + gtrEq);
+      print(" Modulation: " + gtrModulation);
+      print(" Reverb: " + gtrReverb);
+      println("");
     } 
     /*End Single parameter change*/
     
     /*Multi Parameter Change*/
     else if (strArr.get(5).equals("06")){
       println("Function: Request Multi Parameter");
+      initScanKemper();
     }
   }
 }
@@ -383,13 +439,93 @@ public String getOdTypeByIntResponse(int lsbVal){
 
 public String getModTypeByIntResponse(int lsbVal){
   switch (lsbVal){
-    case 33: //Hex 21 -> Green OD
-      return "overdrive";
-    case 34: //Hex 22 -> Plus DS
-      return "distortion";
+    case 65: //Hex 41 -> Vintage Chorus CE
+      return "chorus";
+    case 66: //Hex 42 -> Hyper Chorus
+      return "chorus";
+    case 67: //Hex 43 -> Air Chorus
+      return "chorus";
+    case 71: //Hex 47 -> Micro Pitch
+      return "chorus";
+    case 81: //Hex 51 -> Phaser
+      return "phaser";
+    case 82: //Hex 52 -> Phaser Vibe
+      return "phaser";
+    case 83: //Hex 53 -> One-Way Phaser
+      return "phaser";
+    case 89: //Hex 59 -> Flanger
+      return "flanger";
+    case 91: //Hex 5B -> One-Way Flanger
+      return "flanger";
     default: 
       return "none";
   }
+}
+
+public String getAmpTypeByIntResponses(int msbVal, int lsbVal){
+  int value = 128*msbVal + lsbVal;
+  int discreteVal = Math.round(map(value, 0, 16383, 1, 3));
+  String retString = "";
+  switch (discreteVal){
+    case 1:
+      retString = "clean";
+      break;
+    case 2:
+      retString = "crunch";
+      break;
+    case 3:
+      retString = "hiGain";
+      break;
+    default:
+      retString = "clean";
+      break;
+  }
+  println(retString);
+  return retString;
+}
+
+public String getEqTypeByIntResponses(int msbVal, int lsbVal){
+  int value = 128*msbVal + lsbVal;
+  int discreteVal = Math.round(map(value, 0, 16383, 1, 3));
+  String retString = "";
+  switch (discreteVal){
+    case 1:
+      retString = "warm";
+      break;
+    case 2:
+      retString = "normal";
+      break;
+    case 3:
+      retString = "bright";
+      break;
+    default:
+      retString = "normal";
+      break;
+  }
+  println(retString);
+  return retString;
+}
+
+public String getReverbTypeByIntResponses(int msbVal, int lsbVal){
+  int value = 128*msbVal + lsbVal;
+  int discreteVal = Math.round(map(value, 0, 16383, 1, 3));
+  String retString = "";
+  switch (discreteVal){
+    case 1:
+      retString = "small";
+      break;
+    case 2:
+      retString = "medium";
+      break;
+    case 3:
+      retString = "large";
+      break;
+    default:
+      retString = "medium";
+      break;
+  }
+  println(retString);
+  return retString;
 }
 
 public void initScanKemper(){ //Send all the SysExs for all the Kemper Parameters I care

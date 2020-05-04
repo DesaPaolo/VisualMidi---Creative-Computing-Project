@@ -89,6 +89,8 @@ String gtrEq = "normal";
 String gtrReverb = "medium";
 int currentProgramIndex;
 ArrayList<KemperStomp> kemperStomps = new ArrayList<KemperStomp>();
+String kemperModType = "none";
+boolean kemperModOn = false;
 
 boolean drawBool = false;
 StarField starField;

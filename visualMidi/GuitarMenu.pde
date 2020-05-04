@@ -24,12 +24,15 @@ class GuitarMenu extends Menu{
                 else {
                     println("PREVIOUS INPUT: " + currentInput);
                     guitar.clearInputs();
+                    guitar.clearOutputs();
                     currentInput =  getBtnIndex(menuButtons);
                     println("NEW INPUT: " + currentInput);
 
                 }
 
                 guitar.addInput(currentInput);
+                guitar.addOutput(guitar.attachedInputs()[0]);
+                println("First input: "+guitar.attachedInputs()[0]+"; First Outpu: "+guitar.attachedInputs()[0]);
                 println("currentInput: "+currentInput);
                 println("INPUTS" + Arrays.asList(MidiBus.availableInputs()));
                 changeButtonColor();
