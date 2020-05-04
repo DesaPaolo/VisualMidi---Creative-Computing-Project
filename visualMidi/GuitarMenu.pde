@@ -2,18 +2,17 @@ class GuitarMenu extends Menu{
 
     public GuitarMenu(int size) {
         
-        super("Guitar Device",size, "Change");
+        super("Kemper Profiler",size, "Change");
         wBtn=120;
-        createButtons(1150, 350, "Change");
-        super.xBox = 1000;
-        super.yBox = 350;
+        createButtons((int)(width*0.75)+180, (int)(height*0.40), "Change");
+        super.xBox = (int)(width*0.75);
+        super.yBox = (int)(height*0.4);
         super.wBox = 500;
     }
 
     public void mousePressedEvent() {
 
         if(mousePressed){
-            println("GET BTN INDEX GUITAR PRY !!!!: "+getBtnIndex(menuButtons));
 
             if(getBtnIndex(menuButtons)!= -1){
 
@@ -22,19 +21,14 @@ class GuitarMenu extends Menu{
                 }
 
                 else {
-                    println("PREVIOUS INPUT: " + currentInput);
                     guitar.clearInputs();
                     guitar.clearOutputs();
                     currentInput =  getBtnIndex(menuButtons);
-                    println("NEW INPUT: " + currentInput);
 
                 }
 
                 guitar.addInput(currentInput);
                 guitar.addOutput(guitar.attachedInputs()[0]);
-                println("First input: "+guitar.attachedInputs()[0]+"; First Outpu: "+guitar.attachedInputs()[0]);
-                println("currentInput: "+currentInput);
-                println("INPUTS" + Arrays.asList(MidiBus.availableInputs()));
                 changeButtonColor();
 
             }  
@@ -46,7 +40,7 @@ class GuitarMenu extends Menu{
     public void showMenu() {
 
         fill(255,0,0);
-        text(title, 1000, 150); 
+        text(title, (int)(width*0.75), (int)(height*0.20)); 
         fill(255);
         
         backToMenuBtn.showBtn();

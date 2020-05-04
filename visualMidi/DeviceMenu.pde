@@ -4,11 +4,11 @@ class DeviceMenu extends Menu{
 
     public DeviceMenu(int size) {
 
-        super("Minilogue Device", size, "Change");
+        super("Minilogue", size, "Change");
         wBtn=120;
-        createButtons(450, 350, "Change");
-        super.xBox = 300;
-        super.yBox = 350;
+        createButtons((int)(width*0.25)+180, (int)(height*0.40), "Change");
+        super.xBox = (int)(width*0.25);
+        super.yBox = (int)(height*0.40);
         super.wBox = 500;
 
     }
@@ -16,7 +16,6 @@ class DeviceMenu extends Menu{
     public void mousePressedEvent() {
 
         if(mousePressed){
-            println("GET BTN INDEX MINI PRY !!!!: "+getBtnIndex(menuButtons));
 
             if(getBtnIndex(menuButtons)!= -1){
 
@@ -25,16 +24,12 @@ class DeviceMenu extends Menu{
                 }
 
                 else {
-                    println("PREVIOUS INPUT: " + currentInput);
                     minilogue.clearInputs();
                     currentInput =  getBtnIndex(menuButtons);
-                    println("NEW INPUT: " + currentInput);
 
                 }
 
                 minilogue.addInput(currentInput);
-                println("currentInput: "+currentInput);
-                println("INPUTS" + Arrays.asList(MidiBus.availableInputs()));
                 changeButtonColor();
 
             }  
@@ -46,7 +41,7 @@ class DeviceMenu extends Menu{
     public void showMenu() {
 
         fill(255,0,0);
-        text(title, 300, 150);  
+        text(title, (int)(width*0.25), (int)(height*0.20));  
         fill(255);
         
         backToMenuBtn.showBtn();
@@ -54,9 +49,6 @@ class DeviceMenu extends Menu{
         fill(255);
         rect(xBox, yBox, wBox, hBox);
 
-        //fill(255,20,50);
-        //text("Driver", xBox-90 , ((yBox-hBox/2) + marginTop - 60 ));
-        //text("Click", xBox+150 , ((yBox-hBox/2) + marginTop - 60));
 
         for(int i = 0; i < menuButtons.size();i-=-1){
         

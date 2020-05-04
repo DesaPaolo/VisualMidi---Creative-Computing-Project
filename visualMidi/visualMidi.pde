@@ -9,7 +9,7 @@ void setup() {
 
   //translate(width/2,height/2);
   startscreen = loadImage("korg.jpg");
-  size(1200, 1000, P3D);
+  size(1200, 1200, P3D);
   background(0);
   imageMode(CENTER);
   textSize(24);
@@ -30,7 +30,10 @@ void drawMode0() {
   textAlign(CENTER, CENTER);
   image(startscreen,width/2, height*0.60);
   fill(255);
-  text("Welcome to Korg Minilogue's Visual MIDI", width/2, height*0.05);    
+  text("Welcome To Korg Minilogue Visual MIDI", width/2, height*0.05);
+  textSize(14);
+  text("Developed by: Paolo De Santis, Michele Pilia, Antonino Natoli", width*0.76, height*0.95);     
+  textSize(24);  
   storeModeBtn.showBtn();
   loadModeBtn.showBtn();
   playModeBtn.showBtn();
