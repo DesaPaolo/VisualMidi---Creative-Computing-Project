@@ -21,32 +21,16 @@ void setup() {
   initializeStarField();
   poly = true;
 
-  //c = new GUIController (this);
   textSize(24);
-  //b1 = new IFButton ("Store Mode", 30, 20, 80, 30);
-  //b2 = new IFButton ("Load Mode", 130, 20, 80, 30);
-  //b3 = new IFButton("Change Device", 230, 20, 80, 30);
-  //b4 = new IFButton("Play Mode", 330, 20, 80, 30);
-  //b5 = new IFButton("BRUSCHi", 430, 20, 80, 30); 
-
-  //b1.addActionListener(this);
-  //b2.addActionListener(this);
-  //b3.addActionListener(this);
- // b4.addActionListener(this);
-  //b5.addActionListener(this);
-  //c.add (b1);
-  //c.add (b2);
-  //c.add (b3);
-  //c.add (b4);
-  //c.add (b5);
 
 }
 
 void drawMode0() {
   rectMode(CENTER);
   textAlign(CENTER, CENTER);
-  image(startscreen,width/2, height/2);
-  text("Welcome to Korg Minilogue's Visual MIDI", 100, 10);    
+  image(startscreen,width/2, height*0.60);
+  fill(255);
+  text("Welcome to Korg Minilogue's Visual MIDI", width/2, height*0.05);    
   storeModeBtn.showBtn();
   loadModeBtn.showBtn();
   playModeBtn.showBtn();

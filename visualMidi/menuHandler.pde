@@ -7,13 +7,13 @@ public void menuInit() {
   int offset = (int)(width*0.20);
   final float OMOGENEOUS_COEFF = 1.2;
   xBtnStoreMode = (int) (width*0.20);
-  yBtnStoreMode = (int) (height * .06);
+  yBtnStoreMode = (int) (height * .15);
   xBtnLoadMode = (int) ( width*0.40);
-  yBtnLoadMode = (int) (height * .06);
+  yBtnLoadMode = (int) (height * .15);
   xBtnPlayMode = (int) (width*0.60);
-  yBtnPlayMode = (int) (height * .06);
+  yBtnPlayMode = (int) (height * .15);
   xBtnBackToMenu = (int) (width*0.20);
-  yBtnBackToMenu = (int) (height * .06);
+  yBtnBackToMenu = (int) (height * .15);
   int xBtnDeviceMode = (int) (width*0.80);
   //int xBtnGuitarDeviceMode = (int) (centerPosition  + 3*distanceFactor-offset);
 
