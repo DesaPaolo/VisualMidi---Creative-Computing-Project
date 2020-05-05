@@ -84,9 +84,9 @@ boolean poly;
 /*Guitar variables*/
 String gtrAmp = "clean";
 String gtrOverdrive = "none";
-String gtrModulation = "none";
+String gtrModulation = "phaser";
 String gtrEq = "normal";
-String gtrReverb = "medium";
+String gtrReverb = "small";
 int currentProgramIndex;
 ArrayList<KemperStomp> kemperStomps = new ArrayList<KemperStomp>();
 String kemperModType = "none";

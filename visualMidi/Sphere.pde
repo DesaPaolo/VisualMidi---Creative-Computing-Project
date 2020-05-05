@@ -10,11 +10,13 @@ class Sphere {
   color c = color(255, 255, 255);
   int p = 0;
   private PVector origin;
+  Spiral spiral;
 
   Sphere(float x, float y, float z) {
     this.position = new PVector(x, y, z);
     this.origin = this.position.copy();
     this.c = applyEq();
+    this.spiral = new Spiral(this.origin.copy(), this.c);
   }
 
   //This function computes the graphical result, considering all the parameters (lfo, cutoff, pitch bend etc...)
@@ -55,8 +57,9 @@ class Sphere {
     }
  
     sphere(radius); //Antonino non sa cosa vuol dire questa riga, ma il resto si -> Paolo risponde: "Lol"
- 
     popMatrix();
+    this.spiral.run();
+
   }
 
   private void lfoEffect() {
@@ -67,6 +70,7 @@ class Sphere {
     this.position.x = x;
     this.position.y = y;
     this.position.z = z;
+    this.spiral.setOrigin(x,y,x);
   }
 
   PVector getPosition() {
