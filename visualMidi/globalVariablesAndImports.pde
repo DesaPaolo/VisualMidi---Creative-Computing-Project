@@ -84,7 +84,7 @@ boolean poly;
 /*Guitar variables*/
 String gtrAmp = "clean";
 String gtrOverdrive = "none";
-String gtrModulation = "phaser";
+String gtrModulation = "none";
 String gtrEq = "normal";
 String gtrReverb = "small";
 int currentProgramIndex;

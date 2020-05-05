@@ -58,7 +58,11 @@ class Sphere {
  
     sphere(radius); //Antonino non sa cosa vuol dire questa riga, ma il resto si -> Paolo risponde: "Lol"
     popMatrix();
-    this.spiral.run();
+
+    if(!gtrModulation.equals("none")) {
+      this.spiral.run();
+    }
+
 
   }
 

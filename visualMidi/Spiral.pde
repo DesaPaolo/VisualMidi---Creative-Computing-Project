@@ -8,7 +8,7 @@ class Spiral {
     PVector origin;
     color c;
     int sign;
-  
+    int opacity;
 
     Spiral(PVector position, color c) {
         this.position = position.copy();
