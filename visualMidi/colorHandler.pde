@@ -62,7 +62,7 @@ public color getColorWarm() {
     pool[1] = color(255, 191, 0);//ambra
     pool[2] = color(255, 255, 0);//yellow
     pool[3] = color(255, 165, 0);//orange
-    pool[4] = color(255, 155, 45)//orange2
+    pool[4] = color(255, 155, 45);//orange2
 
     int randomColorIndex = (int)random(0, 5);
     //println("Extracted Color: "+"R = "+red(pool[randomColorIndex])+" G = "+green(pool[randomColorIndex])+" B = " + blue(pool[randomColorIndex]));
