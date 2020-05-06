@@ -1,3 +1,6 @@
+/**
+Representation of the effects for the guitar
+*/
 public class GuitarProgram {
     private String name;
     private String overdrive;

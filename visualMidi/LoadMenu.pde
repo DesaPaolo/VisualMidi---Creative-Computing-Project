@@ -1,13 +1,20 @@
+/**
+Menu displaying the saved presets, allows their loading
+*/
 public class LoadMenu extends Menu{
 
-
+    /**
+    @param size elements on the menu
+    */
     public LoadMenu(int size) {
 
         super("Load Menu", size, "Load");
         createButtons(xBox+150,yBox,"Load");
 
     }
-
+    /**
+    Mouse pressed event
+    */
     public void mousePressedEvent() {
 
         if(mousePressed){
@@ -23,7 +30,9 @@ public class LoadMenu extends Menu{
         }
 
     }
-
+    /**
+    Updates the view and draws the menu
+    */
     public void showMenu() {
 
         fill(255);

@@ -2,7 +2,9 @@ float v = 0.01 ;
 int speed = 3;
 int radius = 50 ;
 
-
+/**
+Applies the visual effect associated to the Kemper Eq type
+*/
 public color applyEq() {
 
     if(gtrEq.equals("warm")) {
@@ -24,7 +26,9 @@ public color applyEq() {
     }
 
 }
-
+/**
+Applies the visual effect associated to the Kemper Amp type
+*/
 public void applyAmp() {
 
     if(gtrAmp.equals("clean")) {
@@ -43,7 +47,9 @@ public void applyAmp() {
     }
 
 }
-
+/**
+Applies the visual effect associated to the Kemper overdrive type
+*/
 public void applyOverdrive() {
 
     if(gtrOverdrive.equals("none")) {
@@ -79,7 +85,9 @@ public void applyOverdrive() {
     }
 
 }
-
+/**
+Applies the visual effect associated to the Kemper Reverb type
+*/
 public void applyReverb() {
 
     if (gtrReverb.equals("small")) {
@@ -100,7 +108,9 @@ public void applyReverb() {
     }
 
 }
-
+/**
+Applies the visual effect associated to the Kemper Modulation type
+*/
 public void applyModulation(Sphere sphere) {
 
     if (gtrModulation.equals("none")) {

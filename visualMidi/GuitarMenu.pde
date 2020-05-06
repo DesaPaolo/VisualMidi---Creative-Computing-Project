@@ -1,3 +1,6 @@
+/**
+Menu for selecting the Kemper Profiler Driver
+*/
 public class GuitarMenu extends Menu{
 
     public GuitarMenu(int size) {
