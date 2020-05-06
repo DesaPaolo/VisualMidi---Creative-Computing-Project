@@ -58,7 +58,6 @@ int maxDlyTime = 20;
 float maxFeedbackDly = 200;
 int id = -1;
 //ADSR global variables
-/*Antonino variables*/
 float attackTimeMs;
 float decayTimeMs;
 float releaseTimeMs;
@@ -70,7 +69,6 @@ float[] velValues;
 int prevNoteVelocity = 115;
 int susValue = 80;
 boolean isPressed = false;
-/*End Antonino variables*/
 
 int contour;
 float EGInt;

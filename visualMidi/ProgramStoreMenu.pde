@@ -1,4 +1,7 @@
-class ProgramStoreMenu extends Menu {
+/**
+ * Deprecated class. Now the kemper profiler sends SysEx
+ */
+public class ProgramStoreMenu extends Menu {
 
     ArrayList<Button> programBtns = new ArrayList<Button>();
     ArrayList<GuitarParamButton> ampBtns = new ArrayList<GuitarParamButton>();

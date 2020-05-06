@@ -1,6 +1,8 @@
 ArrayList<ParticleSystem> tempPs = new ArrayList<ParticleSystem>(); //<>//
-
-class ParticleSystem {
+/**
+A Particle system, associated with the delay of the minilogue
+*/
+public class ParticleSystem {
 
   ArrayList<Particle> particles;
   PVector origin = new PVector();

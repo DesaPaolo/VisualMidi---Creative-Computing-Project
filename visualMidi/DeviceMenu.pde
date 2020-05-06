@@ -1,4 +1,7 @@
-class DeviceMenu extends Menu{
+/**
+Menu for selecting the Minilogue driver
+*/
+public class DeviceMenu extends Menu{
 
 
 

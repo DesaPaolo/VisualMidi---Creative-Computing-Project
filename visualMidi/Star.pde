@@ -1,4 +1,7 @@
-class Star {
+/**
+A Star class
+*/
+public class Star {
 
     private float x;
     private float y;
@@ -11,7 +14,9 @@ class Star {
     private float weight;
     private float density;
     private float overdriveFactor=0;
-
+    /**
+    Class constructor. Create a star with random position, a default speed, opacity and stroke weight
+    */
     Star() {
         this.x = random(-width/2, width/2);
         this.y = random(-height/2, height/2);
@@ -24,6 +29,9 @@ class Star {
         this.weight = 1;
     }
 
+    /**
+    Update is called every frame
+    */
     void update() {
         z-=this.warpSpeed;
         if(this.z < 1){
@@ -34,7 +42,9 @@ class Star {
         }
     }
 
-
+    /**
+    Draws the star
+    */
     void show() {
 
         fill(this.starColor, this.opacity);
@@ -51,7 +61,7 @@ class Star {
         line(px, py, sx, sy);
 
     }
-
+    
     public void setSpeed(int speed){
         this.warpSpeed = speed;
     }

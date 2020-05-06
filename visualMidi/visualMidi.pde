@@ -1,6 +1,9 @@
 import controlP5.*;
 import processing.sound.*;
 
+/**
+Run only one time, once the program has launched. Sets the skecth size and loads the initial screen
+*/
 void setup() {
 
   //translate(width/2,height/2);
@@ -21,7 +24,9 @@ void setup() {
   textSize(24);
 
 }
-
+/**
+A funtion that displays the main mode screen
+*/
 void drawMode0() {
   rectMode(CENTER);
   textAlign(CENTER, CENTER);
@@ -37,7 +42,9 @@ void drawMode0() {
   deviceModeBtn.showBtn();
   //programStoreModeBtn.showBtn();
 }
-
+/**
+A funtion that cleans the screen
+*/
 void cleanScreen() {
   noStroke();
   rectMode(CENTER);
@@ -45,6 +52,10 @@ void cleanScreen() {
   rect(width/2, height/2, width, height);
 }
 
+/**
+A funtion called every frame. According to the selected mode calls a proper function. In case of "Play Mode"
+calls playDraw() function
+*/
 void draw() {
   cursor();
   cleanScreen();
@@ -75,6 +86,9 @@ void draw() {
   }
 }
 
+/**
+Draws all the graphical elements associated to the sound features of the Minilogue and Kemper Profiler
+*/
 void playDraw() {
   //background
   if (EGInt < 8 && EGInt > -6) { // se EGInt è nel range dello 0% 
@@ -125,7 +139,9 @@ void playDraw() {
   starField.draw();
 
 } 
-
+/**
+Initializes the Star Field
+*/
 void initializeStarField() {
   starField = new StarField(1000);
 }

@@ -1,7 +1,8 @@
-/*Graphical representation of the Note class. 
- It's like the View class... Contains Whatever is needed to represent graphically the notes*/
+/**
+Graphical representation of the Note class
+*/
 
-class Sphere {
+public class Sphere {
 
   private PVector position;
   private float alfa = 0.0;
@@ -12,6 +13,12 @@ class Sphere {
   private PVector origin;
   Spiral spiral;
 
+  /**
+  Class constructor
+  @param x x-axis position
+  @param y y-axis position
+  @param z z-axis position
+  */
   Sphere(float x, float y, float z) {
     this.position = new PVector(x, y, z);
     this.origin = this.position.copy();
@@ -19,7 +26,12 @@ class Sphere {
     this.spiral = new Spiral(this.origin.copy(), this.c);
   }
 
-  //This function computes the graphical result, considering all the parameters (lfo, cutoff, pitch bend etc...)
+  /**
+  This function computes the graphical result, considering all the parameters (lfo, cutoff, pitch bend etc...)
+  @param rampValue value of the ADSR amplitude
+  @param filterRampValue value of the filter cutorr ramp value
+  @param velocity midi velocity of the note associated to the sphere
+  */
   public void drawSphere(float rampValue, float filterRampValue, float velocity) {
 
     float positionY = (this.position.y - pitchBend) + modulation * cos(alfa + PI);
@@ -65,22 +77,39 @@ class Sphere {
 
 
   }
-
+  /**
+  Applies LFO effect to the sphere
+  */
   private void lfoEffect() {
     alfa += 0.1 * modulationRate;
   }
 
+  /**
+  Change the position of the sphere
+  @param x x-axis position
+  @param y y-axis position
+  @param z z-axis position
+  */
   void setPosition(float x, float y, float z) {
     this.position.x = x;
     this.position.y = y;
     this.position.z = z;
     this.spiral.setOrigin(x,y,x);
   }
-
+  /**
+  Get the sphere position
+  @param x x-axis position
+  @param y y-axis position
+  @param z z-axis position
+  @return the position vector
+  */
   PVector getPosition() {
     return this.position.copy();
   }
-
+  /**
+  Get the sphere origin
+  @return the origin vector
+  */
   PVector getOrigin() {
     return this.origin.copy();
   }

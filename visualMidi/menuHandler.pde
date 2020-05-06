@@ -1,3 +1,6 @@
+/**
+Initializes part of the model
+*/
 public void menuInit() {
 
   mode = 0;
@@ -29,7 +32,10 @@ public void menuInit() {
   getColorRandom();
   
 }
-
+/**
+Handles the navigation between moded.
+When a mouse pressed event occurs it checks if a button was clicked and navigates to the proper mode. 
+*/
 void mousePressed() {
   println("MOUSE PRESSED!!!!!");
   
@@ -100,13 +106,18 @@ void mousePressed() {
     }
     loop();
 }
+/**
+Code executted when in device driver selection mode
+*/
 void deviceMode() {
   noLoop();
   cleanScreen();
   deviceMenu.showMenu();
   guitarMenu.showMenu();
 }
-
+/**
+Code executted when in store mode
+*/
 void storeMode(){
   cleanScreen();
   int xStoreBtn = width/2;
@@ -132,11 +143,13 @@ void storeMode(){
   
   if (doStoreBtn.isPressed()){
     noLoop();
-    println("Calling savePreset");
+    //println("Calling savePreset");
     savePreset();
   }
 }
-
+/**
+Code executed when in load mode
+*/
 void loadMode(){
   //prevDraw();
   
@@ -144,7 +157,9 @@ void loadMode(){
     loadPresets();
   } catch (Exception ex) {}
 }
-
+/**
+Save a new minilogue preset
+*/
 void savePreset(){
   String name = finalMsg;
   Date actualDate = Calendar.getInstance().getTime();
@@ -156,9 +171,9 @@ void savePreset(){
     FileWriter fileWriter = new FileWriter(sketchPath("presets.txt"));
     
     for(int i=0; i<presets.size(); i++){
-      println("preset size is " + presets.size() + " now we are in index " + i);
+      //println("preset size is " + presets.size() + " now we are in index " + i);
       storePresetToFile(presets.get(i), fileWriter);
-      println("saved preset " + presets.get(i).getPresetName());
+      //println("saved preset " + presets.get(i).getPresetName());
     }
     
     fileWriter.close(); 
@@ -169,7 +184,9 @@ void savePreset(){
   }
   loop();
 }
-
+/**
+Shows the load menu
+*/
 void loadPresets() throws Exception{ 
   noLoop();
   //loadPresetsFromFile(); //<>// //<>// //<>// //<>//
@@ -186,6 +203,10 @@ int getGtrParamBtnIndex(ArrayList<GuitarParamButton> buttons){
   return -1;
 }
 
+/**
+@param buttons list of buttons
+@return the index of the clicked button from the passed array list of buttons
+*/
 int getBtnIndex(ArrayList<Button> buttons){
   for(int i=0; i<buttons.size(); i++){
     if(buttons.get(i).isPressed()){return buttons.get(i).getIndex();}
@@ -193,13 +214,17 @@ int getBtnIndex(ArrayList<Button> buttons){
   return -1;
 }
 
+/**
+Activate a preset
+@param index index of the preset to activate
+*/
 void activatePreset(int index){
-  println("$$$$$$$$$$$$$ Index: "+ index);
+  //println("$$$$$$$$$$$$$ Index: "+ index);
   int ind = getIndexOfPreset(index);
-  println("$$$$$$$$$$$$$ Ind: "+ ind);
+  //println("$$$$$$$$$$$$$ Ind: "+ ind);
   if(ind!=-1){
   Preset activePreset = presets.get(ind);
-  println("@@@@@@@@@@@@@@CALLED PRESET: " + activePreset.getPresetName());
+  //println("@@@@@@@@@@@@@@CALLED PRESET: " + activePreset.getPresetName());
   cutOffFilter = activePreset.getCutoffFil();
   times[0] = activePreset.getAttack();
   times[1] = activePreset.getDecay();
@@ -225,7 +250,10 @@ void activatePreset(int index){
 
   return;
 }
-
+/**
+@param id id of the preset
+@return the index of the preset with the passed id
+*/
 int getIndexOfPreset(int id) {
   println("*****presets size: "+ presets.size());
   for(int i = 0; i< presets.size(); i++){
@@ -234,24 +262,30 @@ int getIndexOfPreset(int id) {
   }
   return -1;
 }
-
+/**
+Add a preset to the model
+@param presetToAdd preset to be added
+*/
 void addPreset (Preset presetToAdd){
-  println("ADDING PRESET");
+  //println("ADDING PRESET");
   for(int i=0; i<presets.size(); i++){
     if (presets.get(i).getPresetName().equals(presetToAdd.getPresetName())){
       presets.remove(i);
       presets.add(i, presetToAdd);
-      println("overwriting preset called " + presets.get(i).getPresetName());
+      //println("overwriting preset called " + presets.get(i).getPresetName());
       return;
     }  
   }
   presets.add(presetToAdd);
-  println("adding new preset called " + presets.get(presets.size()-1).getPresetName());
+  //println("adding new preset called " + presets.get(presets.size()-1).getPresetName());
   return;
 }
 
+/**
+Parsing the preset file, and updates the model
+*/
 void loadPresetsFromFile(){
-  println("LOADING PRESETS FROM FILE");
+  //println("LOADING PRESETS FROM FILE");
   File file = new File(sketchPath("presets.txt")); 
     try {
       BufferedReader br = new BufferedReader(new FileReader(file)); 
@@ -300,10 +334,10 @@ void loadPresetsFromFile(){
       println(e);
   }
 }
-/*DEPRECATED*/
+/**Deprecated*/
 void drawMenuPresets(){
   int aListSize = presets.size();
-  println("alistSize: "+ aListSize);
+  //println("alistSize: "+ aListSize);
   int xBox, yBox, wBox, hBox, leftMarginNames, upperMarginNames, hLine, xLoadBtn, yLoadBtn, wLoadBtn, hLoadBtn;
   //println("aListSize is " + aListSize);
   xBox = width/2;
@@ -349,6 +383,9 @@ void drawMenuPresets(){
   //}
 }
 
+/**
+Stores a new preset to the preset file
+*/
 void storePresetToFile (Preset actualPreset, FileWriter fileWriter){
   try{
     fileWriter.write("start\n");
@@ -379,7 +416,9 @@ void storePresetToFile (Preset actualPreset, FileWriter fileWriter){
       println("IO Exception");
     }
 }
-
+/**
+Shows input from the keyboard
+*/
 void showInputScanning(){
   fill(0,230,25);
   text(msg, width/2, height/2);
@@ -387,7 +426,9 @@ void showInputScanning(){
   fill(0,250,0);
   text("Mouse click to reset message, Return to set the name, Click \"Store\" to Store", width/2, (height/2)+80);
 }
-
+/**
+Scanning user input from keyboard
+*/
 void scanInput(){
   if ( (key>='a' && key<='z') ||
     (key>='A' && key<='Z') ||
@@ -402,7 +443,9 @@ void scanInput(){
     println("Final Message is " +finalMsg + ".");
   }
 }
-
+/**
+Key pressed listener
+*/
 void keyPressed(){
   if (gettingUserInput){
     if (msg.equals(INIT_MSG)) {
@@ -411,7 +454,9 @@ void keyPressed(){
     scanInput();
   }
 }
-
+/**
+Deprecated
+*/
 void programStoreMode(){
   cleanScreen();
   noLoop();

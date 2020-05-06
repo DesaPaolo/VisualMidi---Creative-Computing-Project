@@ -1,4 +1,7 @@
-abstract class Menu{
+/**
+Abstract menu class. A menu class seen as a list of elements, one above the other. The elements are text and buttons
+*/
+public abstract class Menu{
     
     String title;
     int numberOfElements;
@@ -17,7 +20,11 @@ abstract class Menu{
     int marginTop = 30;
 
     ArrayList<Button> menuButtons = new ArrayList();
-
+    /**
+    @param title title of the menu
+    @param numberOfElements number of elements of the menu
+    @param label label
+    */
     public Menu(String title, int numberOfElements, String label) {
 
         this.numberOfElements = numberOfElements;
@@ -25,10 +32,19 @@ abstract class Menu{
         this.title = title;
 
     }
-
+    /**
+    Mouse pressed event
+    */
     public abstract void mousePressedEvent();
+    /**
+    Show the menu view
+    */
     public abstract void showMenu();
-
+    /**
+    Create some buttons
+    @param xBtn x-axis position, further rmodified
+    @param yBtn y-axis position, further modified
+    */
     public void createButtons(int xBtn, int yBtn, String label) {
 
         for(int i = 0; i < this.numberOfElements; i++) {
@@ -40,7 +56,9 @@ abstract class Menu{
         }
     }
     
-    
+    /**
+    Change buttons color
+    */
     public void changeButtonColor() {
 
         for(int i = 0; i < menuButtons.size(); i++ ){

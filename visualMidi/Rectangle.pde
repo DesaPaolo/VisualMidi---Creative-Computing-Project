@@ -1,4 +1,7 @@
-class Rectangle {
+/**
+A rectangle class, used by the GUI
+*/
+public class Rectangle {
   private int x;
   private int y;
   private int width;
