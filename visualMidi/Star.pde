@@ -1,4 +1,7 @@
-class Star {
+/**
+A Star class
+*/
+public class Star {
 
     private float x;
     private float y;

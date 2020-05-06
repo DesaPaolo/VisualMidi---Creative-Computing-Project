@@ -1,4 +1,4 @@
-class LoadMenu extends Menu{
+public class LoadMenu extends Menu{
 
 
     public LoadMenu(int size) {

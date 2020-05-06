@@ -1,4 +1,8 @@
-class Ramp {
+/**
+This class generates a series of values that belongs to a linear ramp.
+It is used to implement graphically the ADSR envelopes
+*/
+public class Ramp {
 
   float rampValue;    // current ramp value -> che useremo per modulare i parametri grafici
   float rampStartMillis; // constructor init millisecond

@@ -132,7 +132,7 @@ void storeMode(){
   
   if (doStoreBtn.isPressed()){
     noLoop();
-    println("Calling savePreset");
+    //println("Calling savePreset");
     savePreset();
   }
 }
@@ -156,9 +156,9 @@ void savePreset(){
     FileWriter fileWriter = new FileWriter(sketchPath("presets.txt"));
     
     for(int i=0; i<presets.size(); i++){
-      println("preset size is " + presets.size() + " now we are in index " + i);
+      //println("preset size is " + presets.size() + " now we are in index " + i);
       storePresetToFile(presets.get(i), fileWriter);
-      println("saved preset " + presets.get(i).getPresetName());
+      //println("saved preset " + presets.get(i).getPresetName());
     }
     
     fileWriter.close(); 
@@ -194,12 +194,12 @@ int getBtnIndex(ArrayList<Button> buttons){
 }
 
 void activatePreset(int index){
-  println("$$$$$$$$$$$$$ Index: "+ index);
+  //println("$$$$$$$$$$$$$ Index: "+ index);
   int ind = getIndexOfPreset(index);
-  println("$$$$$$$$$$$$$ Ind: "+ ind);
+  //println("$$$$$$$$$$$$$ Ind: "+ ind);
   if(ind!=-1){
   Preset activePreset = presets.get(ind);
-  println("@@@@@@@@@@@@@@CALLED PRESET: " + activePreset.getPresetName());
+  //println("@@@@@@@@@@@@@@CALLED PRESET: " + activePreset.getPresetName());
   cutOffFilter = activePreset.getCutoffFil();
   times[0] = activePreset.getAttack();
   times[1] = activePreset.getDecay();
@@ -236,22 +236,22 @@ int getIndexOfPreset(int id) {
 }
 
 void addPreset (Preset presetToAdd){
-  println("ADDING PRESET");
+  //println("ADDING PRESET");
   for(int i=0; i<presets.size(); i++){
     if (presets.get(i).getPresetName().equals(presetToAdd.getPresetName())){
       presets.remove(i);
       presets.add(i, presetToAdd);
-      println("overwriting preset called " + presets.get(i).getPresetName());
+      //println("overwriting preset called " + presets.get(i).getPresetName());
       return;
     }  
   }
   presets.add(presetToAdd);
-  println("adding new preset called " + presets.get(presets.size()-1).getPresetName());
+  //println("adding new preset called " + presets.get(presets.size()-1).getPresetName());
   return;
 }
 
 void loadPresetsFromFile(){
-  println("LOADING PRESETS FROM FILE");
+  //println("LOADING PRESETS FROM FILE");
   File file = new File(sketchPath("presets.txt")); 
     try {
       BufferedReader br = new BufferedReader(new FileReader(file)); 
@@ -303,7 +303,7 @@ void loadPresetsFromFile(){
 /*DEPRECATED*/
 void drawMenuPresets(){
   int aListSize = presets.size();
-  println("alistSize: "+ aListSize);
+  //println("alistSize: "+ aListSize);
   int xBox, yBox, wBox, hBox, leftMarginNames, upperMarginNames, hLine, xLoadBtn, yLoadBtn, wLoadBtn, hLoadBtn;
   //println("aListSize is " + aListSize);
   xBox = width/2;

@@ -1,4 +1,4 @@
-class DeviceMenu extends Menu{
+public class DeviceMenu extends Menu{
 
 
 

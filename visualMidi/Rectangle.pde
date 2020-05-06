@@ -1,4 +1,7 @@
-class Rectangle {
+/**
+A rectangle class
+*/
+public class Rectangle {
   private int x;
   private int y;
   private int width;

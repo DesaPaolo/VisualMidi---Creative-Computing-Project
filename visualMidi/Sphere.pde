@@ -1,7 +1,9 @@
-/*Graphical representation of the Note class. 
- It's like the View class... Contains Whatever is needed to represent graphically the notes*/
+/**
+Graphical representation of the Note class. 
+It's like the View class... Contains Whatever is needed to represent graphically the notes
+*/
 
-class Sphere {
+public class Sphere {
 
   private PVector position;
   private float alfa = 0.0;

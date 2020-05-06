@@ -1,4 +1,7 @@
-class Note {
+/**
+Note class, contains the status of the played noted
+*/
+public class Note {
 
   Sphere sphere; //3D
   private int pitch;

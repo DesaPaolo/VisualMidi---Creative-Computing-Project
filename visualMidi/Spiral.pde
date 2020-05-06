@@ -1,4 +1,9 @@
-class Spiral {
+/**
+A Spiral class. This spiral is displayed when it is selected a modulation effect from the Kemper Profiler.
+The spiral will orbit around the sphere
+to which is associated
+*/
+public class Spiral {
 
     float speed;
     float n;

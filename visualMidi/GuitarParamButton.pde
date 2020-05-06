@@ -1,4 +1,4 @@
-class GuitarParamButton extends Button{
+public class GuitarParamButton extends Button{
     private String value;
 
 

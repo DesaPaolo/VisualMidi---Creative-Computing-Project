@@ -1,6 +1,8 @@
 private ArrayList<Note> tempNotes;
 private boolean alreadyInTempChord;
-
+/**
+Initializes midi drivers
+*/
 public void midiInit() {
 
   println("MIDI INIT");
@@ -27,7 +29,9 @@ public void midiInit() {
   
 }
 
-//NOTE ON
+/**
+Listens to note on midi messages
+*/
 void noteOn(int channel, int pitch, int velocity) {
 
   println("Note ON");
@@ -75,7 +79,9 @@ private boolean isAvaiableVoice() {
   }
 }
 
-//NOTE OFF
+/**
+Listens to note off midi messages
+*/
 void noteOff(int channel, int pitch, int velocity) {
 
   println("Note OFF");
@@ -89,7 +95,9 @@ void noteOff(int channel, int pitch, int velocity) {
 }
 
 
-//CONTROL CHANGE
+/**
+Receives the controller change midi messages and changes the model accordingly
+*/
 void controllerChange(int channel, int number, int value, long timestamp, java.lang.String bus_name) {
 
   println("CONTROL: " + number + " CONTROL VALUE: " + value);

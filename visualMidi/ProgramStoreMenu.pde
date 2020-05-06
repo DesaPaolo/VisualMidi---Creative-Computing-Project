@@ -1,4 +1,7 @@
-class ProgramStoreMenu extends Menu {
+/**
+ * Deprecated class
+ */
+public class ProgramStoreMenu extends Menu {
 
     ArrayList<Button> programBtns = new ArrayList<Button>();
     ArrayList<GuitarParamButton> ampBtns = new ArrayList<GuitarParamButton>();

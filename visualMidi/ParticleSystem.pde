@@ -1,6 +1,6 @@
 ArrayList<ParticleSystem> tempPs = new ArrayList<ParticleSystem>(); //<>//
 
-class ParticleSystem {
+public class ParticleSystem {
 
   ArrayList<Particle> particles;
   PVector origin = new PVector();

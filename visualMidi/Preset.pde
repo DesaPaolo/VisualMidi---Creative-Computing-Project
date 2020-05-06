@@ -1,4 +1,7 @@
-class Preset {
+/**
+Korg Minilogue Preset representation
+*/
+public class Preset {
 
   private String name;
   private boolean susPedal;

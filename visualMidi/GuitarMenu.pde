@@ -1,4 +1,4 @@
-class GuitarMenu extends Menu{
+public class GuitarMenu extends Menu{
 
     public GuitarMenu(int size) {
         

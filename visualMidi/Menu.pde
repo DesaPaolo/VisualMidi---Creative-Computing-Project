@@ -1,4 +1,4 @@
-abstract class Menu{
+public abstract class Menu{
     
     String title;
     int numberOfElements;

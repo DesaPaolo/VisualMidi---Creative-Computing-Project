@@ -1,5 +1,6 @@
-/*Antonino Code*/
-/*When attack finishes this function is called and generates the decay ramp. It's also called when sustain finishes this*/
+/**
+Initializes the ADSR values
+*/
 public void adsrInit() {
 
   times = new float[4];
@@ -23,6 +24,10 @@ public void adsrInit() {
   EGInt = 0;
 }
 
+/**
+Creates a linear ramp for attack, decay and release (amplitude values)
+@param note note of which to create the ramp
+*/
 private void nextRamp(Note note) {
 
   int step = note.ramp.stepId;
@@ -46,11 +51,18 @@ private void nextRamp(Note note) {
     removeNote(note);
   }
 }
-
+/**
+@param note note that can be removed from the playing notes
+*/
 private void removeNote(Note note) {
   note.toRemove = true;
 }
 
+/**
+Starts the new ramp, that can be attack,, decay or release phase
+@param note note of which to start the new ramp
+@param filter if true generates a ficlter cutoff ramp, otherwise an amplitud eone
+*/
 public void endedRamp(Note note, boolean filter) {
   if (!filter) {
     note.ramp.stepId++;
@@ -65,6 +77,10 @@ public void startReleaseB(Note note) {
   /*crea la rampa di release per la nota*/
 }
 
+/**
+Creates a linear ramp for attack, decay and release (filter cutoff values)
+@param note note of which to create the ramp
+*/
 private void nextFilterRamp(Note note) {
 
   int stepz = note.filterRamp.stepId;
@@ -82,4 +98,3 @@ private void nextFilterRamp(Note note) {
     break;
   }
 }
-/*End Antonino Code*/
