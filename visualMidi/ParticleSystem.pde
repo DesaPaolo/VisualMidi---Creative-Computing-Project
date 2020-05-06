@@ -14,16 +14,21 @@ class ParticleSystem {
     this.psLifespan = feedbackDly;
     this.timeDlyCont = round(timeDly);
     //println("psLifespan is " + psLifespan);
+    //println("timeDlyCont is " + timeDlyCont);
     tempPs.add(this);
   }
 
 
   public void addParticle(float radius) {
+    println("psLifespan is " + psLifespan);
+    println("timeDlyCont is " + timeDlyCont);
+    println("timeDly ROUNDED is " + round(timeDly));
     if (this.timeDlyCont == round(timeDly)) {  
       if (this.psLifespan > 0) {
+        print("AGGIUNGO");
         this.particles.add(new Particle(this.origin, radius));
       }
-      this.timeDlyCont = 0;
+      this.timeDlyCont = -1;
     }
     this.timeDlyCont++;
   }

@@ -51,11 +51,11 @@ float ampDcy;
 float ampSus;
 float ampRel;
 float hiPassDly = 0;
-float timeDly = 0;
-float feedbackDly = 0;
+float timeDly = 5;
+float feedbackDly = 100;
 Boolean isActiveDly = false;
-int maxDlyTime = 100;
-float maxFeedbackDly = 45;
+int maxDlyTime = 20;
+float maxFeedbackDly = 200;
 int id = -1;
 //ADSR global variables
 /*Antonino variables*/

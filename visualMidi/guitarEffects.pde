@@ -126,4 +126,3 @@ public void applyModulation(Sphere sphere) {
     v+=0.02;
 
 }
-

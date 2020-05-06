@@ -44,3 +44,26 @@ feedback delay 0.0
 isActive delay false
 id 25
 end
+start
+name 
+date Tue May 05 15:02:16 CEST 2020
+sustainPedal false
+modulation 0.0
+modulationRate 0.0
+cutoffFilter 100.00001
+attackTime 1.0
+decayTime 1000.0
+sustainAmp 100.0
+releaseTime 1.0
+EG attackTime 1.0
+EG decayTime 1000.0
+EG sustainAmp 100.0
+EG releaseTime 1.0
+EG int 0.0
+poly true
+hipass delay 0.0
+time delay 0.0
+feedback delay 0.0
+isActive delay false
+id -1
+end

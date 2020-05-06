@@ -167,7 +167,7 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
       break;
 
     case 31: 
-      feedbackDly = mapLog(value, 0, 127, 1, maxFeedbackDly);
+      feedbackDly = map(value, 0, 127, 1, maxFeedbackDly);
       //change lifespan if move this knob: realtime feedback knob
       break; 
   
