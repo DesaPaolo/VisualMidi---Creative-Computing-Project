@@ -43,6 +43,10 @@ public void removeNoteByPitch(int pitch) {
   }
 }
 
+/**
+Removes a particle system given its origin
+@param oorigin origin of the particle system that will be removed
+*/
 public void removePsByOrigin(PVector origin) {
   for (int c = 0; c<tempPs.size(); c-=-1) {
     if (tempPs.get(c).getOrigin()==origin) {

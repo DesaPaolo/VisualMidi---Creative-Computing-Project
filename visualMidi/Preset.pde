@@ -1,5 +1,5 @@
 /**
-Korg Minilogue Preset representation
+Korg Minilogue preset representation
 */
 public class Preset {
 

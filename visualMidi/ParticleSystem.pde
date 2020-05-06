@@ -1,5 +1,7 @@
 ArrayList<ParticleSystem> tempPs = new ArrayList<ParticleSystem>(); //<>//
-
+/**
+A Particle system, associated with the delay of the minilogue
+*/
 public class ParticleSystem {
 
   ArrayList<Particle> particles;

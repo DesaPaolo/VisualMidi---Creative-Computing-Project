@@ -16,7 +16,9 @@ public class Ramp {
   Note note;
 
   boolean filter;
-
+  /**
+  Class constructor
+  */
   Ramp () { 
     rampDuration = 0;
     rampStartMillis = 0; 
@@ -25,7 +27,17 @@ public class Ramp {
     range = 0;
     stepId =-1;
   } 
-
+  /**
+  Class constructor
+  @param duration duration of the ramp
+  @param startTime starting time
+  @param rampRange sets the ramp range of values
+  @param stepId set the step id for the ramp, it is different for an attack ramp, a decay or release one
+  @param startValue starting value
+  @param endValue end value of the ramp
+  @param Note note associated to the ramp
+  @param filter if true is a filter cutoff ramp, else an amplitude one
+  */
   Ramp (float duration, float startTime, int rampRange, int stepId, float startValue, float endValue, Note note, boolean filter) {
     rampDuration = duration; // durata della rampa
     rampStartMillis = startTime; // tempo di inizio
@@ -40,7 +52,9 @@ public class Ramp {
     //println("startValue: " + startValue);
     //println("endValue: " + endValue);
   }
-
+  /**
+  Called each frame. Changes linearly the value of the ramp
+  */
   void trigger() {
     //println("rampValue = " + (int)rampValue);
     //println("endValue = " + (int)endValue);
@@ -67,7 +81,9 @@ public class Ramp {
       //println("a");
     }
   }
-
+  /**
+  Check wheter it is necessary to start the release of the note
+  */
   public void startRelease() {
     //endedRamp(/*"inizia release"*/1, note);
     /*chiama funzione startRelease(Note note)*/

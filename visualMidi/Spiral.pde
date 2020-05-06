@@ -15,6 +15,10 @@ public class Spiral {
     int sign;
     int opacity;
 
+    /**
+    @param position origin of the spiral
+    @param c color of the spiral
+    */
     Spiral(PVector position, color c) {
         this.position = position.copy();
         this.origin = position.copy();
@@ -29,6 +33,9 @@ public class Spiral {
         this.sign = signs[(int)random(2)];
     }
 
+    /**
+    Called each frame
+    */
     void run() {
         int sign = this.sign;
         this.position.x = this.origin.x+sign*this.radius*cos(this.speed*this.n)+sign*noise(random(1,10));
@@ -49,12 +56,21 @@ public class Spiral {
 
     }
 
+    /**
+    Add a new particle to the spiral
+    @param c color of the new particle
+    */
     private void addParticle(color c) {
 
         this.particles.add(new Particle(this.position, this.c));
     }
 
-
+    /**
+    Change the origin of the spiral
+    @param xPos x-axis position
+    @param yPos y-axis position
+    @param z-axis z-axis position
+    */
     void setOrigin(float xPos, float yPos, float zPos) {
 
         this.origin.x = xPos;
@@ -62,6 +78,9 @@ public class Spiral {
         this.origin.z = zPos;
     }
 
+    /**
+    Particle class
+    */
     class Particle {
         PVector position;
         float lifespan;

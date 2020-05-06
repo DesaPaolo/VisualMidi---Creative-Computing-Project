@@ -1,5 +1,5 @@
 /**
- * Deprecated class
+ * Deprecated class. Now the kemper profiler sends SysEx
  */
 public class ProgramStoreMenu extends Menu {
 

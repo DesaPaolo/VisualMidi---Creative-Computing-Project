@@ -15,7 +15,11 @@ public class Note {
   float x, y, z;
 
   ParticleSystem ps; 
-
+  /**
+  Class constructor
+  @param pitch pitch of the note
+  @param velocity velocity of the note
+  */
   Note(int pitch, int velocity) {
     println("#######Created a note##########");
     this.pitch = pitch;
@@ -28,12 +32,17 @@ public class Note {
     this.adsrValues = new float[3];
     this.filterAdsrValues = new float[4];
   }
-
+  /**
+  Get the pitch of the note
+  @return the pitch of the note
+  */
   int getPitch() {
     return this.pitch;
   }
 
-  //Update the view, after the model has changed
+  /**
+  Updates the model and view. Called each frame
+  */
   public void update() {
 
     if (this.toRemove) {
@@ -45,7 +54,9 @@ public class Note {
       this.sphere.drawSphere(this.ramp.rampValue, this.filterRamp.rampValue, this.velocity);
     }
   }
-
+  /**
+  Applies note on effect
+  */
   public void noteOnEffect() {
 
     this.initAdsrRamp();
@@ -54,7 +65,9 @@ public class Note {
       this.ps = new ParticleSystem(new PVector(x, y, z));
     }
   }
-
+  /**
+  Initializes the ADSR ramp
+  */
   private void initAdsrRamp() {
     this.adsrValues[0] = 255;
     this.adsrValues[1] = 255 * ((float)ampSus/100);
@@ -70,7 +83,10 @@ public class Note {
     //per il valore percentuale di sustain, e nel release torno al valore di cutoff
     this.filterRamp = new Ramp(EGTimes[0], millis(), 0, 0, this.filterAdsrValues[0], this.filterAdsrValues[1], this, true);
   }
-
+  /**
+  Set the pitch of the note
+  @param pitch new pitch
+  */
   public void setPitch(int pitch) {
     this.pitch = pitch;
     float newX = map(this.pitch, 21, 108, 0, width);
