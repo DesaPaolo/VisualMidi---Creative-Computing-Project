@@ -12,8 +12,8 @@ public void midiInit() {
   guitar = new MidiBus(this);// Connect to one of the devices
   guitar.sendTimestamps(false);
   //for (String device : MidiBus.availableOutputs()){ //Assuming to send MIDI messages to all the devices, to avoid creating new menu
-    guitar.addInput("CoreMIDI4J - USB Uno MIDI Interface");
-    guitar.addOutput("CoreMIDI4J - USB Uno MIDI Interface");
+   // guitar.addInput("CoreMIDI4J - USB Uno MIDI Interface");
+   // guitar.addOutput("CoreMIDI4J - USB Uno MIDI Interface");
   //}
   println("Output size: ", guitar.attachedOutputs().length);
   guitarBusName = guitar.getBusName();
@@ -216,7 +216,7 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
       switch(number){
         case 1: 
           println("Wah");
-          starField.setSpeed((int)map(value, 0, 127, 5, 100));
+          starField.setSpeed((int)map(value, 0, 127, 2, 15));
           break;
         case 50:
           initScanKemper();
@@ -283,7 +283,13 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
 
 
     if(message instanceof SysexMessage){
+      try{
       parseSysEx((SysexMessage)message);
+      }
+      catch(Exception e) {
+        println("TOO SHORT SYSEX");
+
+      }
     }
 
     if((int)(message.getMessage()[0] & 0xFF)==192){ //Guitar PC
@@ -299,11 +305,14 @@ private int voiceLimiter() {
 }
 
 public void parseSysEx(SysexMessage sysEx){
+  //println("@@@@@$$$$$$$$$$$$$$$@SYSEX LENGHT: " + sysEx.getData().length);
 
+  //if(sysEx.getData().length>=11){
   int page = ((int)sysEx.getData()[7]);
   int ctrl = ((int)sysEx.getData()[8]);
   int msbVal = ((int)sysEx.getData()[9]);
   int lsbVal = ((int)sysEx.getData()[10]);
+ // }
   ArrayList<String> strArr = new ArrayList<String>();
 
   /*Stampa messaggio SysEx*/

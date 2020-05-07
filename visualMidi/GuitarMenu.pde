@@ -31,6 +31,7 @@ public class GuitarMenu extends Menu{
                 }
 
                 guitar.addInput(currentInput);
+                println("ADDED KEMPER: "+currentInput);
                 guitar.addOutput(guitar.attachedInputs()[0]);
                 changeButtonColor();
 
