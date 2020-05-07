@@ -216,7 +216,7 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
       switch(number){
         case 1: 
           println("Wah");
-          starField.setSpeed((int)map(value, 0, 127, 2, 15));
+          starField.setSpeed((int)map(value, 0, 127, 45, 90));
           break;
         case 50:
           initScanKemper();

@@ -22,7 +22,7 @@ public class Star {
         this.y = random(-height/2, height/2);
         this.z = random(width/2);
         this.pz = this.z;
-        this.warpSpeed = 10;
+        this.warpSpeed = 20;
         this.starColor = color(100,100,250);
         this.starTrackColor = color(0,0,255);
         this.opacity =70;
