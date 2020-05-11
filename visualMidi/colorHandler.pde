@@ -26,7 +26,6 @@ public color getColorPerlin(float seed, boolean brighter){
     }
 
     color c = color( (int)r, (int)g, (int)b );
-    //println("Extracted Color: "+"R = "+red(c)+" G = "+green(c)+" B = " + blue(c));
     return c;
 
 }
@@ -47,7 +46,6 @@ public color getColorRandom(){
     pool[7] = color(255, 255, 255);//white
 
     int randomColorIndex = (int)random(0, 8);
-    //println("Extracted Color: "+"R = "+red(pool[randomColorIndex])+" G = "+green(pool[randomColorIndex])+" B = " + blue(pool[randomColorIndex]));
     return pool[randomColorIndex];
 
 }
@@ -65,7 +63,6 @@ public color getColorWarm() {
     pool[4] = color(255, 155, 45);//orange2
 
     int randomColorIndex = (int)random(0, 5);
-    //println("Extracted Color: "+"R = "+red(pool[randomColorIndex])+" G = "+green(pool[randomColorIndex])+" B = " + blue(pool[randomColorIndex]));
     return pool[randomColorIndex];
 
 }

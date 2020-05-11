@@ -65,10 +65,7 @@ public abstract class Menu{
             menuButtons.get(i).setBackgroundColor(color(255,255,255));
         }
         
-        println("BTNINDEX: "+getBtnIndex(menuButtons));
         menuButtons.get(getBtnIndex(menuButtons)).setBackgroundColor(color(255,0,0));
-        println("BACK COLOR: "+ hex(menuButtons.get(getBtnIndex(menuButtons)).getBackColor()));
-        println("BACK COLOR OF FIRST: "+ hex(menuButtons.get(0).getBackColor()));
 
     }
 

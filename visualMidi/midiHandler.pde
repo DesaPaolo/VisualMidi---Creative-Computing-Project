@@ -5,7 +5,6 @@ Initializes midi drivers
 */
 public void midiInit() {
 
-  println("MIDI INIT");
   MidiBus.list();
   minilogue = new MidiBus(this);// Connect to one of the devices
   minilogueBusName = minilogue.getBusName();
@@ -15,7 +14,6 @@ public void midiInit() {
    // guitar.addInput("CoreMIDI4J - USB Uno MIDI Interface");
    // guitar.addOutput("CoreMIDI4J - USB Uno MIDI Interface");
   //}
-  println("Output size: ", guitar.attachedOutputs().length);
   guitarBusName = guitar.getBusName();
   tempNotes = new ArrayList<Note>();
   alreadyInTempChord = false;
@@ -34,7 +32,6 @@ Listens to note on midi messages
 */
 void noteOn(int channel, int pitch, int velocity) {
 
-  println("Note ON");
 
   Note newNote = new Note(pitch, velocity);
   
@@ -84,7 +81,6 @@ Listens to note off midi messages
 */
 void noteOff(int channel, int pitch, int velocity) {
 
-  println("Note OFF");
 
   for (int i=0; i<tempNotes.size(); i++ ) {
     if (tempNotes.get(i).getPitch() == pitch) {
@@ -100,10 +96,6 @@ Receives the controller change midi messages and changes the model accordingly
 */
 void controllerChange(int channel, int number, int value, long timestamp, java.lang.String bus_name) {
 
-  println("CONTROL: " + number + " CONTROL VALUE: " + value);
-  println("channel " + channel);
-  println("is kemper: " + (bus_name == guitarBusName));
-  println("t3: " + times[3]);
   
   if (bus_name == minilogueBusName){ //Potrebbe arrivare lo stesso CC da due bus diversi 
     switch (number) {
@@ -123,16 +115,13 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
     case 43:
       if(value == 0 ) cutOffFilter = 0;
       else cutOffFilter = mapLog(value, 0, 127, 1, 100); //cut off
-      println("Cutoff filter is " + cutOffFilter);
       break;
   
     case 16: //atck
       times[0] = mapLog(value, 0, 127, 10, 3500);
-      println("AttackTime is " + times[0]);
       break;
     case 17: //dcy
       times[1] = mapLog(value, 0, 127, 10, 4000);
-      println("DecayTime is " + times[1]);
       break; 
   
     case 18: //sus
@@ -142,7 +131,6 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
   
     case 19: //rel
       times[3] = mapLog(value, 0, 127, 20, 4500);
-      println("ReleaseTime is " + times[3]);
       break;
   
     case 20:
@@ -192,7 +180,6 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
        }*/
   
       EGInt = map(value, 0, 127, -100, 100);//prima era mappato da 0 a 255
-      println(EGInt);
       break;
   
     case 82:
@@ -212,10 +199,8 @@ void controllerChange(int channel, int number, int value, long timestamp, java.l
   
   if (bus_name == guitarBusName){
       //Check CC codes of pedalboard
-      println("Guitar CC");
       switch(number){
         case 1: 
-          println("Wah");
           starField.setSpeed((int)map(value, 0, 127, 45, 90));
           break;
         case 50:
@@ -254,21 +239,15 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
   // Receive a MidiMessage
   // MidiMessage is an abstract class, the actual passed object will be either javax.sound.midi.MetaMessage, javax.sound.midi.ShortMessage, javax.sound.midi.SysexMessage.
   // Check it out here http://java.sun.com/j2se/1.5.0/docs/api/javax/sound/midi/package-summary.html
-  //println();
-  //println("MidiMessage Data:");
-  //println("--------");
-  //println("Status Byte/MIDI Command:"+message.getStatus());
+
   if (bus_name == minilogueBusName) {
     //for (int i = 0; i < message.getMessage().length; i++) {    //SHOW MIDI MESSAGES CODE & VALUE
     //    if((message.getMessage()[i] & 0xFF)!=248) {
-    //  //println("Param "+(i+1)+": "+(int)(message.getMessage()[i] & 0xFF)); }
     //}
     if (message.getStatus() == 224) { //PITCHBEND! !!!MSB ARE THE SECOND MESSAGE----> we consider only MSB
       pitchBend = map((int)(message.getMessage()[2] & 0xFF), 0, 127, -64, 64);
     }
     if((int)(message.getMessage()[0] & 0xFF)==192){
-      println("Calling Program" + ((int)(message.getMessage()[1] & 0xFF)));
-      //println("Calling Program" + ((message.getMessage() & 0xFF)));
       id = ((int)(message.getMessage()[1] & 0xFF));
       activatePreset((int)(message.getMessage()[1] & 0xFF));
     }
@@ -277,7 +256,6 @@ void midiMessage(MidiMessage message, long timestamp, String bus_name) { // You 
   if (bus_name == guitarBusName) {
     /*for (int i = 0; i < message.getMessage().length; i++) {    //SHOW MIDI MESSAGES CODE & VALUE
       if((int)(message.getMessage()[i] & 0xFF)!=254){
-        println("Guitar Param "+(i)+": "+(int)(message.getMessage()[i] & 0xFF));
       }
     }*/
 
@@ -305,7 +283,6 @@ private int voiceLimiter() {
 }
 
 public void parseSysEx(SysexMessage sysEx){
-  //println("@@@@@$$$$$$$$$$$$$$$@SYSEX LENGHT: " + sysEx.getData().length);
 
   //if(sysEx.getData().length>=11){
   int page = ((int)sysEx.getData()[7]);
@@ -316,12 +293,9 @@ public void parseSysEx(SysexMessage sysEx){
   ArrayList<String> strArr = new ArrayList<String>();
 
   /*Stampa messaggio SysEx*/
-  print("SYSTEM ");
   for(int i=0; i<sysEx.getData().length; i++){
     strArr.add(String.format("%02x", sysEx.getData()[i]));
-    print(strArr.get(i) + " ");
   }
-  println("");
   /*Fine stampa messaggio*/
 
   /*Start PArsing*/
@@ -331,17 +305,13 @@ public void parseSysEx(SysexMessage sysEx){
 
       //Parsing OD
       if(page==50 || page==51 || page==52 || page==53){//Stomp A-D
-        println("Stomp single change");
         
         if (ctrl==0){
-          println("Get Stomp Type");
           getStompByAddress(page).setType(getOdTypeByIntResponse(lsbVal));
         }
         if (ctrl==3){
-          println("Get Stomp ON/OFF");
           getStompByAddress(page).setOn(1==lsbVal);
         }
-        println(getStompByAddress(page).toString()); //Controllo Stomp nel model
         gtrOverdrive = getOdStompsResult(); //Assign global value overdrive
       }
       //Parsing MOD Stomp
@@ -382,19 +352,12 @@ public void parseSysEx(SysexMessage sysEx){
         }
       }
       
-      /*Final Print*/
-      print("Overdrive: " + gtrOverdrive);
-      print(" Amp: " + gtrAmp);
-      print(" Eq: " + gtrEq);
-      print(" Modulation: " + gtrModulation);
-      print(" Reverb: " + gtrReverb);
-      println("");
+      
     } 
     /*End Single parameter change*/
     
     /*Multi Parameter Change*/
     else if (strArr.get(5).equals("06")){
-      println("Function: Request Multi Parameter");
       initScanKemper();
     }
   }
@@ -423,7 +386,6 @@ public String getOdStompsResult(){
       max = actStomp.getType();
     }
   }
-  println(max);
   return max;
 }
 
@@ -497,7 +459,6 @@ public String getAmpTypeByIntResponses(int msbVal, int lsbVal){
       retString = "clean";
       break;
   }
-  println(retString);
   return retString;
 }
 
@@ -519,7 +480,6 @@ public String getEqTypeByIntResponses(int msbVal, int lsbVal){
       retString = "normal";
       break;
   }
-  println(retString);
   return retString;
 }
 
@@ -541,7 +501,6 @@ public String getReverbTypeByIntResponses(int msbVal, int lsbVal){
       retString = "medium";
       break;
   }
-  println(retString);
   return retString;
 }
 
@@ -735,5 +694,4 @@ public void initScanKemper(){ //Send all the SysExs for all the Kemper Parameter
   }
   
   
-  println("Scan DOne");
 }

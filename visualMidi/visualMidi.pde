@@ -131,7 +131,6 @@ void playDraw() {
   } else {
     //tempPs vuoto
   }
-  //println(tempPs.size());
   applyAmp();
   applyOverdrive();
   applyReverb();

@@ -65,7 +65,6 @@ public class Ramp {
     }
     if (run) {
       rampValue =  lerp(startValue, endValue, constrain((millis()-rampStartMillis)/rampDuration, 0, 1)); 
-      //println("LERPAAAAAAAAAA " + rampValue +"\tfilter is"+filter);
       textSize(32);
       if (stepId==0) {
         stepName = "Attack";
@@ -78,7 +77,6 @@ public class Ramp {
       }
       //text("Seconds: " + (int)((millis() - startingTime)/1000) +"\nADSR Step:" +stepName , 1920/3, 1080/3);
     } else {
-      //println("a");
     }
   }
   /**

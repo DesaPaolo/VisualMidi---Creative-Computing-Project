@@ -21,7 +21,6 @@ public class Note {
   @param velocity velocity of the note
   */
   Note(int pitch, int velocity) {
-    println("#######Created a note##########");
     this.pitch = pitch;
     this.velocity = velocity;
     x = map(this.pitch, 21, 108, 0, width);

@@ -6,13 +6,10 @@ void savePrograms(){
     FileWriter fileWriter = new FileWriter(sketchPath("guitar-programs.txt"));
     
     for(int i=0; i<guitarPrograms.size(); i++){
-      println("preset size is " + guitarPrograms.size() + " now we are in index " + i);
       storeGuitarProgramToFile(guitarPrograms.get(i), fileWriter);
-      println("saved preset " + guitarPrograms.get(i).getName());
     }
     
     fileWriter.close(); 
-    println("Closed");
   } catch (IOException e) {
     // exception handling
     println("IO Exception");
@@ -30,14 +27,10 @@ void loadGuitarProgramsFromFile(){
       
       newProgram = new GuitarProgram(); 
       while ((st = br.readLine()) != null) {
-        //System.out.println(st);
-        //println(st.equals("sustainAmp 0.0"));
         if (st.equals("start")) {
-          //println("Starting");
           newProgram = new GuitarProgram(); 
         }
         else if ((st.equals("end"))){
-            //println("i'm done");
             addProgram(newProgram); //Exception
           }
         else if (st.isEmpty()){}
@@ -66,7 +59,6 @@ void storeGuitarProgramToFile (GuitarProgram actualProgram, FileWriter fileWrite
     fileWriter.write("eq " + actualProgram.getEq() + "\n");
     fileWriter.write("modulation " + actualProgram.getModulation() + "\n");
     fileWriter.write("reverb " + actualProgram.getReverb() + "\n");
-    println("############ACTUAL GUITAR PROGRAM WRITTEN ON FILE: "+actualProgram);
     fileWriter.write("end\n");
     }
   } catch (IOException e) {
@@ -84,7 +76,6 @@ void activateProgram(int index){
   gtrEq = guitarPrograms.get(index).getEq();
   gtrReverb = guitarPrograms.get(index).getReverb();
   gtrModulation = guitarPrograms.get(index).getModulation();
-  println(activeProgram.toString());
   
   return;
 }
@@ -94,11 +85,9 @@ void addProgram (GuitarProgram programToAdd){
     if (guitarPrograms.get(i).getName().equals(programToAdd.getName())){
       guitarPrograms.remove(i);
       guitarPrograms.add(i, programToAdd);
-      println("overwriting program called " + guitarPrograms.get(i).getName());
       return;
     }  
   }
   guitarPrograms.add(programToAdd);
-  println("adding new program called " + guitarPrograms.get(guitarPrograms.size()-1).getName());
   return;
 }

@@ -10,24 +10,17 @@ public class ParticleSystem {
   int timeDlyCont; // rateo
 
   public ParticleSystem(PVector position) {
-    println("#######Created a Particle System##########");
     this.particles = new ArrayList<Particle>();
     this.origin = position.copy();
     this.psLifespan = feedbackDly;
     this.timeDlyCont = round(timeDly);
-    //println("psLifespan is " + psLifespan);
-    //println("timeDlyCont is " + timeDlyCont);
     tempPs.add(this);
   }
 
 
   public void addParticle(float radius) {
-    println("psLifespan is " + psLifespan);
-    println("timeDlyCont is " + timeDlyCont);
-    println("timeDly ROUNDED is " + round(timeDly));
     if (this.timeDlyCont == round(timeDly)) {  
       if (this.psLifespan > 0) {
-        print("AGGIUNGO");
         this.particles.add(new Particle(this.origin, radius));
       }
       this.timeDlyCont = -1;
@@ -51,7 +44,6 @@ public class ParticleSystem {
       this.run();
       this.psLifespan -= this.psLifespanDrop();
     } else {
-      println("MORTO");
       removePsByOrigin(this.origin);
     }
   }

@@ -18,7 +18,6 @@ public class LoadMenu extends Menu{
     public void mousePressedEvent() {
 
         if(mousePressed){
-            println("PREMO IL MOUSE, RE CECCONI");
 
             if(getBtnIndex(menuButtons)!= -1){
 
