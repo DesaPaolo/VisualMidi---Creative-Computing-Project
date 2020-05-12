@@ -341,13 +341,13 @@ public void parseSysEx(SysexMessage sysEx){
       }
       //Parsing EQ
       if(page==11){ //EQ ctrl
-        if(ctrl==7){ //Gain
+        if(ctrl==7){ //Presence
           gtrEq = getEqTypeByIntResponses(msbVal, lsbVal);
         }
       }
       //Parsing Reverb
       if(page==61){ //Reverb stomp ctrl
-        if(ctrl==93){ //Gain
+        if(ctrl==93){ //Time Decay
           gtrReverb = getReverbTypeByIntResponses(msbVal, lsbVal);
         }
       }
@@ -508,13 +508,13 @@ public void initScanKemper(){ //Send all the SysExs for all the Kemper Parameter
   try { //All the methods of SysexMessage, ShortMessage, etc, require try catch blocks
     SysexMessage stompATypeRequest = new SysexMessage();
     stompATypeRequest.setMessage(
-      0xF0, 
+      0xF0, //Start SysEx
       new byte[] {
-        (byte)0x00, (byte)0x20, (byte)0x33, 
-        (byte)0x00, (byte)0x00,
-        (byte)0x41, (byte)0x00, 
-        (byte)0x32, (byte)0x00, 
-        (byte)0xF7
+        (byte)0x00, (byte)0x20, (byte)0x33, //Manifacturer ID
+        (byte)0x00, (byte)0x00, //Device ID
+        (byte)0x41, (byte)0x00, //Function Code (request: 41) + Instance MIDI (always 0x00)
+        (byte)0x32, (byte)0x00, //Requested Parameter Page 
+        (byte)0xF7 //End of SysEx
       },
       10
     );
